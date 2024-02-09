@@ -1,14 +1,17 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { SOCIAL_MEDIA, SITE_TITLE, SITE_DESCRIPTION } from './constant'
 import { postOGs } from './post-mockups'
 
 export const metadata: Metadata = {
-  title: '魚傳媒 - 最新鮮最有趣的台灣原生魚類新聞',
-  description: '', // TODO: fill up desc
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
 }
 
 export default function Home() {
+  const videoURL = 'https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ'
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -16,12 +19,12 @@ export default function Home() {
         <Link href="/topic">專題</Link>
         <Link href="/post">文章</Link>
         <Link href="/map">找找魚</Link>
-        <a href='https://www.facebook.com/profile.php?id=100094751035273' target='_blank'>fb</a>
+        {SOCIAL_MEDIA.map((media, index) => <a href={media.url} target='_blank'>{media.icon}</a>)}
       </div>
       <div className="flex flex-row">
         <div>
           {/* TODO: fix autoplay */}
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+          <iframe width="560" height="315" src={videoURL} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
         </div>
         <div>{'P5'}</div>
       </div>
