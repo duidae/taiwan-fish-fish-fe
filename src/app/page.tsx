@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { postOGs } from './post-mockups'
 
 export const metadata: Metadata = {
@@ -27,20 +28,25 @@ export default function Home() {
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         {postOGs.map((post, index) => {
           return (
-            <a
+            <Link
             key={`post-list-${index}`}
             href={post.url}
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
             >
+              <Image src={post.ogImage}
+                width={500}
+                height={500}
+                alt="Picture of the author"
+              />
               <h2 className={`mb-3 text-2xl font-semibold`}>
                 {post.ogTitle}{" "}
               </h2>
               <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
                 {post.ogDescription}
               </p>
-            </a>
+            </Link>
           )
         })}
       </div>
