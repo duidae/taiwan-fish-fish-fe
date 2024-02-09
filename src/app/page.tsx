@@ -1,5 +1,11 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { postOGs } from './post-mockups'
+
+export const metadata: Metadata = {
+  title: '魚傳媒 - 最有趣最新鮮的台灣原生魚類新聞',
+  description: '', // TODO: fill up desc
+}
 
 export default function Home() {
   return (
@@ -9,6 +15,7 @@ export default function Home() {
         <Link href="/topic">專題</Link>
         <Link href="/post">文章</Link>
         <Link href="/map">地圖</Link>
+        {/* TODO: fb link */}
       </div>
 
       <div className="flex flex-row">
@@ -22,11 +29,10 @@ export default function Home() {
           return (
             <a
             key={`post-list-${index}`}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href={post.url}
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
-            
             >
               <h2 className={`mb-3 text-2xl font-semibold`}>
                 {post.ogTitle}{" "}
