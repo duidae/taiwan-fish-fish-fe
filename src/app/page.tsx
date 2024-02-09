@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { postOGs } from './post-mockups'
 
 export const metadata: Metadata = {
-  title: '魚傳媒 - 最有趣最新鮮的台灣原生魚類新聞',
+  title: '魚傳媒 - 最新鮮最有趣的台灣原生魚類新聞',
   description: '', // TODO: fill up desc
 }
 
@@ -15,10 +15,9 @@ export default function Home() {
         <Link href="/">魚傳媒</Link>
         <Link href="/topic">專題</Link>
         <Link href="/post">文章</Link>
-        <Link href="/map">地圖</Link>
+        <Link href="/map">找找魚</Link>
         <a href='https://www.facebook.com/profile.php?id=100094751035273' target='_blank'>fb</a>
       </div>
-
       <div className="flex flex-row">
         <div>
           {/* TODO: fix autoplay */}
