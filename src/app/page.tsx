@@ -21,9 +21,8 @@ export default function Home() {
             ogImage={post.ogImage}
             ogTitle={post.ogTitle}
             ogDescription={post.ogDescription}
-            />
-          )
-        }
+          />
+        )}
       </div>
     </main>
   )
