@@ -19,7 +19,7 @@ export default function Home() {
         <Link href="/topic">專題</Link>
         <Link href="/post">文章</Link>
         <Link href="/map">找找魚</Link>
-        {SOCIAL_MEDIA.map((media, index) => <a href={media.url} target='_blank'>{media.icon}</a>)}
+        {SOCIAL_MEDIA.map((media, index) => <a key={`social-media-link-${index}`} href={media.url} target='_blank'>{media.icon}</a>)}
       </div>
       <div className="flex flex-row">
         <div>
