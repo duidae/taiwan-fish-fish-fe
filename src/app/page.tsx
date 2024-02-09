@@ -16,11 +16,12 @@ export default function Home() {
         <Link href="/topic">專題</Link>
         <Link href="/post">文章</Link>
         <Link href="/map">地圖</Link>
-        <a href='https://www.facebook.com/profile.php?id=100094751035273'  target='_blank'>fb</a>
+        <a href='https://www.facebook.com/profile.php?id=100094751035273' target='_blank'>fb</a>
       </div>
 
       <div className="flex flex-row">
         <div>
+          {/* TODO: fix autoplay */}
           <iframe width="560" height="315" src="https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
         </div>
         <div>{'P5'}</div>
