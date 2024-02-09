@@ -14,17 +14,17 @@ export default function Home() {
         <Playground/>
       </div>
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-      {posts.map((post, index) =>
-        <PostCard
-          key={`post-list-${index}`}
-          url={post.url}
-          ogImage={post.ogImage}
-          ogTitle={post.ogTitle}
-          ogDescription={post.ogDescription}
-          />
-        )
-      }
-    </div>
+        {posts.map((post, index) =>
+          <PostCard
+            key={`post-list-${index}`}
+            url={post.url}
+            ogImage={post.ogImage}
+            ogTitle={post.ogTitle}
+            ogDescription={post.ogDescription}
+            />
+          )
+        }
+      </div>
     </main>
   )
 }
