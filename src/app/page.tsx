@@ -12,11 +12,11 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <Link href="/">年年有魚</Link>
+        <Link href="/">魚傳媒</Link>
         <Link href="/topic">專題</Link>
         <Link href="/post">文章</Link>
         <Link href="/map">地圖</Link>
-        {/* TODO: fb link */}
+        <a href='https://www.facebook.com/profile.php?id=100094751035273'  target='_blank'>fb</a>
       </div>
 
       <div className="flex flex-row">
