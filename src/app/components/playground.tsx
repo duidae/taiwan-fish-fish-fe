@@ -1,6 +1,6 @@
 export const Playground = () => {
   return (
-    <div>
+    <div className="w-96">
       {'P5'}
     </div>
   )
