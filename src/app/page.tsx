@@ -1,24 +1,27 @@
 import { Video } from '@/app/components/video'
 import { Playground } from '@/app/components/playground'
 import { PostCard } from '@/app/components/post-card'
+import { Goto } from '@/app/components/goto'
 import { postOGs } from './post-mockups'
+
+const postSectionID = 'post-section'
 
 export default function Home() {
   const ytURL = 'https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ'
   const posts = postOGs
 
   const interactiveSection = (
-    <div className='flex flex-col w-full justify-center items-center min-h-screen'>
+    <div className='bg-blue-200 flex flex-col w-full justify-center items-center min-h-screen'>
       <div className="flex flex-row w-full">
         <Video ytURL={ytURL}/>
         <Playground/>
       </div>
-      <div>看文章</div>
+      <Goto elementID={postSectionID} label='看文章'/>
     </div>
   )
 
   const postSection = (
-    <div className="mb-32 grid text-center w-full max-w-7xl lg:mb-0 lg:grid-cols-4 lg:text-left">
+    <div id={postSectionID} className="mb-32 grid text-center w-full max-w-7xl lg:mb-0 lg:grid-cols-4 lg:text-left">
       {posts.map((post, index) =>
         <PostCard
           key={`post-list-${index}`}
