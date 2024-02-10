@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export const PostCard = (props: { url: string, ogImage: string, ogTitle: string, ogDescription: string}) => {
+export const PostCard = (props: { url: string, ogImage: string, ogTitle: string, ogDescription: string }) => {
   return (props.url &&
     <Link
       href={props.url}

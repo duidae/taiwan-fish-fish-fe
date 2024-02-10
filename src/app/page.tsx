@@ -8,8 +8,8 @@ export default function Home() {
   const posts = postOGs
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
-      <div className="flex flex-row">
+    <main className="flex flex-col items-center justify-between">
+      <div className="flex flex-row min-h-screen">
         <Video ytURL={ytURL}/>
         <Playground/>
       </div>
