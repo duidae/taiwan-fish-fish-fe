@@ -11,17 +11,17 @@ export default function Home() {
   const posts = postOGs
 
   const interactiveSection = (
-    <div className='bg-blue-200 flex flex-col w-full justify-center items-center min-h-screen'>
-      <div className="flex flex-row w-full">
+    <div className='bg-blue-200 flex flex-col w-full h-screen justify-center items-center pt-24'>
+      <div className="flex flex-row w-full h-full">
         <Video ytURL={ytURL}/>
         <Playground/>
       </div>
-      <Goto elementID={postSectionID} label='看文章'/>
+      <Goto className='h-1/6' elementID={postSectionID}>看文章</Goto>
     </div>
   )
 
   const postSection = (
-    <div id={postSectionID} className="mb-32 grid text-center w-full max-w-7xl lg:mb-0 lg:grid-cols-4 lg:text-left">
+    <div id={postSectionID} className="mt-16 mb-16 grid text-center w-4/5 lg:grid-cols-4 lg:text-left">
       {posts.map((post, index) =>
         <PostCard
           key={`post-list-${index}`}
