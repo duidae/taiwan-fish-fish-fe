@@ -18,7 +18,7 @@ export default function Home() {
   )
 
   const postSection = (
-    <div className="mb-32 grid text-center lg:max-w-6xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+    <div className="mb-32 grid text-center w-full max-w-7xl lg:mb-0 lg:grid-cols-4 lg:text-left">
       {posts.map((post, index) =>
         <PostCard
           key={`post-list-${index}`}
