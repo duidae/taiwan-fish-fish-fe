@@ -13,8 +13,8 @@ export default function Home() {
   const interactiveSection = (
     <div className='bg-blue-200 flex flex-col w-full h-screen justify-center items-center pt-24'>
       <div className="flex flex-row w-full h-full">
-        <Video ytURL={ytURL}/>
-        <Playground/>
+        <Video className='w-1/3' ytURL={ytURL}/>
+        <Playground className='w-2/3'/>
       </div>
       <Goto className='h-1/6' elementID={postSectionID}>看文章</Goto>
     </div>
