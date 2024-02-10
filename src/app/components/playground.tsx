@@ -1,6 +1,6 @@
 export const Playground = () => {
   return (
-    <div className="w-96">
+    <div className="flex flex-col justify-center w-2/3">
       {'P5'}
     </div>
   )

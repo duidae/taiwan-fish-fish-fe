@@ -8,12 +8,15 @@ export default function Home() {
   const posts = postOGs
 
   return (
-    <main className="flex flex-col items-center justify-between">
-      <div className="flex flex-row min-h-screen">
-        <Video ytURL={ytURL}/>
-        <Playground/>
+    <main className="flex flex-col w-full items-center justify-between">
+      <div className='flex flex-col w-full justify-center items-center min-h-screen'>
+        <div className="flex flex-row w-full">
+          <Video ytURL={ytURL}/>
+          <Playground/>
+        </div>
+        <div>看文章</div>
       </div>
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+      <div className="mb-32 grid text-center lg:max-w-6xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         {posts.map((post, index) =>
           <PostCard
             key={`post-list-${index}`}
