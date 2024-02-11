@@ -1,4 +1,5 @@
 import { type Sketch } from "@p5-wrapper/react"
+import { P5_PLAYGROUND_ID } from '@/app/constant'
 
 // const puntiusSnyderi = 'https://i.imgur.com/3hRyXCt.jpg' //史尼氏小䰾
 const puntiusSemifasciolatus = 'https://i.imgur.com/gU8IDhq.jpg' //條紋小䰾
@@ -13,8 +14,9 @@ export const sketch: Sketch = (p5) => {
   let amp: any
   let wiggle: any
 
-  const width = 500
-  const height = 500
+  const container = p5.select(`#${P5_PLAYGROUND_ID}`)
+  const width = container.width
+  const height = container.height
 
     class Scale {
       pos
@@ -53,22 +55,28 @@ export const sketch: Sketch = (p5) => {
     p5.preload = () => {
       fish = p5.loadImage(puntiusSemifasciolatus)
     }
+
+    /* TODO: handle browser resize
+    p5.windowResized = () => {
+      p5.resizeCanvas(p5.windowWidth, p5.windowHeight)
+    }
+    */
     
     p5.setup = () => {
-        p5.createCanvas(500, 500, p5.WEBGL);
-        const detail = 800; //Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag 
-        fish.resize(detail, 0);
-        p5.makeScales();
-        orient = p5.createVector(0, 0, 0);
-        otarget = p5.createVector(0, p5.PI / 16, 0);
-        tpos = p5.createVector(2 * width, 0, -height / 2);
-        tvel = p5.createVector(0, 0, 0);
-        twist = p5.createVector(0, 0, 0);
-        ttwist = p5.createVector(0, 0, 0);
-        amp = width / 50;
-        wiggle = 0;
-        const c = p5.createCamera();
-        c.perspective(p5.PI / 3.0, width / height, 0.1, 8 * height);
+      p5.createCanvas(width, height, p5.WEBGL);
+      const detail = 800; //Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag 
+      fish.resize(detail, 0);
+      p5.makeScales();
+      orient = p5.createVector(0, 0, 0);
+      otarget = p5.createVector(0, p5.PI / 16, 0);
+      tpos = p5.createVector(2 * width, 0, -height / 2);
+      tvel = p5.createVector(0, 0, 0);
+      twist = p5.createVector(0, 0, 0);
+      ttwist = p5.createVector(0, 0, 0);
+      amp = width / 50;
+      wiggle = 0;
+      const c = p5.createCamera();
+      c.perspective(p5.PI / 3.0, width / height, 0.1, 8 * height);
     }
     
     p5.draw = () => {
