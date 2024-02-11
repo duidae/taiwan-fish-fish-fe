@@ -14,7 +14,7 @@ const fishPics = [
 
 const fishPic = fishPics[0]
 
-const spacebarKeyCode = 32
+const enterKeyCode = 13
 
 export const sketch: Sketch = (p5) => {
   let fish: any
@@ -76,7 +76,7 @@ export const sketch: Sketch = (p5) => {
 
   p5.setup = () => {
     p5.createCanvas(width, height, p5.WEBGL)
-    fish.resize(1200, 0) // Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag 
+    fish.resize(800, 0) // Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag
     p5.makeScales()
     orient = p5.createVector(0, 0, 0)
     otarget = p5.createVector(0, p5.PI / 16, 0)
@@ -174,10 +174,10 @@ export const sketch: Sketch = (p5) => {
   }
 
   p5.keyPressed = () => {
-    if (p5.keyCode == spacebarKeyCode) {
+    if (p5.keyCode === enterKeyCode && tpos) {
       otarget.y = p5.atan2(-tpos.z, tpos.x)
       ttwist.y = -2 * p5.atan2(-tpos.z, tpos.x)
-      setTimeout(p5.goHome, 2000)
+      setTimeout(p5.goHome, 500)
     }
   }
 
