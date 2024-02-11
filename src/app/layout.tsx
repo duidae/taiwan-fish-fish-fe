@@ -24,6 +24,7 @@ export default function RootLayout({
         <div className="flex flex-col w-full items-center">
           {children}
           <Footer/>
+          {/* TODO: back to top */}
         </div>
       </body>
     </html>
