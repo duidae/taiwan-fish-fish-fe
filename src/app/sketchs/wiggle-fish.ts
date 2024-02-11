@@ -14,6 +14,8 @@ const fishPics = [
 
 const fishPic = fishPics[0]
 
+const spacebarKeyCode = 32
+
 export const sketch: Sketch = (p5) => {
   let fish: any
   let scales: any[] = []
@@ -31,12 +33,13 @@ export const sketch: Sketch = (p5) => {
       pos
       ang
       mat
+
       constructor(pos: any, ang: any, mat: any) {
         this.pos = pos
         this.ang = ang
         this.mat = mat
       }
-    
+
       show() {
         p5.fill(this.mat)
         p5.noStroke()
@@ -60,7 +63,7 @@ export const sketch: Sketch = (p5) => {
         p5.pop()
       }
     }
-    
+
   p5.preload = () => {
     fish = p5.loadImage(fishPic)
   }
@@ -73,8 +76,7 @@ export const sketch: Sketch = (p5) => {
 
   p5.setup = () => {
     p5.createCanvas(width, height, p5.WEBGL)
-    const detail = 800 //Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag 
-    fish.resize(detail, 0)
+    fish.resize(1200, 0) // Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag 
     p5.makeScales()
     orient = p5.createVector(0, 0, 0)
     otarget = p5.createVector(0, p5.PI / 16, 0)
@@ -87,33 +89,34 @@ export const sketch: Sketch = (p5) => {
     const c = p5.createCamera()
     c.perspective(p5.PI / 3.0, width / height, 0.1, 8 * height)
   }
-    
-    p5.draw = () => {
-        p5.scale(0.5 * height / 566);
-        p5.clear()
-        if (p5.frameCount > 20) {
-            orient.lerp(otarget, 0.1);
-            tvel.z += amp * p5.sin(orient.y);
-            tvel.x -= amp * p5.cos(orient.y);
-            tvel.y -= amp * p5.sin(orient.z);
-            tpos.add(tvel);
-            tvel.mult(0.95);
-            ttwist.mult(0.8);
-            otarget.z *= 0.95;
-            amp *= 0.8;
-            twist.lerp(ttwist, 0.25);
-            wiggle = (p5.PI / 8) * amp * p5.sin(p5.frameCount / 2);
-        }
-        p5.translate(tpos);
-        p5.rotateX(orient.x);
-        p5.rotateY(orient.y);
-        p5.rotateZ(orient.z);
-        for (let s of scales) {
-            s.show();
-        }
-        p5.checkInputs();
+
+  p5.draw = () => {
+    p5.scale(0.5 * height / 566)
+    // Call clear() to make background totally transparent
+    p5.clear()
+    if (p5.frameCount > 20) {
+      orient.lerp(otarget, 0.1)
+      tvel.z += amp * p5.sin(orient.y)
+      tvel.x -= amp * p5.cos(orient.y)
+      tvel.y -= amp * p5.sin(orient.z)
+      tpos.add(tvel)
+      tvel.mult(0.95)
+      ttwist.mult(0.8)
+      otarget.z *= 0.95
+      amp *= 0.8
+      twist.lerp(ttwist, 0.25)
+      wiggle = (p5.PI / 8) * amp * p5.sin(p5.frameCount / 2)
     }
-    
+    p5.translate(tpos)
+    p5.rotateX(orient.x)
+    p5.rotateY(orient.y)
+    p5.rotateZ(orient.z)
+    for (let s of scales) {
+      s.show()
+    }
+    p5.checkInputs()
+  }
+
     p5.makeScales = () => {
         for (let y = 0; y < fish.height; y += 11) {
             for (let x = 0; x < fish.width; x += 11) {
@@ -141,38 +144,37 @@ export const sketch: Sketch = (p5) => {
             }
         }
     }
-    
-    p5.checkInputs = () => {
-        if (p5.keyIsDown(p5.UP_ARROW)) {
-            amp += 1
-        }
-        if (p5.keyIsDown(p5.DOWN_ARROW)) {
-            amp -= 1
-        }
-        if (p5.mouseIsPressed) {
-            amp += 1
-        }
-        if (p5.keyIsDown(p5.LEFT_ARROW)) {
-            otarget.y += 0.2
-            ttwist.y -= 0.4
-            amp += 0.2
-        }
-        if (p5.keyIsDown(p5.RIGHT_ARROW)) {
-            otarget.y -= 0.2
-            ttwist.y += 0.4
-            amp += 0.2
-        }
-        if (p5.frameCount > 20) {
-            ttwist.y -= (p5.mouseX - p5.pmouseX) / 200
-            ttwist.z += (p5.mouseY - p5.pmouseY) / 100
-            otarget.y += (p5.mouseX - p5.pmouseX) / 400
-            otarget.z -= (p5.mouseY - p5.pmouseY) / 800
-        }
+
+  p5.checkInputs = () => {
+    if (p5.keyIsDown(p5.UP_ARROW)) {
+      amp += 1
     }
-    
+    if (p5.keyIsDown(p5.DOWN_ARROW)) {
+      amp -= 1
+    }
+    if (p5.mouseIsPressed) {
+      amp += 1
+    }
+    if (p5.keyIsDown(p5.LEFT_ARROW)) {
+      otarget.y += 0.2
+      ttwist.y -= 0.4
+      amp += 0.2
+    }
+    if (p5.keyIsDown(p5.RIGHT_ARROW)) {
+      otarget.y -= 0.2
+      ttwist.y += 0.4
+      amp += 0.2
+    }
+    if (p5.frameCount > 20) {
+      ttwist.y -= (p5.mouseX - p5.pmouseX) / 200
+      ttwist.z += (p5.mouseY - p5.pmouseY) / 100
+      otarget.y += (p5.mouseX - p5.pmouseX) / 400
+      otarget.z -= (p5.mouseY - p5.pmouseY) / 800
+    }
+  }
+
   p5.keyPressed = () => {
-    if (p5.keyCode == 65)
-    if (p5.keyCode == 32) {
+    if (p5.keyCode == spacebarKeyCode) {
       otarget.y = p5.atan2(-tpos.z, tpos.x)
       ttwist.y = -2 * p5.atan2(-tpos.z, tpos.x)
       setTimeout(p5.goHome, 2000)
