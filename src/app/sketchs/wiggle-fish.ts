@@ -1,6 +1,8 @@
 import { type Sketch } from "@p5-wrapper/react"
 
-const puntiusSnyderi = 'https://i.imgur.com/3hRyXCt.jpg'
+// const puntiusSnyderi = 'https://i.imgur.com/3hRyXCt.jpg' //史尼氏小䰾
+const puntiusSemifasciolatus = 'https://i.imgur.com/gU8IDhq.jpg' //條紋小䰾
+// const macropodusOpercularis = 'https://i.imgur.com/Afc3Ouv.png' //蓋斑鬥魚
 
 export const sketch: Sketch = (p5) => {
   let fish: any
@@ -49,7 +51,7 @@ export const sketch: Sketch = (p5) => {
     }
     
     p5.preload = () => {
-      fish = p5.loadImage(puntiusSnyderi)
+      fish = p5.loadImage(puntiusSemifasciolatus)
     }
     
     p5.setup = () => {
