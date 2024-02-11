@@ -1,6 +1,6 @@
 'use client'
 
-import { sketch } from '@/app/sketchs/fish'
+import { sketch } from '@/app/sketchs/wiggle-fish'
 import { NextReactP5Wrapper } from "@p5-wrapper/next"
 
 export const Playground = (props: { className?: string }) => {
