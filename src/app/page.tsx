@@ -21,8 +21,9 @@ export default function Home() {
     items: postOGs
   }]
 
+  // TODO: bg-[url('/test1.webp')]
   const interactiveSection = (
-    <div className="bg-[url('/test1.webp')] bg-no-repeat bg-cover flex flex-col w-full h-screen justify-center items-center pt-24">
+    <div className="bg-no-repeat bg-cover flex flex-col w-full h-screen justify-center items-center pt-24">
       <div className="flex flex-row w-full h-full">
         <Video className='w-1/3' ytURL={ytURL}/>
         <Playground className='w-2/3'/>
