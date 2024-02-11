@@ -1,5 +1,4 @@
 'use client'
-
 import { sketch } from '@/app/sketchs/wiggle-fish'
 import { NextReactP5Wrapper } from "@p5-wrapper/next"
 import { P5_PLAYGROUND_ID } from '@/app/constant'

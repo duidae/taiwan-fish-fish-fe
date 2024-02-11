@@ -1,5 +1,4 @@
 'use client'
-
 import { HEADER_HEIGHT } from '@/app/constant'
 
 export const Goto = (props: { elementID: string, className?: string, children?: React.ReactNode }) => {
