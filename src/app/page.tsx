@@ -1,5 +1,7 @@
 import { Video } from '@/app/components/video'
 import { Playground } from '@/app/components/playground'
+//import dynamic from 'next/dynamic'
+//const Playground = dynamic(() => import("./components/playground"), { ssr: false })
 import { PostCard } from '@/app/components/post-card'
 import { Goto } from '@/app/components/goto'
 import { postOGs } from './post-mockups'
