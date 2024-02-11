@@ -1,8 +1,8 @@
 import { type Sketch } from "@p5-wrapper/react"
 import { P5_PLAYGROUND_ID } from '@/app/constant'
 
-// const puntiusSnyderi = 'https://i.imgur.com/3hRyXCt.jpg' //史尼氏小䰾
-const puntiusSemifasciolatus = 'https://i.imgur.com/gU8IDhq.jpg' //條紋小䰾
+const puntiusSnyderi = 'https://i.imgur.com/3hRyXCt.jpg' //史尼氏小䰾
+// const puntiusSemifasciolatus = 'https://i.imgur.com/gU8IDhq.jpg' //條紋小䰾
 // const macropodusOpercularis = 'https://i.imgur.com/Afc3Ouv.png' //蓋斑鬥魚
 
 export const sketch: Sketch = (p5) => {
@@ -53,7 +53,7 @@ export const sketch: Sketch = (p5) => {
     }
     
     p5.preload = () => {
-      fish = p5.loadImage(puntiusSemifasciolatus)
+      fish = p5.loadImage(puntiusSnyderi)
     }
 
     /* TODO: handle browser resize
@@ -81,7 +81,7 @@ export const sketch: Sketch = (p5) => {
     
     p5.draw = () => {
         p5.scale(0.5 * height / 566);
-        p5.background(0, 0, 50);
+        p5.clear()
         if (p5.frameCount > 20) {
             orient.lerp(otarget, 0.1);
             tvel.z += amp * p5.sin(orient.y);
