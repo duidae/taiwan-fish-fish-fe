@@ -8,7 +8,7 @@ import { postOGs } from './post-mockups'
 const contentSectionID = 'content-section'
 
 export default function Home() {
-  const ytURL = 'https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ&autoplay=1&mute=1'
+  const ytURL = 'https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ'
 
   const contents = [{
     title: '專題',
