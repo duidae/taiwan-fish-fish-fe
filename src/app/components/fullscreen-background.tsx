@@ -40,7 +40,7 @@ export const FullscreenBackground = (props: { imgSrcs: string[], body: React.Rea
   const imgSrcs = props.imgSrcs
 
   return (
-    <div style={{ backgroundImage: `url(${imgSrcs[currentIndex]})`, transition: 'all 0.5s ease' }} className='bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24'>
+    <div style={{ backgroundImage: `url(${imgSrcs[currentIndex]})`, transition: 'background-image 0.4s ease-in-out' }} className='bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24'>
       {props.body}
       <Bullets>
         {imgSrcs?.map((imgSrc, index) => <Bullet key={`img-bullet-${index}`} $isActive={index === currentIndex} onClick={() => onImageChange(index)}/>)}
