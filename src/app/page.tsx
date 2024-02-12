@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { FullscreenBackground } from '@/app/components/fullscreen-background'
 import { Video } from '@/app/components/video'
 import { Playground } from '@/app/components/playground'
 import { PostCard } from '@/app/components/post-card'
@@ -21,15 +22,18 @@ export default function Home() {
     items: postOGs
   }]
 
-  // TODO: bg-[url('/test1.webp')]
+  // TODO: ['/test1.webp', '/test2.webp', '/test3.jpeg']
   const interactiveSection = (
-    <div className="bg-no-repeat bg-cover flex flex-col w-full h-screen justify-center items-center pt-24">
-      <div className="flex flex-row w-full h-full">
-        <Video className='w-1/3' ytURL={ytURL}/>
-        <Playground className='w-2/3'/>
-      </div>
-      <Goto className='h-1/6 text-xl text-white' elementID={contentSectionID}>看文章</Goto>
-    </div>
+    <FullscreenBackground
+      imgSrcs={[]}
+      body={
+        <div className="flex flex-row w-full h-full">
+          <Video className='w-1/3' ytURL={ytURL}/>
+          <Playground className='w-2/3'/>
+        </div>
+      }
+      bottom={<Goto className='h-1/6 text-xl text-white' elementID={contentSectionID}>看文章</Goto>}
+    />
   )
 
   const contentSection = (
