@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FullscreenBackground } from '@/app/components/fullscreen-background'
 import { Video } from '@/app/components/video'
 import { Playground } from '@/app/components/playground'
-import { PostCard } from '@/app/components/post-card'
+import { List } from '@/app/components/list'
 import { Goto } from '@/app/components/goto'
 import { postOGs } from './post-mockups'
 
@@ -18,12 +18,12 @@ export default function Home() {
   const contents = [{
     title: '專題',
     route: '/topics',
-    items: postOGs
+    summaries: postOGs
   },
   {
     title: '文章',
     route: '/posts',
-    items: postOGs
+    summaries: postOGs
   }]
 
   // TODO: ['/test1.webp', '/test2.webp', '/test3.jpeg']
@@ -44,21 +44,8 @@ export default function Home() {
     <div id={contentSectionID}>
       {contents.map((content, index) => {
         return (
-          <div key={`content-${index}`} className='flex flex-col justify-center items-center pt-8 mb-4'>
-            <div className='text-2xl'>
-              最新{content.title}
-            </div>
-            <div className="mt-8 mb-4 grid text-center w-4/5 lg:grid-cols-4 lg:text-left">
-              {content.items.map((item, index) =>
-                <PostCard
-                  key={`post-list-${index}`}
-                  url={item.url}
-                  ogImage={item.ogImage}
-                  ogTitle={item.ogTitle}
-                  ogDescription={item.ogDescription}
-                />
-              )}
-            </div>
+          <div key={`content-${index}`} className='flex flex-col justify-center items-center mb-4'>
+            <List summaries={content.summaries} title={`最新${content.title}`}/>
             <Link className='text-base' href={content.route}>看全部{content.title}{' >>'}</Link>
           </div>
         )
