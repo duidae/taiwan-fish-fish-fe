@@ -15,6 +15,7 @@ export const Video = (props: { ytURLs: string[], className?: string }) => {
         ref={swiperElRef}
         pagination="true"
         pagination-clickable="true"
+        effect="fade"
         style={{ width: '100%', height: '100%' }}
       >
         {props.ytURLs.map((url, index) => {
