@@ -1,5 +1,6 @@
 'use client'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
+import { GetRandomInteger } from '@/app/utils'
 import { register } from 'swiper/element/bundle'
 
 // Register swiper web components(<swiper-container>, <swiper-slide>)
@@ -7,6 +8,14 @@ register()
 
 export const Video = (props: { ytURLs: string[], className?: string }) => {
   const swiperElRef = useRef(null)
+  const ytURLs = props.ytURLs
+
+  // Note: workaround for initialSlide not working bug in swiper web component
+  // TODO: change back to initialSlide prop when this bug is fixed
+  useEffect(() => {
+    // @ts-ignore
+    swiperElRef.current?.swiper?.slideTo(GetRandomInteger(ytURLs.length))
+  }, [])
 
   // Autoplay only works when &autoplay=1&mute=1
   return (
@@ -16,9 +25,10 @@ export const Video = (props: { ytURLs: string[], className?: string }) => {
         pagination="true"
         pagination-clickable="true"
         effect="fade"
+        loop='true'
         style={{ width: '100%', height: '100%' }}
       >
-        {props.ytURLs.map((url, index) => {
+        {ytURLs.map((url, index) => {
           return (url &&
             <swiper-slide key={`yt-slide-${index}`}>
               <iframe width="100%" src={url} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>

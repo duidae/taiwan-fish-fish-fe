@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { GetRandomInteger } from '@/app/utils'
 import styled from 'styled-components'
 
 const bulletColor = 'rgb(113, 113, 113)'
@@ -32,7 +33,7 @@ const Bullet = styled.li<{$isActive: boolean}>`
 
 export const FullscreenBackground = (props: { imgSrcs: string[], body: React.ReactNode, bottom: React.ReactNode, className?: string }) => {
   const imgSrcs = props.imgSrcs
-  const [currentIndex, setCurrentIndex] = useState(Math.floor(Math.random() * imgSrcs.length))
+  const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(imgSrcs.length))
 
   const onImageChange = (index: number) => {
     setCurrentIndex(index)
