@@ -15,7 +15,7 @@ export const Video = (props: { ytURLs: string[], className?: string }) => {
   useEffect(() => {
     // @ts-ignore
     swiperElRef.current?.swiper?.slideTo(GetRandomInteger(ytURLs.length))
-  }, [])
+  })
 
   // Autoplay only works when &autoplay=1&mute=1
   return (
