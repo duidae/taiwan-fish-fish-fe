@@ -31,13 +31,12 @@ const Bullet = styled.li<{$isActive: boolean}>`
 `
 
 export const FullscreenBackground = (props: { imgSrcs: string[], body: React.ReactNode, bottom: React.ReactNode, className?: string }) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const imgSrcs = props.imgSrcs
+  const [currentIndex, setCurrentIndex] = useState(Math.floor(Math.random() * imgSrcs.length))
 
   const onImageChange = (index: number) => {
     setCurrentIndex(index)
   }
-
-  const imgSrcs = props.imgSrcs
 
   return (
     <div style={{ backgroundImage: `url(${imgSrcs[currentIndex]})`, transition: 'background-image 0.4s ease-in-out' }} className='bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24'>
