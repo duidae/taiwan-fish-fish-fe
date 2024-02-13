@@ -11,7 +11,7 @@ export const Video = (props: { ytURLs: string[], className?: string }) => {
   const ytURLs = props.ytURLs
 
   // Note: workaround for initialSlide not working bug in swiper web component
-  // TODO: change back to initialSlide prop when this bug is fixed
+  // TODO: use 'initialSlide={GetRandomInteger(ytURLs.length)}' prop when this bug is fixed
   useEffect(() => {
     // @ts-ignore
     swiperElRef.current?.swiper?.slideTo(GetRandomInteger(ytURLs.length))
