@@ -3,7 +3,7 @@ import { SOCIAL_MEDIA } from '@/app/constant'
 
 export const Header = () => {
   return (
-    <nav className="fixed top-0 w-full bg-transparent p-4 z-10 items-center justify-between font-mono text-lg text-white lg:flex">
+    <nav className="fixed top-0 w-full bg-opacity-25 bg-black p-4 z-10 items-center justify-between font-mono text-lg text-white lg:flex">
       <Link href="/">年年有魚</Link>
       <Link href="/topics">專題</Link>
       <Link href="/posts">文章</Link>
