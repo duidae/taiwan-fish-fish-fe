@@ -17,6 +17,7 @@ const enterKeyCode = 13
 export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   let fishSrcs: string[] = []
   let fishImgs: any[] = []
+  let selected: number
   let fish: any
   let scales: any[] = []
   let orient: any, otarget: any
@@ -29,40 +30,40 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   const width = container.width
   const height = container.height
 
-    class Scale {
-      pos
-      ang
-      mat
+  class Scale {
+    pos
+    ang
+    mat
 
-      constructor(pos: any, ang: any, mat: any) {
-        this.pos = pos
-        this.ang = ang
-        this.mat = mat
-      }
-
-      show() {
-        p5.fill(this.mat)
-        p5.noStroke()
-        p5.push()
-        p5.rotateY(twist.y * this.pos.x / 1000)
-        p5.rotateZ(twist.z * this.pos.x / 2000)
-        if(this.pos.x>0) p5.rotateY(wiggle * this.pos.x / 2000)
-        p5.translate(this.pos)
-        p5.rotateY(this.ang.y)
-        p5.rotateX(-this.ang.x)
-        p5.ellipse(0, 0, 15, 15)
-        p5.pop()
-        p5.push()
-        p5.rotateY(twist.y * this.pos.x / 1000)
-        p5.rotateZ(twist.z * this.pos.x / 2000)
-        if(this.pos.x>0) p5.rotateY(wiggle * this.pos.x / 2000)
-        p5.translate(this.pos.x, this.pos.y, -this.pos.z)
-        p5.rotateY(-this.ang.y)
-        p5.rotateX(this.ang.x)
-        p5.ellipse(0, 0, 15, 15)
-        p5.pop()
-      }
+    constructor(pos: any, ang: any, mat: any) {
+      this.pos = pos
+      this.ang = ang
+      this.mat = mat
     }
+
+    show() {
+      p5.fill(this.mat)
+      p5.noStroke()
+      p5.push()
+      p5.rotateY(twist.y * this.pos.x / 1000)
+      p5.rotateZ(twist.z * this.pos.x / 2000)
+      if(this.pos.x>0) p5.rotateY(wiggle * this.pos.x / 2000)
+      p5.translate(this.pos)
+      p5.rotateY(this.ang.y)
+      p5.rotateX(-this.ang.x)
+      p5.ellipse(0, 0, 15, 15)
+      p5.pop()
+      p5.push()
+      p5.rotateY(twist.y * this.pos.x / 1000)
+      p5.rotateZ(twist.z * this.pos.x / 2000)
+      if(this.pos.x>0) p5.rotateY(wiggle * this.pos.x / 2000)
+      p5.translate(this.pos.x, this.pos.y, -this.pos.z)
+      p5.rotateY(-this.ang.y)
+      p5.rotateX(this.ang.x)
+      p5.ellipse(0, 0, 15, 15)
+      p5.pop()
+    }
+  }
 
   p5.preload = () => {
     fishSrcs.forEach(src => {
@@ -75,6 +76,9 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   p5.updateWithProps = (props: WiggleFishSketchProps) => {
     if (props.fishSrcs?.length > 0) {
       fishSrcs = props.fishSrcs
+    }
+    if (props.selectedIndex >= 0) {
+      selected = props.selectedIndex
     }
   }
 
@@ -128,31 +132,31 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   }
 
     p5.makeScales = () => {
-        for (let y = 0; y < fish.height; y += 11) {
-            for (let x = 0; x < fish.width; x += 11) {
-                let c = p5.color(fish.get(x, y));
-                if (p5.brightness(c) < 95) {
-                    c.setAlpha(200);
-                    p5.fill(c);
-                    p5.noStroke();
-                    let ax = p5.map((y - fish.height / 1.75), -fish.height / 4, fish.height / 4, -p5.HALF_PI, p5.HALF_PI);
-                    let ay = p5.map((x - fish.width / 2.15), -fish.width / 2, fish.width / 2, -p5.HALF_PI, p5.HALF_PI);
-                    let tz = p5.cos(ax) * (fish.height / 7) * p5.cos(ay);
-                    let z = p5.max(-1, tz);
-                    if (p5.abs(ax) > p5.HALF_PI) {
-                        ax /= 30;
-                        c.setAlpha(100);
-                    }
-                    if (p5.abs(ay) > p5.HALF_PI) {
-                        ay /= 30;
-                        c.setAlpha(100);
-                    }
-                    let ang = p5.createVector(ax, ay, 0);
-                    let pos = p5.createVector(x - fish.width / 2, y - fish.height / 2, z);
-                    scales.push(new Scale(pos, ang, c));
-                }
+      for (let y = 0; y < fish.height; y += 11) {
+        for (let x = 0; x < fish.width; x += 11) {
+          let c = p5.color(fish.get(x, y));
+          if (p5.brightness(c) < 95) {
+            c.setAlpha(200);
+            p5.fill(c);
+            p5.noStroke();
+            let ax = p5.map((y - fish.height / 1.75), -fish.height / 4, fish.height / 4, -p5.HALF_PI, p5.HALF_PI);
+            let ay = p5.map((x - fish.width / 2.15), -fish.width / 2, fish.width / 2, -p5.HALF_PI, p5.HALF_PI);
+            let tz = p5.cos(ax) * (fish.height / 7) * p5.cos(ay);
+            let z = p5.max(-1, tz);
+            if (p5.abs(ax) > p5.HALF_PI) {
+                ax /= 30;
+                c.setAlpha(100);
             }
+            if (p5.abs(ay) > p5.HALF_PI) {
+                ay /= 30;
+                c.setAlpha(100);
+            }
+            const ang = p5.createVector(ax, ay, 0);
+            const pos = p5.createVector(x - fish.width / 2, y - fish.height / 2, z);
+            scales.push(new Scale(pos, ang, c));
+          }
         }
+      }
     }
 
   p5.checkInputs = () => {
@@ -187,7 +191,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     if (p5.keyCode === enterKeyCode && tpos) {
       otarget.y = p5.atan2(-tpos.z, tpos.x)
       ttwist.y = -2 * p5.atan2(-tpos.z, tpos.x)
-      setTimeout(p5.goHome, 500)
+      setTimeout(p5.goHome, 300)
     }
   }
 
