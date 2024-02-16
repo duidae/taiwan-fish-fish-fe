@@ -4,19 +4,19 @@
   Author: https://openprocessing.org/user/110137
 */
 
-import { type Sketch } from "@p5-wrapper/react"
+import { type Sketch, SketchProps, P5CanvasInstance } from "@p5-wrapper/react"
 import { P5_PLAYGROUND_ID } from '@/app/constant'
 
-const fishPics = [
-  '/Puntius Snyderi.jpeg',
-  '/Puntius Semifasciolatus.jpeg'
-]
-
-const fishPic = fishPics[0]
+type WiggleFishSketchProps = SketchProps & {
+  fishSrcs: string[]
+  selectedIndex: number
+}
 
 const enterKeyCode = 13
 
-export const sketch: Sketch = (p5) => {
+export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
+  let fishSrcs: string[] = []
+  let fishImgs: any[] = []
   let fish: any
   let scales: any[] = []
   let orient: any, otarget: any
@@ -65,7 +65,17 @@ export const sketch: Sketch = (p5) => {
     }
 
   p5.preload = () => {
-    fish = p5.loadImage(fishPic)
+    fishSrcs.forEach(src => {
+      const img = p5.loadImage(src)
+      fishImgs.push(img)
+    })
+    fish = fishImgs[0]
+  }
+
+  p5.updateWithProps = (props: WiggleFishSketchProps) => {
+    if (props.fishSrcs?.length > 0) {
+      fishSrcs = props.fishSrcs
+    }
   }
 
   /* TODO: handle browser resize
