@@ -17,6 +17,7 @@ const enterKeyCode = 13
 export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   let fishSrcs: string[] = []
   let fishImgs: any[] = []
+  let selectedIndex: number = 0
   let scales: any[] = []
   let orient: any, otarget: any
   let twist: any, ttwist: any
@@ -78,8 +79,11 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
 
     // Switch to selected fish model
     const selected = props.selectedIndex
-    if (selected >= 0 && selected < fishImgs?.length && fishImgs[selected]) {
-      p5.makeScales(fishImgs[selected])
+    if (selected >= 0 && selected < fishSrcs?.length) {
+      selectedIndex = selected
+      if(fishImgs?.[selectedIndex]) {
+        p5.makeScales(fishImgs[selectedIndex])
+      }
     }
   }
 
@@ -93,8 +97,8 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     p5.createCanvas(width, height, p5.WEBGL)
 
     // Create fish model
-    if (fishImgs?.[0]) {
-      p5.makeScales(fishImgs[0])
+    if (fishImgs?.[selectedIndex]) {
+      p5.makeScales(fishImgs[selectedIndex])
     }
 
     orient = p5.createVector(0, 0, 0)

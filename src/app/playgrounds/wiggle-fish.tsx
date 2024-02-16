@@ -3,6 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { sketch } from './sketches/wiggle-fish'
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
+import { GetRandomInteger } from '@/app/utils'
 
 const Image = styled.img<{ $isActive: boolean }>`
   width: 40px;
@@ -15,11 +16,11 @@ const Image = styled.img<{ $isActive: boolean }>`
 
 const fishSrcs = [
   '/Puntius Snyderi.jpeg',
-  '/Puntius Semifasciolatus.jpeg'
+  '/Puntius Semifasciolatus.jpeg',
 ]
 
 export const WiggleFish = () => {
-  const [fishIndex, setFishIndex] = useState(0)
+  const [fishIndex, setFishIndex] = useState(GetRandomInteger(fishSrcs.length))
 
   return (
     <>
