@@ -17,8 +17,6 @@ const enterKeyCode = 13
 export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   let fishSrcs: string[] = []
   let fishImgs: any[] = []
-  let selected: number
-  let fish: any
   let scales: any[] = []
   let orient: any, otarget: any
   let twist: any, ttwist: any
@@ -68,17 +66,20 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   p5.preload = () => {
     fishSrcs.forEach(src => {
       const img = p5.loadImage(src)
+      img.resize(800, 0) // Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag
       fishImgs.push(img)
     })
-    fish = fishImgs[0]
   }
 
   p5.updateWithProps = (props: WiggleFishSketchProps) => {
     if (props.fishSrcs?.length > 0) {
       fishSrcs = props.fishSrcs
     }
-    if (props.selectedIndex >= 0) {
-      selected = props.selectedIndex
+
+    // Switch to selected fish model
+    const selected = props.selectedIndex
+    if (selected >= 0 && selected < fishImgs?.length && fishImgs[selected]) {
+      p5.makeScales(fishImgs[selected])
     }
   }
 
@@ -90,8 +91,12 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
 
   p5.setup = () => {
     p5.createCanvas(width, height, p5.WEBGL)
-    fish.resize(800, 0) // Increase (e.g. 1200) or decrease (e.g. 400) to balance detail/lag
-    p5.makeScales()
+
+    // Create fish model
+    if (fishImgs?.[0]) {
+      p5.makeScales(fishImgs[0])
+    }
+
     orient = p5.createVector(0, 0, 0)
     otarget = p5.createVector(0, p5.PI / 16, 0)
     tpos = p5.createVector(2 * width, 0, -height / 2)
@@ -131,33 +136,34 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     p5.checkInputs()
   }
 
-    p5.makeScales = () => {
-      for (let y = 0; y < fish.height; y += 11) {
-        for (let x = 0; x < fish.width; x += 11) {
-          let c = p5.color(fish.get(x, y));
-          if (p5.brightness(c) < 95) {
-            c.setAlpha(200);
-            p5.fill(c);
-            p5.noStroke();
-            let ax = p5.map((y - fish.height / 1.75), -fish.height / 4, fish.height / 4, -p5.HALF_PI, p5.HALF_PI);
-            let ay = p5.map((x - fish.width / 2.15), -fish.width / 2, fish.width / 2, -p5.HALF_PI, p5.HALF_PI);
-            let tz = p5.cos(ax) * (fish.height / 7) * p5.cos(ay);
-            let z = p5.max(-1, tz);
-            if (p5.abs(ax) > p5.HALF_PI) {
-                ax /= 30;
-                c.setAlpha(100);
-            }
-            if (p5.abs(ay) > p5.HALF_PI) {
-                ay /= 30;
-                c.setAlpha(100);
-            }
-            const ang = p5.createVector(ax, ay, 0);
-            const pos = p5.createVector(x - fish.width / 2, y - fish.height / 2, z);
-            scales.push(new Scale(pos, ang, c));
+  p5.makeScales = (fish: any) => {
+    scales = []
+    for (let y = 0; y < fish.height; y += 11) {
+      for (let x = 0; x < fish.width; x += 11) {
+        let c = p5.color(fish.get(x, y));
+        if (p5.brightness(c) < 95) {
+          c.setAlpha(200);
+          p5.fill(c);
+          p5.noStroke();
+          let ax = p5.map((y - fish.height / 1.75), -fish.height / 4, fish.height / 4, -p5.HALF_PI, p5.HALF_PI);
+          let ay = p5.map((x - fish.width / 2.15), -fish.width / 2, fish.width / 2, -p5.HALF_PI, p5.HALF_PI);
+          let tz = p5.cos(ax) * (fish.height / 7) * p5.cos(ay);
+          let z = p5.max(-1, tz);
+          if (p5.abs(ax) > p5.HALF_PI) {
+              ax /= 30;
+              c.setAlpha(100);
           }
+          if (p5.abs(ay) > p5.HALF_PI) {
+              ay /= 30;
+              c.setAlpha(100);
+          }
+          const ang = p5.createVector(ax, ay, 0);
+          const pos = p5.createVector(x - fish.width / 2, y - fish.height / 2, z);
+          scales.push(new Scale(pos, ang, c));
         }
       }
     }
+  }
 
   p5.checkInputs = () => {
     if (p5.keyIsDown(p5.UP_ARROW)) {
