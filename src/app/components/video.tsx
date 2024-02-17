@@ -26,11 +26,11 @@ export const Video = (props: { ytURLs: string[], className?: string }) => {
         pagination-clickable="true"
         effect="fade"
         loop='true'
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%' }}
       >
         {ytURLs.map((url, index) => {
           return (url &&
-            <swiper-slide key={`yt-slide-${index}`}>
+            <swiper-slide key={`yt-slide-${index}`} style={{ paddingBottom: '40px'}}>
               <iframe width="100%" src={url} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
             </swiper-slide>
           )
