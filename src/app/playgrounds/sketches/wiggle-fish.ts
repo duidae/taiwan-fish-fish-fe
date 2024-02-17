@@ -82,7 +82,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     if (selected >= 0 && selected < fishSrcs?.length) {
       selectedIndex = selected
       if(fishImgs?.[selectedIndex]) {
-        p5.makeScales(fishImgs[selectedIndex])
+        p5.makeFishModel(fishImgs[selectedIndex])
       }
     }
   }
@@ -98,7 +98,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
 
     // Create fish model
     if (fishImgs?.[selectedIndex]) {
-      p5.makeScales(fishImgs[selectedIndex])
+      p5.makeFishModel(fishImgs[selectedIndex])
     }
 
     orient = p5.createVector(0, 0, 0)
@@ -140,7 +140,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     p5.checkInputs()
   }
 
-  p5.makeScales = (fish: any) => {
+  p5.makeFishModel = (fish: any) => {
     scales = []
     for (let y = 0; y < fish.height; y += 11) {
       for (let x = 0; x < fish.width; x += 11) {
