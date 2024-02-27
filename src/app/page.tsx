@@ -26,10 +26,9 @@ export default function Home() {
     summaries: postOGs
   }]
 
-  // TODO: ['/test1.webp', '/test2.webp', '/test3.jpeg']
   const interactiveSection = (
     <FullscreenBackground
-      imgSrcs={[]}
+      imgSrcs={[/*'/test1.webp', '/test2.webp', '/test3.jpeg', */'/ai1.jpeg', '/ai2.jpeg']}
       body={
         <div className="flex flex-row w-full h-full">
           <Video className='w-1/3' ytURLs={ytURLs}/>
