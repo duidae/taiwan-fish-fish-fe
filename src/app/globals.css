@@ -22,6 +22,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* TODO: handle swiper style inside file */
+  --swiper-pagination-color: white;
+  --swiper-pagination-bullet-inactive-color: gray;
+  --swiper-pagination-bullet-inactive-opacity: 1;
 }
 
 /* TODO: move to video component */
