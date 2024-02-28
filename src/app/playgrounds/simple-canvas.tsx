@@ -1,9 +1,9 @@
 'use client'
+import { P5Wrapper } from './util'
 import { sketch } from './sketches/simple-canvas'
-import { NextReactP5Wrapper } from '@/app/utils'
 
 export const SimpleCanvas = () => {
   return (
-    <NextReactP5Wrapper sketch={sketch}/>
+    <P5Wrapper sketch={sketch}/>
   )
 }

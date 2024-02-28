@@ -3,6 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { sketch } from './sketches/wiggle-fish'
 import { GetRandomInteger, NextReactP5Wrapper } from '@/app/utils'
+import { P5Wrapper } from './util'
 
 const Image = styled.img<{ $isActive: boolean }>`
   width: 40px;
@@ -23,7 +24,7 @@ export const WiggleFish = () => {
 
   return (
     <>
-      <NextReactP5Wrapper sketch={sketch} fishSrcs={fishSrcs} selectedIndex={fishIndex}/>
+      <P5Wrapper sketch={sketch} fishSrcs={fishSrcs} selectedIndex={fishIndex}/>
       <div className='h-10 flex flex-row justify-center items-center gap-1'>
         {fishSrcs.map((fish, index) => {
           return <Image key={`fish-type-${index}`} $isActive={index === fishIndex} onClick={() => setFishIndex(index)} src={fish}/>
