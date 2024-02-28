@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@p5-wrapper/next": "^1.0.2",
     "@p5-wrapper/react": "^4.3.2",
     "framer-motion": "^11.0.6",
     "next": "14.0.4",
