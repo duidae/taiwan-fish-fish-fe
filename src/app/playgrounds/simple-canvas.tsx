@@ -1,11 +1,6 @@
 'use client'
-import dynamic from 'next/dynamic'
 import { sketch } from './sketches/simple-canvas'
-
-const NextReactP5Wrapper = dynamic(
-  async () => (await import("@p5-wrapper/react")).ReactP5Wrapper,
-  { ssr: false },
-)
+import { NextReactP5Wrapper } from '@/app/utils'
 
 export const SimpleCanvas = () => {
   return (

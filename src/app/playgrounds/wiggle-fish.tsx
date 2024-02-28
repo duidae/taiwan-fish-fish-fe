@@ -2,13 +2,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { sketch } from './sketches/wiggle-fish'
-import dynamic from 'next/dynamic'
-import { GetRandomInteger } from '@/app/utils'
-
-const NextReactP5Wrapper = dynamic(
-  async () => (await import("@p5-wrapper/react")).ReactP5Wrapper,
-  { ssr: false },
-)
+import { GetRandomInteger, NextReactP5Wrapper } from '@/app/utils'
 
 const Image = styled.img<{ $isActive: boolean }>`
   width: 40px;
