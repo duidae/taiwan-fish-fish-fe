@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { sketch } from './sketches/wiggle-fish'
-import { GetRandomInteger, NextReactP5Wrapper } from '@/app/utils'
+import { GetRandomInteger } from '@/app/utils'
 import { P5Wrapper } from './util'
 
 const Image = styled.img<{ $isActive: boolean }>`
