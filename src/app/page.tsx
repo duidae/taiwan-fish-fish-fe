@@ -30,7 +30,7 @@ export default function Home() {
 
   const interactiveSection = (
     <FullscreenBackground
-      imgSrcs={["/test1.webp", "/test2.webp", "/test3.jpeg", "/ai1.jpeg", "/ai2.jpeg"]}
+      imgSrcs={[/*"/test1.webp", "/test2.webp", "/test3.jpeg",*/ "/ai1.jpeg", "/ai2.jpeg"]}
       body={
         <div className="flex flex-row w-full h-full">
           <Video className="w-1/3" ytURLs={ytURLs} />
