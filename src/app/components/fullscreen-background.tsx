@@ -1,9 +1,9 @@
-'use client'
-import { useState } from 'react'
-import { GetRandomInteger } from '@/app/utils'
-import styled from 'styled-components'
+"use client"
+import {useState} from "react"
+import {GetRandomInteger} from "@/app/utils"
+import styled from "styled-components"
 
-const bulletColor = 'rgb(113, 113, 113)'
+const bulletColor = "rgb(113, 113, 113)"
 const bulletHeight = 60
 
 const Bullets = styled.ul`
@@ -24,14 +24,14 @@ const Bullet = styled.li<{$isActive: boolean}>`
   margin: 0 0.8em;
   border-radius: 50%;
   display: inline-block;
-  background-color: ${props => (props.$isActive ? 'white' : bulletColor)};
+  background-color: ${props => (props.$isActive ? "white" : bulletColor)};
   transition: background-color 0.6s ease;
   overflow: hidden;
   text-indent: 100%;
   cursor: pointer;
 `
 
-export const FullscreenBackground = (props: { imgSrcs: string[], body: React.ReactNode, bottom: React.ReactNode, className?: string }) => {
+export const FullscreenBackground = (props: {imgSrcs: string[]; body: React.ReactNode; bottom: React.ReactNode; className?: string}) => {
   const imgSrcs = props.imgSrcs
   const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(imgSrcs.length))
 
@@ -40,10 +40,15 @@ export const FullscreenBackground = (props: { imgSrcs: string[], body: React.Rea
   }
 
   return (
-    <div style={{ backgroundImage: `url(${imgSrcs[currentIndex]})`, transition: 'background-image 0.4s ease-in-out' }} className='bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24'>
+    <div
+      style={{backgroundImage: `url(${imgSrcs[currentIndex]})`, transition: "background-image 0.4s ease-in-out"}}
+      className="bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24"
+    >
       {props.body}
       <Bullets>
-        {imgSrcs?.map((imgSrc, index) => <Bullet key={`img-bullet-${index}`} $isActive={index === currentIndex} onClick={() => onImageChange(index)}/>)}
+        {imgSrcs?.map((imgSrc, index) => (
+          <Bullet key={`img-bullet-${index}`} $isActive={index === currentIndex} onClick={() => onImageChange(index)} />
+        ))}
       </Bullets>
       {props.bottom}
     </div>

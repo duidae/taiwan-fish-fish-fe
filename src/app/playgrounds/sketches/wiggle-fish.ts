@@ -4,8 +4,8 @@
   Author: https://openprocessing.org/user/110137
 */
 
-import { type Sketch, SketchProps, P5CanvasInstance } from "@p5-wrapper/react"
-import { P5_PLAYGROUND_ID } from '@/app/constant'
+import {type Sketch, SketchProps, P5CanvasInstance} from "@p5-wrapper/react"
+import {P5_PLAYGROUND_ID} from "@/app/constant"
 
 type WiggleFishSketchProps = SketchProps & {
   fishSrcs: string[]
@@ -44,18 +44,18 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
       p5.fill(this.mat)
       p5.noStroke()
       p5.push()
-      p5.rotateY(twist.y * this.pos.x / 1000)
-      p5.rotateZ(twist.z * this.pos.x / 2000)
-      if(this.pos.x>0) p5.rotateY(wiggle * this.pos.x / 2000)
+      p5.rotateY((twist.y * this.pos.x) / 1000)
+      p5.rotateZ((twist.z * this.pos.x) / 2000)
+      if (this.pos.x > 0) p5.rotateY((wiggle * this.pos.x) / 2000)
       p5.translate(this.pos)
       p5.rotateY(this.ang.y)
       p5.rotateX(-this.ang.x)
       p5.ellipse(0, 0, 15, 15)
       p5.pop()
       p5.push()
-      p5.rotateY(twist.y * this.pos.x / 1000)
-      p5.rotateZ(twist.z * this.pos.x / 2000)
-      if(this.pos.x>0) p5.rotateY(wiggle * this.pos.x / 2000)
+      p5.rotateY((twist.y * this.pos.x) / 1000)
+      p5.rotateZ((twist.z * this.pos.x) / 2000)
+      if (this.pos.x > 0) p5.rotateY((wiggle * this.pos.x) / 2000)
       p5.translate(this.pos.x, this.pos.y, -this.pos.z)
       p5.rotateY(-this.ang.y)
       p5.rotateX(this.ang.x)
@@ -81,7 +81,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     const selected = props.selectedIndex
     if (selected >= 0 && selected < fishSrcs?.length) {
       selectedIndex = selected
-      if(fishImgs?.[selectedIndex]) {
+      if (fishImgs?.[selectedIndex]) {
         p5.makeFishModel(fishImgs[selectedIndex])
       }
     }
@@ -114,7 +114,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
   }
 
   p5.draw = () => {
-    p5.scale(0.5 * height / 566)
+    p5.scale((0.5 * height) / 566)
     // Call clear() to make background totally transparent
     p5.clear()
     if (p5.frameCount > 20) {
@@ -144,26 +144,26 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     scales = []
     for (let y = 0; y < fish.height; y += 11) {
       for (let x = 0; x < fish.width; x += 11) {
-        let c = p5.color(fish.get(x, y));
+        let c = p5.color(fish.get(x, y))
         if (p5.brightness(c) < 95) {
-          c.setAlpha(200);
-          p5.fill(c);
-          p5.noStroke();
-          let ax = p5.map((y - fish.height / 1.75), -fish.height / 4, fish.height / 4, -p5.HALF_PI, p5.HALF_PI);
-          let ay = p5.map((x - fish.width / 2.15), -fish.width / 2, fish.width / 2, -p5.HALF_PI, p5.HALF_PI);
-          let tz = p5.cos(ax) * (fish.height / 7) * p5.cos(ay);
-          let z = p5.max(-1, tz);
+          c.setAlpha(200)
+          p5.fill(c)
+          p5.noStroke()
+          let ax = p5.map(y - fish.height / 1.75, -fish.height / 4, fish.height / 4, -p5.HALF_PI, p5.HALF_PI)
+          let ay = p5.map(x - fish.width / 2.15, -fish.width / 2, fish.width / 2, -p5.HALF_PI, p5.HALF_PI)
+          let tz = p5.cos(ax) * (fish.height / 7) * p5.cos(ay)
+          let z = p5.max(-1, tz)
           if (p5.abs(ax) > p5.HALF_PI) {
-              ax /= 30;
-              c.setAlpha(100);
+            ax /= 30
+            c.setAlpha(100)
           }
           if (p5.abs(ay) > p5.HALF_PI) {
-              ay /= 30;
-              c.setAlpha(100);
+            ay /= 30
+            c.setAlpha(100)
           }
-          const ang = p5.createVector(ax, ay, 0);
-          const pos = p5.createVector(x - fish.width / 2, y - fish.height / 2, z);
-          scales.push(new Scale(pos, ang, c));
+          const ang = p5.createVector(ax, ay, 0)
+          const pos = p5.createVector(x - fish.width / 2, y - fish.height / 2, z)
+          scales.push(new Scale(pos, ang, c))
         }
       }
     }

@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { SOCIAL_MEDIA } from '@/app/constant'
+import Link from "next/link"
+import {SOCIAL_MEDIA} from "@/app/constant"
 
 export const Header = () => {
   return (
@@ -10,8 +10,12 @@ export const Header = () => {
         <Link href="/posts">文章</Link>
         <Link href="/map">魚地圖</Link>
         <Link href="/about">關於我們</Link>
-        <div className='flex flex-row gap-1'>
-          {SOCIAL_MEDIA.map((media, index) => <a key={`social-media-link-${index}`} href={media.url} target='_blank'>{media.icon}</a>)}
+        <div className="flex flex-row gap-1">
+          {SOCIAL_MEDIA.map((media, index) => (
+            <a key={`social-media-link-${index}`} href={media.url} target="_blank">
+              {media.icon}
+            </a>
+          ))}
         </div>
       </nav>
     </div>

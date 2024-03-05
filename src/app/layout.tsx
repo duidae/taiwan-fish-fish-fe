@@ -1,29 +1,29 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import { Header } from '@/app/components/header'
-import { Footer } from '@/app/components/footer'
-import { SITE_TITLE, SITE_DESCRIPTION } from '@/app/constant'
+import type {Metadata} from "next"
+import {Inter} from "next/font/google"
+import {Header} from "@/app/components/header"
+import {Footer} from "@/app/components/footer"
+import {SITE_TITLE, SITE_DESCRIPTION} from "@/app/constant"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({subsets: ["latin"]})
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
-  description: SITE_DESCRIPTION,
+  description: SITE_DESCRIPTION
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header/>
+        <Header />
         <div className="flex flex-col w-full items-center">
           {children}
-          <Footer/>
+          <Footer />
           {/* TODO: back to top */}
         </div>
       </body>
