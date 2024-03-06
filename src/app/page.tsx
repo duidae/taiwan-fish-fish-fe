@@ -5,7 +5,7 @@ import {Playground} from "@/app/components/playground"
 import {Goto} from "@/app/components/goto"
 import {featuredPosts} from "./mockups"
 
-const FeatureSection = (props: {section: any, direction: string}) => {
+const FeaturedSection = (props: {section: any, direction: string}) => {
   const section = props.section
   const isLeft = props.direction === 'left'
 
@@ -71,8 +71,8 @@ export default function Home() {
   return (
     <main className="flex flex-col w-full items-center justify-between mb-8">
       {interactiveSection}
-      <FeatureSection section={featuredSections[0]} direction="left"/>
-      <FeatureSection section={featuredSections[1]} direction="right"/>
+      <FeaturedSection section={featuredSections[0]} direction="left"/>
+      <FeaturedSection section={featuredSections[1]} direction="right"/>
     </main>
   )
 }
