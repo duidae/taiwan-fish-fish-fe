@@ -8,7 +8,7 @@ export const YTVideos = [
   "https://www.youtube.com/watch?v=-ISffyoQLDU",
   "https://www.youtube.com/watch?v=tjkhez1NmKc",
   "https://www.youtube.com/watch?v=dBIWY_Ef3V4",
-  "https://www.youtube.com/watch?v=R9yguVRvZ6M",
+  "https://www.youtube.com/watch?v=R9yguVRvZ6M"
 ]
 
 export const featuredYTVideos = YTVideos.slice(0, 5)
@@ -25,6 +25,7 @@ export const PostURLs = [
   "https://www.newsmarket.com.tw/mag/7582",
   "https://www.newsmarket.com.tw/mag/6490",
   "https://www.newsmarket.com.tw/mag/5854",
+  "https://www.newsmarket.com.tw/mag/11753"
 ]
 
 export const featuredPosts = [

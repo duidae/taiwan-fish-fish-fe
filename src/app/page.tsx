@@ -5,15 +5,15 @@ import {Playground} from "@/app/components/playground"
 import {Goto} from "@/app/components/goto"
 import {featuredPosts} from "./mockups"
 
-const FeaturedSection = (props: {section: any, direction: string}) => {
+const FeaturedSection = (props: {section: any; direction: string}) => {
   const section = props.section
-  const isLeft = props.direction === 'left'
+  const isLeft = props.direction === "left"
 
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center">
       <div id={section.id} className="w-full grow flex flex-row justify-center items-stretch">
-        <div className={`${isLeft ? 'w-3/5' : 'w-2/5'} bg-red-50`}></div>
-        <div className={`${isLeft ? 'w-2/5' : 'w-3/5'} bg-green-50`}></div>
+        <div className={`${isLeft ? "w-3/5" : "w-2/5"} bg-red-50`}></div>
+        <div className={`${isLeft ? "w-2/5" : "w-3/5"} bg-green-50`}></div>
       </div>
       <Link className="h-1/6 text-base" href={section.route}>
         看全部{section.title}
@@ -48,7 +48,7 @@ export default function Home() {
       title: "專題",
       route: "/topics",
       summaries: featuredPosts
-    },
+    }
   ]
 
   const interactiveSection = (
@@ -71,8 +71,8 @@ export default function Home() {
   return (
     <main className="flex flex-col w-full items-center justify-between mb-8">
       {interactiveSection}
-      <FeaturedSection section={featuredSections[0]} direction="left"/>
-      <FeaturedSection section={featuredSections[1]} direction="right"/>
+      <FeaturedSection section={featuredSections[0]} direction="left" />
+      <FeaturedSection section={featuredSections[1]} direction="right" />
     </main>
   )
 }
