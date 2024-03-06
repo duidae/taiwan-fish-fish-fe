@@ -2,11 +2,26 @@ import Link from "next/link"
 import {FullscreenBackground} from "@/app/components/fullscreen-background"
 import {Video} from "@/app/components/video"
 import {Playground} from "@/app/components/playground"
-import {List} from "@/app/components/list"
 import {Goto} from "@/app/components/goto"
-import {postOGs} from "./post-mockups"
+import {featuredPosts} from "./mockups"
 
-const contentSectionID = "content-section"
+const FeatureSection = (props: {section: any, direction: string}) => {
+  const section = props.section
+  const isLeft = props.direction === 'left'
+
+  return (
+    <div className="w-full min-h-screen flex flex-col justify-center items-center">
+      <div id={section.id} className="w-full grow flex flex-row justify-center items-stretch">
+        <div className={`${isLeft ? 'w-3/5' : 'w-2/5'} bg-red-50`}></div>
+        <div className={`${isLeft ? 'w-2/5' : 'w-3/5'} bg-green-50`}></div>
+      </div>
+      <Link className="h-1/6 text-base" href={section.route}>
+        看全部{section.title}
+        {" >>"}
+      </Link>
+    </div>
+  )
+}
 
 export default function Home() {
   const ytURLs = [
@@ -15,17 +30,25 @@ export default function Home() {
     "https://www.youtube.com/embed/NehqK_atfVQ?si=-F0PfGHz09MyvJwl"
   ]
 
-  const contents = [
+  const featuredSections = [
     {
-      title: "專題",
-      route: "/topics",
-      summaries: postOGs
+      id: "featured-section-video",
+      title: "影片",
+      route: "/videos",
+      summaries: featuredPosts
     },
     {
+      id: "featured-section-post",
       title: "文章",
       route: "/posts",
-      summaries: postOGs
-    }
+      summaries: featuredPosts
+    },
+    {
+      id: "featured-section-topic",
+      title: "專題",
+      route: "/topics",
+      summaries: featuredPosts
+    },
   ]
 
   const interactiveSection = (
@@ -38,33 +61,18 @@ export default function Home() {
         </div>
       }
       bottom={
-        <Goto className="h-1/6 text-xl text-white" elementID={contentSectionID}>
-          看文章
+        <Goto className="h-1/6 text-xl text-white" elementID={featuredSections[0].id}>
+          看影片
         </Goto>
       }
     />
   )
 
-  const contentSection = (
-    <div id={contentSectionID}>
-      {contents.map((content, index) => {
-        return (
-          <div key={`content-${index}`} className="flex flex-col justify-center items-center mb-4">
-            <List summaries={content.summaries} title={`最新${content.title}`} />
-            <Link className="text-base" href={content.route}>
-              看全部{content.title}
-              {" >>"}
-            </Link>
-          </div>
-        )
-      })}
-    </div>
-  )
-
   return (
     <main className="flex flex-col w-full items-center justify-between mb-8">
       {interactiveSection}
-      {contentSection}
+      <FeatureSection section={featuredSections[0]} direction="left"/>
+      <FeatureSection section={featuredSections[1]} direction="right"/>
     </main>
   )
 }

@@ -1,4 +1,33 @@
-export const postOGs = [
+export const YTVideos = [
+  "https://www.youtube.com/watch?v=XEHmG6_Pxac",
+  "https://www.youtube.com/watch?v=fMqn8Onh3iA",
+  "https://www.youtube.com/watch?v=UsyMg9LLwWo",
+  "https://www.youtube.com/watch?v=xVUyYbcHAK4",
+  "https://www.youtube.com/watch?v=IbK0ScC16n8",
+  "https://www.youtube.com/watch?v=leL4H8kHhVc",
+  "https://www.youtube.com/watch?v=-ISffyoQLDU",
+  "https://www.youtube.com/watch?v=tjkhez1NmKc",
+  "https://www.youtube.com/watch?v=dBIWY_Ef3V4",
+  "https://www.youtube.com/watch?v=R9yguVRvZ6M",
+]
+
+export const featuredYTVideos = YTVideos.slice(0, 5)
+
+export const PostURLs = [
+  "https://www.newsmarket.com.tw/mag/14837",
+  "https://www.newsmarket.com.tw/mag/13642",
+  "https://www.newsmarket.com.tw/mag/12301",
+  "https://www.newsmarket.com.tw/mag/12302",
+  "https://www.newsmarket.com.tw/mag/11116",
+  "https://www.newsmarket.com.tw/mag/10282",
+  "https://www.newsmarket.com.tw/mag/9413",
+  "https://www.newsmarket.com.tw/mag/9107",
+  "https://www.newsmarket.com.tw/mag/7582",
+  "https://www.newsmarket.com.tw/mag/6490",
+  "https://www.newsmarket.com.tw/mag/5854",
+]
+
+export const featuredPosts = [
   {
     ogTitle: "被遺忘的寶貝—談台灣淡水魚類保育現況",
     ogImage: "https://www.newsmarket.com.tw/mag/files/2022/06/no204-5-1.jpg",
