@@ -5,9 +5,9 @@ export enum DIRECTION {
   Right = "RIGHT"
 }
 
-type FeaturedSectionProps =  {id: string; title: string; route: string; frontPage: React.ReactNode, featured: React.ReactNode, direction?: DIRECTION}
+type FeaturedSectionProps = {id: string; title: string; route: string; frontPage: React.ReactNode; featured: React.ReactNode; direction?: DIRECTION}
 
-const FeaturedSection = (props:FeaturedSectionProps) => {
+const FeaturedSection = (props: FeaturedSectionProps) => {
   const {id, title, route, frontPage, featured, direction} = props
   const isLeft = direction === DIRECTION.Left
 
@@ -25,23 +25,23 @@ const FeaturedSection = (props:FeaturedSectionProps) => {
   )
 }
 
-export const FeaturedVideos = (props:FeaturedSectionProps) => {
+export const FeaturedVideos = (props: FeaturedSectionProps) => {
   const {frontPage, featured, ...rest} = props
 
   // TODO: customize frontPage/featured
-  return <FeaturedSection frontPage={featured} featured={featured} {...rest}/>
+  return <FeaturedSection frontPage={featured} featured={featured} {...rest} />
 }
 
-export const FeaturedPosts = (props:FeaturedSectionProps) => {
+export const FeaturedPosts = (props: FeaturedSectionProps) => {
   const {frontPage, featured, ...rest} = props
 
   // TODO: customize frontPage/featured
-  return <FeaturedSection frontPage={featured} featured={featured} {...rest}/>
+  return <FeaturedSection frontPage={featured} featured={featured} {...rest} />
 }
 
-export const FeaturedTopics = (props:FeaturedSectionProps) => {
+export const FeaturedTopics = (props: FeaturedSectionProps) => {
   const {frontPage, featured, ...rest} = props
 
   // TODO: customize frontPage/featured
-  return <FeaturedSection frontPage={featured} featured={featured} {...rest}/>
+  return <FeaturedSection frontPage={featured} featured={featured} {...rest} />
 }
