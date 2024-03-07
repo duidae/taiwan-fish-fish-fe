@@ -4,7 +4,6 @@ import styled from "styled-components"
 
 const Index = styled.div`
   min-height: 16px;
-  padding: 25px 5px;
   background-color: transparent;
   cursor: pointer;
   font-size: 14px;
@@ -20,6 +19,7 @@ const Index = styled.div`
 export type TOCIndex = {id: string; label: string}
 
 const tocIndexIDPrefix = "toc-index-"
+const activeClassname = "active"
 
 export const TOC = (props: {indexes: TOCIndex[]}) => {
   const {indexes} = props
@@ -32,9 +32,9 @@ export const TOC = (props: {indexes: TOCIndex[]}) => {
           const indexID = `${tocIndexIDPrefix}${id}`
           const index = document.querySelector(`#${indexID}`)
           if (entry.isIntersecting) {
-            index?.classList?.add("active")
+            index?.classList?.add(activeClassname)
           } else {
-            index?.classList?.remove("active")
+            index?.classList?.remove(activeClassname)
           }
         })
       },
@@ -54,12 +54,12 @@ export const TOC = (props: {indexes: TOCIndex[]}) => {
   }, [])
 
   return (
-    <div className="fixed right-0 top-1/4 w-10 flex flex-col items-center justify-center bg-white opacity-90 m-1 p-1 rounded-md shadow-md">
+    <div className="fixed right-0 top-1/4 w-10 flex flex-col gap-6 bg-white opacity-90 m-1 p-1 pt-2 pb-4 rounded-md shadow-md">
       {indexes?.map(
         (tocIndex, index) =>
           tocIndex && (
             <Index
-              className="text-center"
+              className="text-center pl-1 pr-1"
               key={`toc-key-${index}`}
               id={`${tocIndexIDPrefix}${tocIndex.id}`}
               onClick={() => {
