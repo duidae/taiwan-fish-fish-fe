@@ -8,7 +8,7 @@ export const HEADER_HEIGHT = 64
 
 export const ROUTES = [
   {
-    title: "影片",
+    title: "影音",
     path: "/videos"
   },
   {
@@ -20,7 +20,7 @@ export const ROUTES = [
     path: "/posts"
   },
   {
-    title: "地圖",
+    title: "魚地圖",
     path: "/map"
   },
   {
@@ -39,10 +39,10 @@ export const SOCIAL_MEDIA = [
     url: "https://www.facebook.com/profile.php?id=100094751035273"
   },
   /*
-{
-  icon: IGIcon,
-  url: '',
-},
+  {
+    icon: IGIcon,
+    url: '',
+  },
   */
   {
     icon: GithubIcon,

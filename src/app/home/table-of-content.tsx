@@ -1,41 +1,10 @@
 "use client"
+import {useEffect} from "react"
 import styled from "styled-components"
 
-const TOCContainer = styled.div`
-  position: fixed;
-  width: 90px;
-  right: 0;
-`
-
-const TOCTab = styled.div`
-  width: 30px;
-  position: fixed;
-  top: 300px;
-  right: 0;
-  transition: transform 0.1s ease-in-out 0.1s;
-
-  > div {
-    width: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    color: #8e8e8e;
-    background-color: #f4f4f4;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    font-size: 14px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-`
-
 const Index = styled.div`
-  width: 100%;
   min-height: 16px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 25px 5px;
   background-color: transparent;
   cursor: pointer;
   font-size: 14px;
@@ -43,37 +12,70 @@ const Index = styled.div`
   word-wrap: break-word;
   color: #8e8e8e;
 
-  &.isActive {
-    color: blue;
+  &.active {
+    color: #27b5f7;
   }
 `
 
 export type TOCIndex = {id: string; label: string}
 
+const tocIndexIDPrefix = "toc-index-"
+
 export const TOC = (props: {indexes: TOCIndex[]}) => {
+  const {indexes} = props
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute("id")
+          const indexID = `${tocIndexIDPrefix}${id}`
+          const index = document.querySelector(`#${indexID}`)
+          if (entry.isIntersecting) {
+            index?.classList?.add("active")
+          } else {
+            index?.classList?.remove("active")
+          }
+        })
+      },
+      {
+        root: null,
+        rootMargin: `5px 0px -5px 0px`,
+        threshold: 0
+      }
+    )
+
+    indexes?.forEach(index => {
+      const target = document.querySelector(`#${index.id}`)
+      if (target) {
+        observer.observe(target)
+      }
+    })
+  }, [])
+
   return (
-    <TOCContainer>
-      <TOCTab>
-        {props.indexes?.map(
-          (tocIndex, index) =>
-            tocIndex && (
-              <Index
-                key={`toc-key-${index}`}
-                onClick={() => {
-                  const anchor = document.querySelector(`#${tocIndex.id}`) as HTMLElement
-                  if (anchor) {
-                    window.scrollTo({
-                      top: anchor.offsetTop,
-                      behavior: "smooth"
-                    })
-                  }
-                }}
-              >
-                {tocIndex.label}
-              </Index>
-            )
-        )}
-      </TOCTab>
-    </TOCContainer>
+    <div className="fixed right-0 top-1/4 w-10 flex flex-col items-center justify-center bg-white opacity-90 m-1 p-1 rounded-md shadow-md">
+      {indexes?.map(
+        (tocIndex, index) =>
+          tocIndex && (
+            <Index
+              className="text-center"
+              key={`toc-key-${index}`}
+              id={`${tocIndexIDPrefix}${tocIndex.id}`}
+              onClick={() => {
+                const anchor = document.querySelector(`#${tocIndex.id}`) as HTMLElement
+                if (anchor) {
+                  window.scrollTo({
+                    top: anchor.offsetTop,
+                    behavior: "smooth"
+                  })
+                }
+              }}
+            >
+              {tocIndex.label}
+            </Index>
+          )
+      )}
+    </div>
   )
 }
