@@ -1,3 +1,9 @@
+export const chillYTVideos = [
+  "https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ",
+  "https://www.youtube.com/embed/wPQnp65MYz4?si=s9NnnMzG6nXJzh_j",
+  "https://www.youtube.com/embed/NehqK_atfVQ?si=-F0PfGHz09MyvJwl"
+]
+
 export const YTVideos = [
   "https://www.youtube.com/watch?v=XEHmG6_Pxac",
   "https://www.youtube.com/watch?v=fMqn8Onh3iA",
