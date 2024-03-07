@@ -1,5 +1,3 @@
 export const TOC = () => {
-    return (
-        <div></div>
-    )
+  return <div></div>
 }

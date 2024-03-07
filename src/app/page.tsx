@@ -2,7 +2,7 @@ import {FullscreenBackground} from "@/app/components/fullscreen-background"
 import {Video} from "@/app/components/video"
 import {Playground} from "@/app/components/playground"
 import {Goto} from "@/app/components/goto"
-import {FeaturedSection, DIRECTION} from '@/app/home/featured-section'
+import {FeaturedSection, DIRECTION} from "@/app/home/featured-section"
 import {chillYTVideos, featuredPosts} from "./mockups"
 
 export default function Home() {
@@ -45,7 +45,14 @@ export default function Home() {
   )
 
   const featuredSectionsJSX = featuredSections.map((featuredSection, index) => {
-    return <FeaturedSection id={featuredSection.id} title={featuredSection.title} route={featuredSection.route} direction={index % 2 == 0 ? DIRECTION.Left : DIRECTION.Right} />
+    return (
+      <FeaturedSection
+        id={featuredSection.id}
+        title={featuredSection.title}
+        route={featuredSection.route}
+        direction={index % 2 == 0 ? DIRECTION.Left : DIRECTION.Right}
+      />
+    )
   })
 
   return (
