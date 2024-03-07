@@ -1,5 +1,6 @@
 import {InteractiveSection} from "@/app/home/interactive-section"
 import {FeaturedVideos, FeaturedPosts, FeaturedTopics, DIRECTION} from "@/app/home/featured-section"
+import {TOC} from "@/app/home/table-of-content"
 
 // TODO: remove mockups when cms is ready
 import {chillYTVideos, featuredImages, YTVideos, featuredPosts as posts} from "./mockups"
@@ -20,10 +21,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-col w-full items-center justify-between mb-8">
-      <InteractiveSection videos={relaxingVideos} images={amazingImages} />
+      <div id="interactive-section" className="w-full h-screen">
+        <InteractiveSection videos={relaxingVideos} images={amazingImages} />
+      </div>
       <FeaturedVideos
         id="featured-videos"
-        title="影片"
+        title="影音"
         route="/videos"
         direction={DIRECTION.Left}
         headline={headlineVideo}
@@ -44,6 +47,14 @@ export default function Home() {
         direction={DIRECTION.Left}
         headline={headlineTopic}
         featured={featuredTopics}
+      />
+      <TOC
+        indexes={[
+          {id: "interactive-section", label: "頁首"},
+          {id: "featured-videos", label: "影音"},
+          {id: "featured-posts", label: "文章"},
+          {id: "featured-topics", label: "專題"}
+        ]}
       />
     </main>
   )

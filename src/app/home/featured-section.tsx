@@ -24,8 +24,8 @@ const FeaturedSection = (props: FeaturedSectionProps) => {
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center">
       <div id={id} className="w-full grow flex flex-row justify-center items-stretch">
-        <div className={`${isLeft ? "w-3/5" : "w-2/5"}`}>{isLeft? headline : featured}</div>
-        <div className={`${isLeft ? "w-2/5" : "w-3/5"}`}>{isLeft? featured : headline}</div>
+        <div className={`${isLeft ? "w-3/5" : "w-2/5"}`}>{isLeft ? headline : featured}</div>
+        <div className={`${isLeft ? "w-2/5" : "w-3/5"}`}>{isLeft ? featured : headline}</div>
       </div>
       <Link className="h-1/6 text-base" href={route}>
         看全部{title}
@@ -37,34 +37,40 @@ const FeaturedSection = (props: FeaturedSectionProps) => {
 
 type URL = string
 
-export const FeaturedVideos = (props: FeaturedSectionCommonprops & {
-  headline: URL
-  featured: URL[]
-}) => {
+export const FeaturedVideos = (
+  props: FeaturedSectionCommonprops & {
+    headline: URL
+    featured: URL[]
+  }
+) => {
   const {headline, featured, ...rest} = props
 
   // TODO: customize frontPage/featured
   return <FeaturedSection headline={headline} featured={featured} {...rest} />
 }
 
-export const FeaturedPosts = (props: FeaturedSectionCommonprops & {
-  headline: Summary
-  featured: Summary[]
-}) => {
+export const FeaturedPosts = (
+  props: FeaturedSectionCommonprops & {
+    headline: Summary
+    featured: Summary[]
+  }
+) => {
   const {headline, featured, ...rest} = props
 
-  const headlineComponent = <SummaryCard {...headline}/>
-  const featuredComponent = featured.map(summary => <SummaryCard {...summary}/>)
+  const headlineComponent = <SummaryCard {...headline} />
+  const featuredComponent = featured.map(summary => <SummaryCard {...summary} />)
   return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
 }
 
-export const FeaturedTopics = (props: FeaturedSectionCommonprops & {
-  headline: Summary
-  featured: Summary[]
-}) => {
+export const FeaturedTopics = (
+  props: FeaturedSectionCommonprops & {
+    headline: Summary
+    featured: Summary[]
+  }
+) => {
   const {headline, featured, ...rest} = props
 
-  const headlineComponent = <SummaryCard {...headline}/>
-  const featuredComponent = featured.map(summary => <SummaryCard {...summary}/>)
+  const headlineComponent = <SummaryCard {...headline} />
+  const featuredComponent = featured.map(summary => <SummaryCard {...summary} />)
   return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
 }
