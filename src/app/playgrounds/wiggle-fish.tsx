@@ -24,7 +24,14 @@ export const WiggleFish = () => {
       <P5Wrapper sketch={sketch} fishSrcs={fishSrcs} selectedIndex={fishIndex} />
       <div className="h-10 flex flex-row justify-center items-center gap-1">
         {fishSrcs.map((fish, index) => {
-          return <Image key={`fish-type-${index}`} $isActive={index === fishIndex} onClick={() => setFishIndex(index)} src={fish} />
+          return (
+            <Image
+              key={`fish-type-${index}`}
+              $isActive={index === fishIndex}
+              onClick={() => setFishIndex(index)}
+              src={fish}
+            />
+          )
         })}
       </div>
     </>

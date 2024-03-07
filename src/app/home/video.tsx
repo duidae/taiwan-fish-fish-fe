@@ -20,7 +20,14 @@ export const Video = (props: {ytURLs: string[]; className?: string}) => {
   // Autoplay only works when &autoplay=1&mute=1
   return (
     <div className={`${props.className} flex flex-col justify-center ml-20 mr-5`}>
-      <swiper-container ref={swiperElRef} pagination="true" pagination-clickable="true" effect="fade" loop="true" style={{width: "100%"}}>
+      <swiper-container
+        ref={swiperElRef}
+        pagination="true"
+        pagination-clickable="true"
+        effect="fade"
+        loop="true"
+        style={{width: "100%"}}
+      >
         {ytURLs.map((url, index) => {
           return (
             url && (

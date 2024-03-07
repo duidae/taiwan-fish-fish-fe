@@ -31,7 +31,12 @@ const Bullet = styled.li<{$isActive: boolean}>`
   cursor: pointer;
 `
 
-export const FullscreenBackground = (props: {imgSrcs: string[]; body: React.ReactNode; bottom: React.ReactNode; className?: string}) => {
+export const FullscreenBackground = (props: {
+  imgSrcs: string[]
+  body: React.ReactNode
+  bottom: React.ReactNode
+  className?: string
+}) => {
   const imgSrcs = props.imgSrcs
   const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(imgSrcs.length))
 

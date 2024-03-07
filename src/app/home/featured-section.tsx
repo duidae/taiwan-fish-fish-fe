@@ -5,7 +5,14 @@ export enum DIRECTION {
   Right = "RIGHT"
 }
 
-type FeaturedSectionProps = {id: string; title: string; route: string; frontPage: React.ReactNode; featured: React.ReactNode; direction?: DIRECTION}
+type FeaturedSectionProps = {
+  id: string
+  title: string
+  route: string
+  frontPage: React.ReactNode
+  featured: React.ReactNode
+  direction?: DIRECTION
+}
 
 const FeaturedSection = (props: FeaturedSectionProps) => {
   const {id, title, route, frontPage, featured, direction} = props
