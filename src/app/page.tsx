@@ -24,30 +24,37 @@ export default function Home() {
       <div id="interactive-section" className="w-full h-screen">
         <InteractiveSection videos={relaxingVideos} images={amazingImages} />
       </div>
-      <FeaturedVideos
-        id="featured-videos"
-        title="影音"
-        route="/videos"
-        direction={DIRECTION.Left}
-        headline={headlineVideo}
-        featured={featuredVideos}
-      />
+      <div id="featured-videos" className="w-full h-screen">
+        <FeaturedVideos
+          title="影音"
+          route="/videos"
+          direction={DIRECTION.Left}
+          headline={headlineVideo}
+          featured={featuredVideos}
+        />
+      </div>
+      <div id="featured-posts" className="w-full h-screen bg-red-50">
+        {/*
       <FeaturedPosts
-        id="featured-posts"
         title="文章"
         route="/posts"
         direction={DIRECTION.Right}
         headline={headlinePost}
         featured={featuredPosts}
       />
+        */}
+      </div>
+      <div id="featured-topics" className="w-full h-screen bg-green-50">
+        {/*
       <FeaturedTopics
-        id="featured-topics"
         title="專題"
         route="/topics"
         direction={DIRECTION.Left}
         headline={headlineTopic}
         featured={featuredTopics}
       />
+      */}
+      </div>
       <TOC
         indexes={[
           {id: "interactive-section", label: "頁首"},

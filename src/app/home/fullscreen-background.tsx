@@ -31,12 +31,7 @@ const Bullet = styled.li<{$isActive: boolean}>`
   cursor: pointer;
 `
 
-export const FullscreenBackground = (props: {
-  imgSrcs: string[]
-  body: React.ReactNode
-  bottom: React.ReactNode
-  className?: string
-}) => {
+export const FullscreenBackground = (props: {imgSrcs: string[]; body: React.ReactNode; className?: string}) => {
   const imgSrcs = props.imgSrcs
   const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(imgSrcs.length))
 
@@ -55,7 +50,6 @@ export const FullscreenBackground = (props: {
           <Bullet key={`img-bullet-${index}`} $isActive={index === currentIndex} onClick={() => onImageChange(index)} />
         ))}
       </Bullets>
-      {props.bottom}
     </div>
   )
 }
