@@ -54,7 +54,7 @@ export const TOC = (props: {indexes: TOCIndex[]}) => {
   }, [])
 
   return (
-    <div className="fixed right-0 top-1/4 w-10 flex flex-col gap-6 bg-white opacity-90 m-1 p-1 pt-2 pb-4 rounded-md shadow-md">
+    <div className="fixed right-0 top-1/4 w-10 flex flex-col gap-12 bg-white opacity-90 m-1 p-1 pt-2 pb-4 rounded-md shadow-md">
       {indexes?.map(
         (tocIndex, index) =>
           tocIndex && (

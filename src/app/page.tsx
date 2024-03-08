@@ -20,7 +20,7 @@ export default function Home() {
   const featuredTopics = posts.slice(1)
 
   return (
-    <main className="flex flex-col w-full items-center justify-between mb-8">
+    <main className="flex flex-col w-full items-center justify-between">
       <div id="interactive-section" className="w-full h-screen">
         <InteractiveSection videos={relaxingVideos} images={amazingImages} />
       </div>
