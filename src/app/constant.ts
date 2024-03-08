@@ -6,6 +6,7 @@ export const SITE_DESCRIPTION = "" // TODO: fill up desc
 
 export const P5_PLAYGROUND_ID = "P5-playground"
 export const HEADER_HEIGHT = 64
+export const TOC_WIDTH = 40
 
 export const ROUTES = [
   {

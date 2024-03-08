@@ -1,5 +1,6 @@
 import Link from "next/link"
 import {Summary, SummaryCard} from "@/app/components/summary-card"
+import {HEADER_HEIGHT} from "../constant"
 
 export enum DIRECTION {
   Left = "LEFT",
@@ -22,14 +23,16 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
-      <div className="w-full grow flex flex-row justify-center items-stretch">
-        <div className="w-1/2">{isLeft ? headline : featured}</div>
-        <div className="w-1/2">{isLeft ? featured : headline}</div>
+      <div
+        className="w-full grow flex flex-row justify-center items-stretch pb-4"
+        style={{paddingTop: `${HEADER_HEIGHT}px`}}
+      >
+        <div className={isLeft ? "w-3/5" : "w-2/5"}>{isLeft ? headline : featured}</div>
+        <div className={isLeft ? "w-2/5" : "w-3/5"}>{isLeft ? featured : headline}</div>
       </div>
-      <Link className="h-20 text-base" href={route}>
-        看全部{title}
-        {" >>"}
-      </Link>
+      <div className="h-20 flex flex-row justify-center items-center">
+        <Link href={route}>{`看全部${title} >>`}</Link>
+      </div>
     </div>
   )
 }
