@@ -21,8 +21,8 @@ export const FeaturedVideos = (
         width="100%"
         height="100%"
         src={`https://www.youtube.com/embed/${ytID}`}
-        frameborder="0"
-        allowfullscreen
+        frameBorder="0"
+        allowFullScreen
       />
     </div>
   ) : null
@@ -30,9 +30,10 @@ export const FeaturedVideos = (
   // TODO: make vertical slider
   const featuredSlider = (
     <div className="w-full h-full flex flex-col items-center justify-between cursor-pointer">
-      {featured?.map(url => {
+      {featured?.map((url, index) => {
         return (
           <div
+            key={`featured-video-${index}`}
             onClick={() => {
               setSelected(url)
             }}
