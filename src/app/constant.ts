@@ -1,6 +1,7 @@
 import {FBIcon, GithubIcon} from "./icons"
 
-export const SITE_TITLE = "魚傳媒 - 最新鮮有趣的台灣原生魚類新聞"
+export const SITE_NAME = "年年有魚"
+export const SITE_TITLE = `${SITE_NAME} - 最新鮮有趣的台灣原生魚類新聞`
 export const SITE_DESCRIPTION = "" // TODO: fill up desc
 
 export const P5_PLAYGROUND_ID = "P5-playground"
@@ -32,6 +33,12 @@ export const ROUTES = [
     path: "/about"
   }
 ]
+
+export const ROUTE_HEADER = ROUTES.slice(0, 5)
+export const ROUTE_VIDEO = ROUTES[1]
+export const ROUTE_TOPIC = ROUTES[2]
+export const ROUTE_POST = ROUTES[3]
+export const ROUTE_ABOUT = ROUTES[5]
 
 export const SOCIAL_MEDIA = [
   {
