@@ -26,7 +26,7 @@ export const ROUTES = [
     path: "/map"
   },
   {
-    title: "3D",
+    title: "數位保種(3D)",
     path: "/models"
   },
   {
