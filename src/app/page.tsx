@@ -66,19 +66,22 @@ export default function Home() {
       )
     }
   ]
+
+  const sectionsJSX = sections.map((seciton, index) => {
+    return (
+      <div key={`home-section-${index}`} id={seciton.id} className="w-full h-screen">
+        {seciton.component}
+      </div>
+    )
+  })
+
   const tocIndexes = sections.map(section => {
     return {id: section.id, label: section.label}
   })
 
   return (
     <main className="flex flex-col w-full items-center justify-between">
-      {sections.map((seciton, index) => {
-        return (
-          <div key={`home-section-${index}`} id={seciton.id} className="w-full h-screen">
-            {seciton.component}
-          </div>
-        )
-      })}
+      {sectionsJSX}
       <TOC indexes={tocIndexes} />
     </main>
   )

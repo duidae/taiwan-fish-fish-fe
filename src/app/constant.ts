@@ -35,9 +35,9 @@ export const ROUTES = [
 ]
 
 export const ROUTE_HEADER = ROUTES.slice(0, 5)
-export const ROUTE_VIDEO = ROUTES[1]
-export const ROUTE_TOPIC = ROUTES[2]
-export const ROUTE_POST = ROUTES[3]
+export const ROUTE_VIDEO = ROUTES[0]
+export const ROUTE_TOPIC = ROUTES[1]
+export const ROUTE_POST = ROUTES[2]
 export const ROUTE_ABOUT = ROUTES[5]
 
 export const SOCIAL_MEDIA = [
