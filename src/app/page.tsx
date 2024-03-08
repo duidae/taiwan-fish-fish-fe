@@ -1,5 +1,6 @@
 import {InteractiveSection} from "@/app/home/interactive-section"
-import {FeaturedVideos, FeaturedPosts, FeaturedTopics, DIRECTION} from "@/app/home/featured-section"
+import {FeaturedVideos} from "@/app/home/featured-videos"
+import {FeaturedPosts, FeaturedTopics, DIRECTION} from "@/app/home/featured-section"
 import {TOC} from "@/app/home/table-of-content"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST} from "@/app/constant"
 
@@ -46,7 +47,7 @@ export default function Home() {
         <FeaturedTopics
           title={ROUTE_TOPIC.title}
           route={ROUTE_TOPIC.path}
-          direction={DIRECTION.Left}
+          direction={DIRECTION.Right}
           headline={headlineTopic}
           featured={featuredTopics}
         />
@@ -59,7 +60,7 @@ export default function Home() {
         <FeaturedPosts
           title={ROUTE_POST.title}
           route={ROUTE_POST.path}
-          direction={DIRECTION.Right}
+          direction={DIRECTION.Left}
           headline={headlinePost}
           featured={featuredPosts}
         />

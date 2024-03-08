@@ -5,7 +5,7 @@ export enum DIRECTION {
   Left = "LEFT",
   Right = "RIGHT"
 }
-interface FeaturedSectionCommonprops {
+export interface FeaturedSectionCommonprops {
   title: string
   route: string
   direction?: DIRECTION
@@ -16,15 +16,15 @@ type FeaturedSectionProps = FeaturedSectionCommonprops & {
   featured: React.ReactNode
 }
 
-const FeaturedSection = (props: FeaturedSectionProps) => {
+export const FeaturedSection = (props: FeaturedSectionProps) => {
   const {title, route, headline, featured, direction} = props
   const isLeft = direction === DIRECTION.Left
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="w-full grow flex flex-row justify-center items-stretch">
-        <div className={`${isLeft ? "w-3/5" : "w-2/5"}`}>{isLeft ? headline : featured}</div>
-        <div className={`${isLeft ? "w-2/5" : "w-3/5"}`}>{isLeft ? featured : headline}</div>
+        <div className="w-1/2">{isLeft ? headline : featured}</div>
+        <div className="w-1/2">{isLeft ? featured : headline}</div>
       </div>
       <Link className="h-20 text-base" href={route}>
         看全部{title}
@@ -32,20 +32,6 @@ const FeaturedSection = (props: FeaturedSectionProps) => {
       </Link>
     </div>
   )
-}
-
-type URL = string
-
-export const FeaturedVideos = (
-  props: FeaturedSectionCommonprops & {
-    headline: URL
-    featured: URL[]
-  }
-) => {
-  const {headline, featured, ...rest} = props
-
-  // TODO: customize frontPage/featured
-  return <FeaturedSection headline={headline} featured={featured} {...rest} />
 }
 
 export const FeaturedPosts = (
@@ -56,8 +42,8 @@ export const FeaturedPosts = (
 ) => {
   const {headline, featured, ...rest} = props
 
-  const headlineComponent = <SummaryCard {...headline} />
-  const featuredComponent = featured.map(summary => <SummaryCard {...summary} />)
+  const headlineComponent = false && <SummaryCard {...headline} />
+  const featuredComponent = false && featured.map(summary => <SummaryCard {...summary} />)
   return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
 }
 
@@ -69,7 +55,7 @@ export const FeaturedTopics = (
 ) => {
   const {headline, featured, ...rest} = props
 
-  const headlineComponent = <SummaryCard {...headline} />
-  const featuredComponent = featured.map(summary => <SummaryCard {...summary} />)
+  const headlineComponent = false && <SummaryCard {...headline} />
+  const featuredComponent = false && featured.map(summary => <SummaryCard {...summary} />)
   return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
 }
