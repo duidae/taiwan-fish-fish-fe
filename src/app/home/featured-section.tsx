@@ -50,7 +50,7 @@ export const FeaturedTextContents = (
   )
 
   const featuredComponent = (
-    <div className="w-full h-full grid grid-rows-3 gap-2">
+    <div className="w-full h-full grid grid-rows-4 gap-2">
       {featured.map((summary, index) => {
         return (
           <div key={`featured-content-${index}`} className="w-full">
