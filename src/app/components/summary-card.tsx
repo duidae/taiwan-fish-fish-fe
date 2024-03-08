@@ -1,30 +1,38 @@
 import Link from "next/link"
-import Image from "next/image"
-import {DIRECTION} from "@/app/constant"
+import {Direction} from "@/app/constant"
+
+export enum DisplayMode {
+  ROW = "row",
+  COLUMN = "column"
+}
 
 export type Summary = {
   url: string
   ogImage: string
   ogTitle: string
   ogDescription: string
-  direction?: DIRECTION
+  displayMode?: DisplayMode
+  direction?: Direction
 }
 
 export const SummaryCard = (props: Summary) => {
-  const {url, ogTitle, ogDescription, ogImage, direction} = props
-  const isLeft = direction === DIRECTION.Left
+  const {url, ogTitle, ogDescription, ogImage, displayMode, direction} = props
+  const isRow = displayMode === DisplayMode.ROW
+  const isLeft = direction === Direction.LEFT
+
+  // Assign flex direction: flex-row/flex-col/flex-row-reverse/flex-col-reverse
+  const flexAttr = `flex-${isRow ? "row" : "col"}${isLeft ? "" : "-reverse"}`
 
   // TODO: ellipsis for <p>
   return (
     url && (
       <Link
         href={url}
-        className={`w-full h-full flex ${isLeft ? "flex-row" : "flex-row-reverse"} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
+        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
         target="_blank"
         rel="noopener noreferrer"
       >
         <div className="w-1/3">
-          {false && <Image src={ogImage} width={500} height={500} alt={ogTitle} />}
           <img className="overflow-hidden" src={ogImage} alt={ogTitle} />
         </div>
         <div className="w-2/3">

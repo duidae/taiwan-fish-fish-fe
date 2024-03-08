@@ -1,11 +1,11 @@
 import Link from "next/link"
-import {Summary, SummaryCard} from "@/app/components/summary-card"
-import {HEADER_HEIGHT, TOC_WIDTH, DIRECTION} from "../constant"
+import {Summary, SummaryCard, DisplayMode} from "@/app/components/summary-card"
+import {HEADER_HEIGHT, TOC_WIDTH, Direction} from "../constant"
 
 export interface FeaturedSectionCommonprops {
   title: string
   route: string
-  direction?: DIRECTION
+  direction?: Direction
 }
 
 type FeaturedSectionProps = FeaturedSectionCommonprops & {
@@ -15,7 +15,7 @@ type FeaturedSectionProps = FeaturedSectionCommonprops & {
 
 export const FeaturedSection = (props: FeaturedSectionProps) => {
   const {title, route, headline, featured, direction} = props
-  const isLeft = direction === DIRECTION.Left
+  const isLeft = direction === Direction.LEFT
 
   return (
     <div
@@ -34,6 +34,37 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
 }
 
 export const FeaturedTextContents = (
+  props: FeaturedSectionCommonprops & {
+    headline: Summary
+    featured: Summary[]
+  }
+) => {
+  const {headline, featured, ...rest} = props
+  const {title, direction} = rest
+
+  const headlineComponent = (
+    <div className="w-full h-full flex flex-col items-center">
+      <h1 className="w-full text-center text-4xl">精選{title}</h1>
+      <div className="w-full grow">{false && <SummaryCard {...headline} />}</div>
+    </div>
+  )
+
+  const featuredComponent = (
+    <div className="w-full h-full grid grid-rows-4 gap-2">
+      {featured.map((summary, index) => {
+        return (
+          <div key={`featured-content-${index}`} className="w-full">
+            {true && <SummaryCard {...summary} displayMode={DisplayMode.ROW} direction={direction} />}
+          </div>
+        )
+      })}
+    </div>
+  )
+
+  return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
+}
+
+export const FeaturedTextContentsMobile = (
   props: FeaturedSectionCommonprops & {
     headline: Summary
     featured: Summary[]

@@ -2,7 +2,7 @@ import {InteractiveSection} from "@/app/home/interactive-section"
 import {FeaturedVideos} from "@/app/home/featured-videos"
 import {FeaturedTextContents} from "@/app/home/featured-section"
 import {TOC} from "@/app/home/table-of-content"
-import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, DIRECTION} from "@/app/constant"
+import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
 
 // TODO: remove mockups when cms is ready
 import {chillYTVideos, featuredImages, YTVideos, featuredPosts as posts} from "./mockups"
@@ -34,7 +34,7 @@ export default function Home() {
         <FeaturedVideos
           title={ROUTE_VIDEO.title}
           route={ROUTE_VIDEO.path}
-          direction={DIRECTION.Left}
+          direction={Direction.LEFT}
           headline={headlineVideo}
           featured={featuredVideos}
         />
@@ -47,7 +47,7 @@ export default function Home() {
         <FeaturedTextContents
           title={ROUTE_TOPIC.title}
           route={ROUTE_TOPIC.path}
-          direction={DIRECTION.Right}
+          direction={Direction.RIGHT}
           headline={headlineTopic}
           featured={featuredTopics}
         />
@@ -60,7 +60,7 @@ export default function Home() {
         <FeaturedTextContents
           title={ROUTE_POST.title}
           route={ROUTE_POST.path}
-          direction={DIRECTION.Left}
+          direction={Direction.LEFT}
           headline={headlinePost}
           featured={featuredPosts}
         />
