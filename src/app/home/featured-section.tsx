@@ -43,9 +43,8 @@ export const FeaturedTextContents = (
   const {title, direction} = rest
 
   const headlineComponent = (
-    <div className="w-full h-full flex flex-col items-center">
-      <h1 className="w-full text-center text-4xl">精選{title}</h1>
-      <div className="w-full grow">{false && <SummaryCard {...headline} />}</div>
+    <div className="w-full h-full flex flex-col items-center justify-center">
+      <SummaryCard {...headline} displayMode={DisplayMode.COLUMN} />
     </div>
   )
 
@@ -55,37 +54,6 @@ export const FeaturedTextContents = (
         return (
           <div key={`featured-content-${index}`} className="w-full">
             {true && <SummaryCard {...summary} displayMode={DisplayMode.ROW} direction={direction} />}
-          </div>
-        )
-      })}
-    </div>
-  )
-
-  return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
-}
-
-export const FeaturedTextContentsMobile = (
-  props: FeaturedSectionCommonprops & {
-    headline: Summary
-    featured: Summary[]
-  }
-) => {
-  const {headline, featured, ...rest} = props
-  const {title, direction} = rest
-
-  const headlineComponent = (
-    <div className="w-full h-full flex flex-col items-center">
-      <h1 className="w-full text-center text-4xl">精選{title}</h1>
-      <div className="w-full grow">{false && <SummaryCard {...headline} />}</div>
-    </div>
-  )
-
-  const featuredComponent = (
-    <div className="w-full h-full grid grid-rows-4 gap-2">
-      {featured.map((summary, index) => {
-        return (
-          <div key={`featured-content-${index}`} className="w-full">
-            {true && <SummaryCard {...summary} direction={direction} />}
           </div>
         )
       })}

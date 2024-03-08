@@ -17,26 +17,33 @@ export type Summary = {
 
 export const SummaryCard = (props: Summary) => {
   const {url, ogTitle, ogDescription, ogImage, displayMode, direction} = props
-  const isRow = displayMode === DisplayMode.ROW
-  const isLeft = direction === Direction.LEFT
+  const isColumn = displayMode === DisplayMode.COLUMN
+  const isRight = direction === Direction.RIGHT
 
-  // Assign flex direction: flex-row/flex-col/flex-row-reverse/flex-col-reverse
-  const flexAttr = `flex-${isRow ? "row" : "col"}${isLeft ? "" : "-reverse"}`
+  // Assign flex direction: flex-col/flex-row/flex-row-reverse
+  const flexAttr = `flex-${isColumn ? "col" : "row"}${!isColumn && isRight ? "-reverse" : ""}`
 
   // TODO: ellipsis for <p>
   return (
     url && (
       <Link
         href={url}
-        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
+        className={`w-full flex ${flexAttr} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="w-1/3">
-          <img className="overflow-hidden" src={ogImage} alt={ogTitle} />
+        <div
+          className={isColumn ? "w-full" : "w-1/3"}
+          style={{
+            maxWidth: "100%",
+            height: "calc(100% / 16 * 9)",
+            aspectRatio: "16/9"
+          }}
+        >
+          <img className="w-full h-full overflow-hidden object-cover" src={ogImage} alt={ogTitle} />
         </div>
-        <div className="w-2/3">
-          <h2 className={`mb-3 text-2xl ${isLeft ? "text-right" : "text-left"} font-semibold`}>{ogTitle}</h2>
+        <div className={isColumn ? "w-full" : "w-2/3"}>
+          <h2 className={`mb-3 text-2xl ${isRight ? "text-left" : "text-right"} font-semibold`}>{ogTitle}</h2>
           <p className="w-full m-0 text-sm opacity-50">{ogDescription}</p>
         </div>
       </Link>
