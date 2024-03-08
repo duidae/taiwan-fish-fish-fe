@@ -23,6 +23,7 @@ export const P5Wrapper = (props: any) => {
         entries.forEach(entry => {
           console.log(entry.target.clientWidth, entry.target.clientHeight)
           requestAnimationFrame(() => {
+            // @ts-ignore
             canvasInstanceRef.current?.resizeCanvas(entry.target.clientWidth, entry.target.clientHeight)
           })
         })

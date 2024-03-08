@@ -3,18 +3,11 @@
   Sketch source: https://openprocessing.org/sketch/1770863
   Author: https://openprocessing.org/user/110137
 */
-
-import {type Sketch, SketchProps, P5CanvasInstance} from "@p5-wrapper/react"
 import {P5_PLAYGROUND_ID} from "@/app/constant"
-
-type WiggleFishSketchProps = SketchProps & {
-  fishSrcs: string[]
-  selectedIndex: number
-}
 
 const enterKeyCode = 13
 
-export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
+export const sketch = (p5: any) => {
   let fishSrcs: string[] = []
   let fishImgs: any[] = []
   let selectedIndex: number = 0
@@ -72,7 +65,7 @@ export const sketch: Sketch = (p5: P5CanvasInstance<WiggleFishSketchProps>) => {
     })
   }
 
-  p5.updateWithProps = (props: WiggleFishSketchProps) => {
+  p5.updateWithProps = (props: any) => {
     if (props.fishSrcs?.length > 0) {
       fishSrcs = props.fishSrcs
     }

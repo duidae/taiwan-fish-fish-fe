@@ -1,6 +1,6 @@
 import {P5_PLAYGROUND_ID} from "@/app/constant"
 
-export const sketch = p5 => {
+export const sketch = (p5: any) => {
   const container = p5.select(`#${P5_PLAYGROUND_ID}`)
   const width = container.width
   const height = container.height
