@@ -33,9 +33,8 @@ export const SummaryCard = (props: Summary) => {
         rel="noopener noreferrer"
       >
         <div
-          className={isColumn ? "w-full grow" : "w-1/3"}
+          className={isColumn ? "max-w-full w-full grow" : "w-1/3"}
           style={{
-            maxWidth: "100%",
             height: "calc(100% / 16 * 9)",
             aspectRatio: "16/9"
           }}
