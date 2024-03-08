@@ -20,14 +20,16 @@ export default function Home() {
   const headlineTopic = posts[0]
   const featuredTopics = posts.slice(1)
 
-  const screenSizeClassName = "w-full h-screen"
-
-  return (
-    <main className="flex flex-col w-full items-center justify-between">
-      <div id="interactive-section" className={screenSizeClassName}>
-        <InteractiveSection videos={relaxingVideos} images={amazingImages} />
-      </div>
-      <div id="featured-1" className={screenSizeClassName}>
+  const sections = [
+    {
+      id: "interactive-section",
+      label: "頁首",
+      component: <InteractiveSection videos={relaxingVideos} images={amazingImages} />
+    },
+    {
+      id: "featured-1",
+      label: ROUTE_VIDEO.title,
+      component: (
         <FeaturedVideos
           title={ROUTE_VIDEO.title}
           route={ROUTE_VIDEO.path}
@@ -35,38 +37,49 @@ export default function Home() {
           headline={headlineVideo}
           featured={featuredVideos}
         />
-      </div>
+      )
+    },
+    {
+      id: "featured-2",
+      label: ROUTE_TOPIC.title,
+      component: (
+        <FeaturedTopics
+          title={ROUTE_TOPIC.title}
+          route={ROUTE_TOPIC.path}
+          direction={DIRECTION.Left}
+          headline={headlineTopic}
+          featured={featuredTopics}
+        />
+      )
+    },
+    {
+      id: "featured-3",
+      label: ROUTE_POST.title,
+      component: (
+        <FeaturedPosts
+          title={ROUTE_POST.title}
+          route={ROUTE_POST.path}
+          direction={DIRECTION.Right}
+          headline={headlinePost}
+          featured={featuredPosts}
+        />
+      )
+    }
+  ]
+  const tocIndexes = sections.map(section => {
+    return {id: section.id, label: section.label}
+  })
 
-      <div id="featured-2" className={screenSizeClassName}>
-        {false && (
-          <FeaturedTopics
-            title={ROUTE_TOPIC.title}
-            route={ROUTE_TOPIC.path}
-            direction={DIRECTION.Left}
-            headline={headlineTopic}
-            featured={featuredTopics}
-          />
-        )}
-      </div>
-      <div id="featured-3" className={screenSizeClassName}>
-        {false && (
-          <FeaturedPosts
-            title={ROUTE_POST.title}
-            route={ROUTE_POST.path}
-            direction={DIRECTION.Right}
-            headline={headlinePost}
-            featured={featuredPosts}
-          />
-        )}
-      </div>
-      <TOC
-        indexes={[
-          {id: "interactive-section", label: "頁首"},
-          {id: "featured-1", label: ROUTE_VIDEO.title},
-          {id: "featured-2", label: ROUTE_TOPIC.title},
-          {id: "featured-3", label: ROUTE_POST.title}
-        ]}
-      />
+  return (
+    <main className="flex flex-col w-full items-center justify-between">
+      {sections.map((seciton, index) => {
+        return (
+          <div key={`home-section-${index}`} id={seciton.id} className="w-full h-screen">
+            {seciton.component}
+          </div>
+        )
+      })}
+      <TOC indexes={tocIndexes} />
     </main>
   )
 }
