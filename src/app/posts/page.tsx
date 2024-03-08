@@ -22,9 +22,7 @@ export default function Posts() {
     <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
       <div className="text-2xl">所有文章</div>
       {slider}
-      <div className="mt-8 mb-4 grid text-center w-4/5 lg:grid-cols-4 lg:text-left gap-8">
-        {postComponents}
-      </div>
+      <div className="mt-8 mb-4 grid text-center w-4/5 lg:grid-cols-4 lg:text-left gap-8">{postComponents}</div>
     </main>
   )
 }

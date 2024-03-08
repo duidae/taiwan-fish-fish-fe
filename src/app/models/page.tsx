@@ -12,11 +12,9 @@ export default function Models() {
 
   return (
     <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
-    <div className="text-2xl">所有模型</div>
-    {slider}
-    <div className="mt-8 mb-4 grid text-center w-4/5 lg:grid-cols-3 lg:text-left gap-8">
-      {modelCompnents}
-    </div>
-  </main>
+      <div className="text-2xl">所有模型</div>
+      {slider}
+      <div className="mt-8 mb-4 grid text-center w-4/5 lg:grid-cols-3 lg:text-left gap-8">{modelCompnents}</div>
+    </main>
   )
 }
