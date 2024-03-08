@@ -1,11 +1,7 @@
 import Link from "next/link"
 import {Summary, SummaryCard} from "@/app/components/summary-card"
-import {HEADER_HEIGHT, TOC_WIDTH} from "../constant"
+import {HEADER_HEIGHT, TOC_WIDTH, DIRECTION} from "../constant"
 
-export enum DIRECTION {
-  Left = "LEFT",
-  Right = "RIGHT"
-}
 export interface FeaturedSectionCommonprops {
   title: string
   route: string

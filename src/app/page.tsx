@@ -1,8 +1,8 @@
 import {InteractiveSection} from "@/app/home/interactive-section"
 import {FeaturedVideos} from "@/app/home/featured-videos"
-import {FeaturedTextContents, DIRECTION} from "@/app/home/featured-section"
+import {FeaturedTextContents} from "@/app/home/featured-section"
 import {TOC} from "@/app/home/table-of-content"
-import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST} from "@/app/constant"
+import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, DIRECTION} from "@/app/constant"
 
 // TODO: remove mockups when cms is ready
 import {chillYTVideos, featuredImages, YTVideos, featuredPosts as posts} from "./mockups"
