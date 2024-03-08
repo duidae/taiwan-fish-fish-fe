@@ -28,12 +28,12 @@ export const SummaryCard = (props: Summary) => {
     url && (
       <Link
         href={url}
-        className={`w-full flex ${flexAttr} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
+        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
         target="_blank"
         rel="noopener noreferrer"
       >
         <div
-          className={isColumn ? "w-full" : "w-1/3"}
+          className={isColumn ? "w-full grow" : "w-1/3"}
           style={{
             maxWidth: "100%",
             height: "calc(100% / 16 * 9)",

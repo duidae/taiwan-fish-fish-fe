@@ -70,7 +70,7 @@ export default function Home() {
 
   const sectionsJSX = sections.map((seciton, index) => {
     return (
-      <div key={`home-section-${index}`} id={seciton.id} className="w-full h-screen">
+      <div key={`home-section-${index}`} id={seciton.id} className="w-full h-screen flex flex-col items-center">
         {seciton.component}
       </div>
     )

@@ -19,9 +19,10 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
 
   return (
     <div
-      className="w-full h-full flex flex-col justify-center items-center gap-4"
+      className="max-w-screen-2xl w-full h-full flex flex-col justify-center items-center gap-4"
       style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
+      <h1>精選{title}</h1>
       <div className="w-full grow flex flex-row justify-center items-stretch">
         <div className="w-1/2">{isLeft ? headline : featured}</div>
         <div className="w-1/2">{isLeft ? featured : headline}</div>
@@ -40,7 +41,7 @@ export const FeaturedTextContents = (
   }
 ) => {
   const {headline, featured, ...rest} = props
-  const {title, direction} = rest
+  const {direction} = rest
 
   const headlineComponent = (
     <div className="w-full h-full flex flex-col items-center justify-center">
@@ -53,7 +54,7 @@ export const FeaturedTextContents = (
       {featured.map((summary, index) => {
         return (
           <div key={`featured-content-${index}`} className="w-full">
-            {true && <SummaryCard {...summary} displayMode={DisplayMode.ROW} direction={direction} />}
+            <SummaryCard {...summary} displayMode={DisplayMode.ROW} direction={direction} />
           </div>
         )
       })}
