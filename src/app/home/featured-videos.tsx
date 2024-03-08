@@ -29,7 +29,7 @@ export const FeaturedVideos = (
 
   // TODO: make vertical slider
   const featuredSlider = (
-    <div className="w-full h-full flex flex-col items-center justify-between cursor-pointer">
+    <div className="w-full h-full flex flex-col items-center justify-evenly cursor-pointer">
       {featured?.map((url, index) => {
         return (
           <div

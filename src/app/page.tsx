@@ -1,6 +1,6 @@
 import {InteractiveSection} from "@/app/home/interactive-section"
 import {FeaturedVideos} from "@/app/home/featured-videos"
-import {FeaturedPosts, FeaturedTopics, DIRECTION} from "@/app/home/featured-section"
+import {FeaturedTextContents, DIRECTION} from "@/app/home/featured-section"
 import {TOC} from "@/app/home/table-of-content"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST} from "@/app/constant"
 
@@ -44,7 +44,7 @@ export default function Home() {
       id: "featured-2",
       label: ROUTE_TOPIC.title,
       component: (
-        <FeaturedTopics
+        <FeaturedTextContents
           title={ROUTE_TOPIC.title}
           route={ROUTE_TOPIC.path}
           direction={DIRECTION.Right}
@@ -57,7 +57,7 @@ export default function Home() {
       id: "featured-3",
       label: ROUTE_POST.title,
       component: (
-        <FeaturedPosts
+        <FeaturedTextContents
           title={ROUTE_POST.title}
           route={ROUTE_POST.path}
           direction={DIRECTION.Left}

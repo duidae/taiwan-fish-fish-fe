@@ -37,57 +37,30 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
   )
 }
 
-export const FeaturedTopics = (
+export const FeaturedTextContents = (
   props: FeaturedSectionCommonprops & {
     headline: Summary
     featured: Summary[]
   }
 ) => {
   const {headline, featured, ...rest} = props
-  const {title} = rest
+  const {title, direction} = rest
 
   const headlineComponent = (
     <div className="w-full h-full flex flex-col items-center">
-      <div className="w-full text-center">精選{title}</div>
-      <div className="w-full grow">
-        <SummaryCard {...headline} />
-      </div>
+      <h1 className="w-full text-center text-4xl">精選{title}</h1>
+      <div className="w-full grow">{false && <SummaryCard {...headline} />}</div>
     </div>
   )
 
   const featuredComponent = (
-    <div className="flex flex-col gap-4">
-      {featured.map(summary => {
-        return false && <SummaryCard {...summary} />
-      })}
-    </div>
-  )
-
-  return <FeaturedSection headline={headlineComponent} featured={featuredComponent} {...rest} />
-}
-
-export const FeaturedPosts = (
-  props: FeaturedSectionCommonprops & {
-    headline: Summary
-    featured: Summary[]
-  }
-) => {
-  const {headline, featured, ...rest} = props
-  const {title} = rest
-
-  const headlineComponent = (
-    <div className="w-full h-full flex flex-col items-center">
-      <div className="w-full text-center">精選{title}</div>
-      <div className="w-full grow">
-        <SummaryCard {...headline} />
-      </div>
-    </div>
-  )
-
-  const featuredComponent = (
-    <div className="flex flex-col gap-4">
-      {featured.map(summary => {
-        return false && <SummaryCard {...summary} />
+    <div className="w-full h-full grid grid-rows-3 gap-2">
+      {featured.map((summary, index) => {
+        return (
+          <div key={`featured-content-${index}`} className="w-full">
+            {true && <SummaryCard {...summary} direction={direction} />}
+          </div>
+        )
       })}
     </div>
   )

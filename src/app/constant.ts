@@ -57,3 +57,8 @@ export const SOCIAL_MEDIA = [
     url: "https://github.com/duidae/taiwan-fish-fish-fe"
   }
 ]
+
+export enum DIRECTION {
+  Left = "LEFT",
+  Right = "RIGHT"
+}

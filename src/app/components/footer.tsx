@@ -8,7 +8,7 @@ export const Footer = () => {
         <Link href={ROUTE_ABOUT.path}>{ROUTE_ABOUT.title}</Link>
         <div className="w-full flex flex-row">
           {SOCIAL_MEDIA.map((media, index) => (
-            <Link key={`social-media-link-${index}`} href={media.url} target="_blank">
+            <Link key={`social-media-link-${index}`} href={media.url} target="_blank" rel="noopener noreferrer">
               {media.icon}
             </Link>
           ))}
