@@ -1,7 +1,7 @@
 import {FBIcon, GithubIcon} from "./icons"
 
 export const SITE_NAME = "年年有魚"
-export const SITE_TITLE = `${SITE_NAME} - 最新鮮有趣的台灣原生魚類新聞`
+export const SITE_TITLE = `${SITE_NAME} - 來看台灣原生魚啊`
 export const SITE_DESCRIPTION = "" // TODO: fill up desc
 export const EMAIL = "taiwanfishfish@gmail.com"
 
