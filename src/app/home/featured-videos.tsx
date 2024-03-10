@@ -20,6 +20,7 @@ export const FeaturedVideos = (
       <iframe
         width="100%"
         height="100%"
+        loading="lazy"
         src={`https://www.youtube.com/embed/${ytID}`}
         frameBorder="0"
         allowFullScreen
