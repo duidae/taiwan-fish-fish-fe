@@ -34,6 +34,7 @@ export const Video = (props: {ytURLs: string[]; className?: string}) => {
               <swiper-slide key={`yt-slide-${index}`} style={{paddingBottom: "40px"}}>
                 <iframe
                   width="100%"
+                  loading="lazy"
                   src={url}
                   title="YouTube video player"
                   frameBorder="0"
