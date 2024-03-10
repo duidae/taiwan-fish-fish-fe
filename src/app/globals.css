@@ -27,6 +27,8 @@ body {
   --swiper-pagination-color: white;
   --swiper-pagination-bullet-inactive-color: gray;
   --swiper-pagination-bullet-inactive-opacity: 1;
+
+  --theme-blue: #27b5f7;
 }
 
 /* TODO: move to video component */

@@ -12,7 +12,7 @@ const Index = styled.div`
   color: #8e8e8e;
 
   &.active {
-    color: #27b5f7;
+    color: var(--theme-blue);
   }
 `
 

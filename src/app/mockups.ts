@@ -17,7 +17,12 @@ export const YTVideos = [
   "https://www.youtube.com/watch?v=R9yguVRvZ6M"
 ]
 
-export const featuredImages = [/*"/test1.webp", "/test2.webp", "/test3.jpeg",*/ "/ai1.jpeg", "/ai2.jpeg"]
+export const featuredImages = [
+  /*"/test1.webp", "/test2.webp", "/test3.jpeg",*/ "lee.jpeg",
+  "/ai1.jpeg",
+  "/ai2.jpeg",
+  "/ai3.jpeg"
+]
 export const featuredYTVideos = YTVideos.slice(0, 5)
 
 export const PostURLs = [

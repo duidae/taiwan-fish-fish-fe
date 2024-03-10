@@ -1,5 +1,5 @@
 import Link from "next/link"
-import {ROUTE_ABOUT, SOCIAL_MEDIA} from "@/app/constant"
+import {EMAIL, ROUTE_ABOUT, SOCIAL_MEDIA} from "@/app/constant"
 
 export const Footer = () => {
   return (
@@ -12,6 +12,9 @@ export const Footer = () => {
           </Link>
         ))}
       </div>
+      <Link href={`mailto: ${EMAIL}`} style={{color: "var(--theme-blue)"}}>
+        {EMAIL}
+      </Link>
     </div>
   )
 }
