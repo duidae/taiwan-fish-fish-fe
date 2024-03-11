@@ -18,7 +18,14 @@ export const YTVideos = [
 ]
 
 export const featuredImages = [
-  /*"/test1.webp", "/test2.webp", "/test3.jpeg",*/ "lee.jpeg",
+  /*
+  "/test1.webp",
+  "/test2.webp",
+  "/test3.jpeg",
+  "/test4.jpeg",
+  "/test5.jpeg",
+  */
+  "lee.jpeg",
   "/ai1.jpeg",
   "/ai2.jpeg",
   "/ai3.jpeg"
