@@ -93,3 +93,23 @@ export const models = [
   `<div class="sketchfab-embed-wrapper"> <iframe title="False Jaguar Catfish, Auchenipteridae" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="100%" src="https://sketchfab.com/models/3896b502ef9b4c6ebceeb68a06e485b5/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/false-jaguar-catfish-auchenipteridae-3896b502ef9b4c6ebceeb68a06e485b5?utm_medium=embed&utm_campaign=share-popup&utm_content=3896b502ef9b4c6ebceeb68a06e485b5" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> False Jaguar Catfish, Auchenipteridae </a> by <a href="https://sketchfab.com/FloridaMuseum?utm_medium=embed&utm_campaign=share-popup&utm_content=3896b502ef9b4c6ebceeb68a06e485b5" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> FloridaMuseum </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=3896b502ef9b4c6ebceeb68a06e485b5" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
   `<div class="sketchfab-embed-wrapper"> <iframe title="Radiatula piliata - Freshwater Mussel" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="100%" src="https://sketchfab.com/models/81abdf270fcb4faeaa9da15430690d4f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/radiatula-piliata-freshwater-mussel-81abdf270fcb4faeaa9da15430690d4f?utm_medium=embed&utm_campaign=share-popup&utm_content=81abdf270fcb4faeaa9da15430690d4f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Radiatula piliata - Freshwater Mussel </a> by <a href="https://sketchfab.com/FloridaMuseum?utm_medium=embed&utm_campaign=share-popup&utm_content=81abdf270fcb4faeaa9da15430690d4f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> FloridaMuseum </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=81abdf270fcb4faeaa9da15430690d4f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
 ]
+
+export const postMockup = {
+  initialContent: [
+    {
+      type: "paragraph",
+      content: "Welcome to this demo!"
+    },
+    {
+      type: "heading",
+      content: "This is a heading block"
+    },
+    {
+      type: "paragraph",
+      content: "This is a paragraph block"
+    },
+    {
+      type: "paragraph"
+    }
+  ]
+}
