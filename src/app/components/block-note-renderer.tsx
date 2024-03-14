@@ -12,5 +12,5 @@ export const BlockNoteRenderer = (props: {content: any}) => {
 
   const editor = useCreateBlockNote(content)
 
-  return <BlockNoteView editable={false} editor={editor} onChange={() => {}} />
+  return <BlockNoteView editable={false} editor={editor} />
 }
