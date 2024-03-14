@@ -6,9 +6,9 @@ import {FeaturedSectionCommonprops, FeaturedSection} from "./featured-section"
 
 type URL = string
 
-const ytOEmbedTemplate = 'http://youtube.com/oembed?url=${url}&format=json'
-const ytEmbedTemplate = 'https://www.youtube.com/embed/${id}'
-const ytImgTemplate = 'https://i.ytimg.com/vi/${id}/hqdefault.jpg'
+const ytOEmbedTemplate = "http://youtube.com/oembed?url=${url}&format=json"
+const ytEmbedTemplate = "https://www.youtube.com/embed/${id}"
+const ytImgTemplate = "https://i.ytimg.com/vi/${id}/hqdefault.jpg"
 
 export const FeaturedVideos = (
   props: FeaturedSectionCommonprops & {
@@ -22,8 +22,8 @@ export const FeaturedVideos = (
 
   useEffect(() => {
     const requests = featured.map(ytURL => {
-      const oembedURL = ytOEmbedTemplate.replace('${url}', ytURL)
-      axios.get(oembedURL)
+      const oembedURL = ytOEmbedTemplate.replace("${url}", ytURL)
+      return axios.get(oembedURL)
     })
     Promise.all(requests)
       .then(responses => {
@@ -41,7 +41,7 @@ export const FeaturedVideos = (
         width="100%"
         height="100%"
         loading="lazy"
-        src={ytEmbedTemplate.replace('${id}', ytID)}
+        src={ytEmbedTemplate.replace("${id}", ytID)}
         frameBorder="0"
         allowFullScreen
       />
@@ -53,7 +53,7 @@ export const FeaturedVideos = (
     <div className="w-full h-full flex flex-col items-center justify-evenly cursor-pointer">
       {featured?.map((url, index) => {
         const ytID = GetIDFromYTURL(url)
-        const coverImg = ytID ? ytImgTemplate.replace('${id}', ytID) : ''
+        const coverImg = ytID ? ytImgTemplate.replace("${id}", ytID) : ""
 
         return (
           <div
