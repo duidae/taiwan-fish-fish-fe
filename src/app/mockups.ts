@@ -113,3 +113,23 @@ export const postMockup = {
     }
   ]
 }
+
+export const topicMockup = {
+  initialContent: [
+    {
+      type: "paragraph",
+      content: "Welcome to this demo!"
+    },
+    {
+      type: "heading",
+      content: "This is a heading block"
+    },
+    {
+      type: "paragraph",
+      content: "This is a paragraph block"
+    },
+    {
+      type: "paragraph"
+    }
+  ]
+}

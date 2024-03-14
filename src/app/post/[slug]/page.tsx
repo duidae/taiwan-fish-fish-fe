@@ -1,6 +1,6 @@
 import {Metadata} from "next"
 import {notFound} from "next/navigation"
-import {PostRenderer} from "./post-renderer"
+import {BlockNoteRenderer} from "@/app/components/block-note-renderer"
 
 // TODO: remove mockup
 import {postMockup} from "@/app/mockups"
@@ -43,7 +43,7 @@ export default async function Post({params}: {params: {slug: string}}) {
 
   return (
     <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
-      <PostRenderer content={content} />
+      <BlockNoteRenderer content={content} />
     </main>
   )
 }

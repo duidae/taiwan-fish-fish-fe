@@ -7,7 +7,7 @@ import "@blocknote/react/style.css"
 
 //const BlockNoteView = dynamic(async () => (await import("@blocknote/react")), {ssr: false})
 
-export const PostRenderer = (props: {content: any}) => {
+export const BlockNoteRenderer = (props: {content: any}) => {
   const {content} = props
 
   const editor = useCreateBlockNote(content)
