@@ -1,5 +1,6 @@
 "use client"
-import {BlockNoteView, useCreateBlockNote} from "@blocknote/react"
+import {BlockNoteEditor, PartialBlock} from "@blocknote/core"
+import {BlockNoteView} from "@blocknote/react"
 import dynamic from "next/dynamic"
 
 import "@blocknote/core/fonts/inter.css"
@@ -10,7 +11,8 @@ import "@blocknote/react/style.css"
 export const BlockNoteRenderer = (props: {content: any}) => {
   const {content} = props
 
-  const editor = useCreateBlockNote(content)
+  const initialContent = content ? (JSON.parse(content) as PartialBlock[]) : undefined
+  const editor = BlockNoteEditor.create({initialContent})
 
   return <BlockNoteView editable={false} editor={editor} />
 }

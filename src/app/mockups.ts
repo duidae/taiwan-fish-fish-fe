@@ -94,27 +94,11 @@ export const models = [
   `<div class="sketchfab-embed-wrapper"> <iframe title="Radiatula piliata - Freshwater Mussel" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="100%" src="https://sketchfab.com/models/81abdf270fcb4faeaa9da15430690d4f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/radiatula-piliata-freshwater-mussel-81abdf270fcb4faeaa9da15430690d4f?utm_medium=embed&utm_campaign=share-popup&utm_content=81abdf270fcb4faeaa9da15430690d4f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Radiatula piliata - Freshwater Mussel </a> by <a href="https://sketchfab.com/FloridaMuseum?utm_medium=embed&utm_campaign=share-popup&utm_content=81abdf270fcb4faeaa9da15430690d4f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> FloridaMuseum </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=81abdf270fcb4faeaa9da15430690d4f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
 ]
 
-export const postMockup = {
-  initialContent: [
-    {
-      type: "paragraph",
-      content: "Welcome to this demo!"
-    },
-    {
-      type: "heading",
-      content: "This is a heading block"
-    },
-    {
-      type: "paragraph",
-      content: "This is a paragraph block"
-    },
-    {
-      type: "paragraph"
-    }
-  ]
-}
+export const postMockup =
+  '[{"id":"a3bf611b-2111-400f-a233-a2e058d82a6f","type":"image","props":{"backgroundColor":"default","textAlignment":"left","url":"https://www.newsmarket.com.tw/mag/files/2022/06/no204-5-1.jpg","caption":"","width":512},"children":[]},{"id":"3eb0661a-8483-4591-9ad8-473da73db079","type":"heading","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left","level":1},"content":[{"type":"text","text":"被遺忘的寶貝—談台灣淡水魚類保育現況","styles":{"bold":true}}],"children":[]},{"id":"668a607c-7864-4c55-8f63-c5ff1433360e","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]},{"id":"24c6300b-fc33-4975-9bf3-ec7da6791c16","type":"heading","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left","level":3},"content":[{"type":"text","text":"在已經今非昔比，絕不能再用過去的習慣來看待魚類生態。我從２００４年做野外採集至今，看著好幾種魚類的族群量，在十多年間下跌９成，許多是因為河川工程，有的疑是被商採耗盡了，這顯示很多淡水魚類物種已經不再是可以任意取用的「資源」，這觀念必須改正了。","styles":{}}],"children":[]},{"id":"79475176-4d20-4ff0-bb0b-d80f86bbb433","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]},{"id":"d4a56bf2-e9d5-44e9-b7c1-ca0d6bd4c561","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[{"type":"text","text":"最近，我以民間提案人的角色，在一些朋友的協作下寫了一份保育類淡水魚名錄新增的提案書給林務局，建議了1５種加1屬的淡水魚類，新增列入野保法保育類野生動物名單中，如果能按我們預期的通過，將會是台灣淡水魚保育的一個「遲來的」里程碑。我只是一個愛研究魚的人，我有自己的正職工作，會參與推動保育這件事，是有原因的。","styles":{}}],"children":[]},{"id":"8048e231-c075-45d8-ad01-129a814c0de4","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]},{"id":"d4bd2119-eb7f-47ea-a794-f9a7e4bad585","type":"heading","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left","level":3},"content":[{"type":"text","text":"商採滅魚又封口","styles":{"bold":true}}],"children":[]},{"id":"5e7143ac-80bf-490d-aefa-bca0e8aebba4","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]},{"id":"068e2183-c9a2-4033-b2a2-2fd17ea128c0","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[{"type":"text","text":"2017年開始，我接觸了人禾基金會等等環保團體，陰錯陽差地開啟了新的生活，假日除了下水拍魚以外，還需偶而去支援一些講座或是野外教育活動，甚至有時候要幫忙提供魚類的觀察紀錄。合作過程中，我們發現水域生態教育的推廣有一個很大的障礙，就是環團在運用一些珍稀魚類的出現資料時，尤其在教育大眾時，會很擔心一但暴露了魚種的明確棲地，該地族群很可能就為採集的目標而有滅絕危機。這個顧慮造成環團寫魚的文章常常只能寫一半，說話只能說一半，像被鎖喉一樣。","styles":{}}],"children":[]},{"id":"f4cbfb95-8d33-48dd-9eb2-7360c39334a4","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]},{"id":"e8344e78-7274-4e04-8f7c-0eb80e6c7ef2","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[{"type":"text","text":"這個問題很困擾我們，因為現在不合理的河川工程太多了，以可怕的速度在破壞生態環境，甚至還以生態為名，而人們不瞭解周遭的水域生態，就很難知道自己究竟失去什麼，只是愈來愈怕水、離水域來愈遠。","styles":{}}],"children":[]},{"id":"c3d4b1b4-f34d-4ee0-895d-0f1c1eaf84b6","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]},{"id":"333f44a3-fb1a-4270-a59a-4baccf0afd8e","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[{"type":"text","text":"水裡有些可愛的小生物、複雜美妙的生態系統，這些事人們不應該不知道，所以我們曾經嘗試多揭露一些特殊物種的生態，同時宣導大家不要採集與飼養無法人工繁殖的洄游性珍稀魚種，結果一寫出來沒多久，竟然被朋友告知某些棲地的魚已經被採集殆盡，因為一些有心人士看我們的文章循線找到了那些族群，毫不留情地把魚採走了。更糟糕的是，我們的宣導，還引發了某些採集愛好者或相關利益人士的反彈，在網路上進行了一番詆毀，「自己抓夠了就要人不抓」、「怎麼不去管棲地破壞問題，劃錯重點」等等言論在群組流傳。","styles":{}}],"children":[]},{"id":"df316a86-186f-40a9-9a9f-f06ef758f597","type":"paragraph","props":{"textColor":"default","backgroundColor":"default","textAlignment":"left"},"content":[],"children":[]}]'
 
-export const topicMockup = {
+export const topicMockup = postMockup
+/*{
   initialContent: [
     {
       type: "paragraph",
@@ -133,3 +117,4 @@ export const topicMockup = {
     }
   ]
 }
+*/
