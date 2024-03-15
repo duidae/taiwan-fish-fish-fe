@@ -5,6 +5,7 @@ export const SITE_TITLE = `${SITE_NAME} - 來看台灣原生魚啊`
 export const SITE_DESCRIPTION = "" // TODO: fill up desc
 export const ORGANIZATION = "年年有魚生態文化有限公司"
 export const EMAIL = "taiwanfishfish@gmail.com"
+export const SUBSCRIPTION_URL = "http://eepurl.com/iMaab-/"
 
 export const P5_PLAYGROUND_ID = "P5-playground"
 export const HEADER_HEIGHT = 64

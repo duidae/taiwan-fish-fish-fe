@@ -1,5 +1,6 @@
 import Link from "next/link"
 import {SITE_NAME, ROUTE_HEADER} from "@/app/constant"
+import {SubscribeBtn} from "./subscription"
 
 export const Header = () => {
   return (
@@ -11,6 +12,7 @@ export const Header = () => {
             {route.title}
           </Link>
         ))}
+        <SubscribeBtn />
       </nav>
     </div>
   )
