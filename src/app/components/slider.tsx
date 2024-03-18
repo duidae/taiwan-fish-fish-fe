@@ -10,6 +10,7 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
   return (
     <div className="w-full h-96 flex">
       <swiper-container
+        autoplay-delay="2500"
         navigation="true"
         pagination="true"
         pagination-clickable="true"
