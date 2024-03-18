@@ -10,7 +10,8 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
   return (
     <div className="w-full h-96 flex">
       <swiper-container
-        autoplay-delay="2500"
+        autoplay-delay="3500"
+        slides-per-view="3"
         navigation="true"
         pagination="true"
         pagination-clickable="true"
@@ -18,8 +19,8 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
         loop="true"
         style={{width: "100%"}}
       >
-        {slides.map((slide, index) => {
-          return slide && <swiper-slide key={`slide-${index}`}>{true && slide}</swiper-slide>
+        {slides?.map((slide, index) => {
+          return slide && <swiper-slide key={`slide-${index}`}>{slide}</swiper-slide>
         })}
       </swiper-container>
     </div>
