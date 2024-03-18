@@ -32,10 +32,12 @@ export default function Posts() {
 
   return (
     <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
-      <div className="text-2xl">精選文章</div>
-      <Slider slides={featuredComponents} />
-      <div className="text-2xl">所有文章</div>
-      <div className="mt-8 mb-4 grid text-center w-4/5 lg:grid-cols-4 lg:text-left gap-8">{postComponents}</div>
+      <div className="text-2xl mb-8">精選文章</div>
+      <div className="w-4/5">
+        <Slider slides={featuredComponents} />
+      </div>
+      <div className="text-2xl mt-8 mb-8">所有文章</div>
+      <div className="w-4/5 grid text-center  lg:grid-cols-4 lg:text-left gap-8 mt-4 mb-4">{postComponents}</div>
     </main>
   )
 }
