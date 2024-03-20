@@ -37,8 +37,8 @@ const Map = () => {
   return (
     <div className="w-full h-full">
       <div className="flex flex-col right-0 top-1/4">
-        {taxons.map(taxon => (
-          <button onClick={() => handleTaxonChange(taxon.id)}>{taxon.label}</button>
+        {taxons.map((taxon, index) => (
+          <button key={`taxon-select-${index}`} onClick={() => handleTaxonChange(taxon.id)}>{taxon.label}</button>
         ))}
       </div>
       <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom={true}>
