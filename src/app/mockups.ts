@@ -21,11 +21,17 @@ export const featuredImages = [
   /*
   "/test1.webp",
   "/test2.webp",
-  "/test3.jpeg",
-  "/test4.jpeg",
   "/test5.jpeg",
   */
+  /*
+  "/test3.jpeg",
+  "/test2.webp",
+  "/test4.jpeg",
+  */
   "lee.jpeg",
+  "chang.png",
+  "kuo.jpeg",
+  "won.jpeg",
   "/ai1.jpeg",
   "/ai2.jpeg",
   "/ai3.jpeg"
