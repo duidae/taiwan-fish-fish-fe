@@ -48,38 +48,51 @@ const taxons = [
 // place_id=131031 - taiwan
 // iconic_taxa=Actinopterygii - fish
 
+const Item = (props: {checked: boolean; onChange: () => void; children?: React.ReactNode}) => {
+  const {checked, onChange, children} = props
+  return (
+    <div className="flex flex-row gap-4">
+      <input className="cursor-pointer" type="checkbox" onChange={onChange} checked={checked} />
+      {children}
+    </div>
+  )
+}
+
 const Map = () => {
   const [coord, setCoord] = useState<LatLngExpression>(TAIWAN_CENTER as LatLngExpression)
-  const [taxonID, setTaxonID] = useState<number>(taxons[0].id)
+  const [taxonIDs, setTaxonIDs] = useState<number[]>([])
 
-  const handleTaxonChange = (id: number) => {
-    setTaxonID(id)
+  const handleSelect = (taxonID: number) => {
+    if (taxonIDs.includes(taxonID)) {
+      setTaxonIDs(taxonIDs.filter(id => id !== taxonID))
+    } else {
+      setTaxonIDs([...taxonIDs, taxonID])
+    }
   }
 
   return (
-    <div className="w-full h-full flex flex-row">
+    <div className="w-full h-full flex flex-row gap-4">
       <div className="w-3/4">
         <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom={true}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <TileLayer
-            attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
-            url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${taxonID}`}
-          />
+          {taxonIDs.map(id => (
+            <TileLayer
+              attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
+              url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
+            />
+          ))}
         </MapContainer>
       </div>
       <div className="w-1/4 flex flex-col right-0 top-1/4">
-        {taxons.map((taxon, index) => (
-          <div className="flex flex-row gap-4">
-            <button key={`taxon-select-${index}`} onClick={() => handleTaxonChange(taxon.id)}>
-              {taxon.label}
-            </button>
+        {taxons.map(taxon => (
+          <Item onChange={() => handleSelect(taxon.id)} checked={taxonIDs.includes(taxon.id)}>
             <a href={`https://www.inaturalist.org/taxa/${taxon.id}`} target="_blank">
               {taxon.label}
             </a>
-          </div>
+          </Item>
         ))}
       </div>
     </div>
