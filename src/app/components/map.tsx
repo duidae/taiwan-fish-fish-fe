@@ -43,6 +43,11 @@ const taxons = [
   url="https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?style=classic.point&srs=EPSG%3A3857&taxonKey=1"
 />
 */
+
+// TODO: query fish - https://www.inaturalist.org/observations?place_id=131031&subview=map&view=species&iconic_taxa=Actinopterygii
+// place_id=131031 - taiwan
+// iconic_taxa=Actinopterygii - fish
+
 const Map = () => {
   const [coord, setCoord] = useState<LatLngExpression>(TAIWAN_CENTER as LatLngExpression)
   const [taxonID, setTaxonID] = useState<number>(taxons[0].id)
