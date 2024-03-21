@@ -63,11 +63,8 @@ const Map = () => {
   const [taxonIDs, setTaxonIDs] = useState<number[]>([])
 
   const handleSelect = (taxonID: number) => {
-    if (taxonIDs.includes(taxonID)) {
-      setTaxonIDs(taxonIDs.filter(id => id !== taxonID))
-    } else {
-      setTaxonIDs([...taxonIDs, taxonID])
-    }
+    const newSelections = taxonIDs.includes(taxonID) ? taxonIDs.filter(id => id !== taxonID) : [...taxonIDs, taxonID]
+    setTaxonIDs(newSelections)
   }
 
   return (
