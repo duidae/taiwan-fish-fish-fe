@@ -31,9 +31,14 @@ const Bullet = styled.li<{$isActive: boolean}>`
   cursor: pointer;
 `
 
-export const FullscreenGallery = (props: {imgSrcs: string[]; body: React.ReactNode; className?: string}) => {
-  const imgSrcs = props.imgSrcs
-  const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(imgSrcs.length))
+export type Gallery = {
+  url: string
+  desc: string
+}
+
+export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.ReactNode}) => {
+  const {gallerySrcs, body} = props
+  const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(gallerySrcs.length))
 
   const onImageChange = (index: number) => {
     setCurrentIndex(index)
@@ -41,15 +46,21 @@ export const FullscreenGallery = (props: {imgSrcs: string[]; body: React.ReactNo
 
   return (
     <div
-      style={{backgroundImage: `url(${imgSrcs[currentIndex]})`, transition: "background-image 0.4s ease-in-out"}}
+      style={{
+        backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
+        transition: "background-image 0.4s ease-in-out"
+      }}
       className="bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24"
     >
-      {props.body}
+      {body}
       <Bullets>
-        {imgSrcs?.map((imgSrc, index) => (
+        {gallerySrcs?.map((gallerySrc, index) => (
           <Bullet key={`img-bullet-${index}`} $isActive={index === currentIndex} onClick={() => onImageChange(index)} />
         ))}
       </Bullets>
+      <div className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-4 bg-slate-50 bg-opacity-50">
+        {gallerySrcs[currentIndex].desc}
+      </div>
     </div>
   )
 }

@@ -25,7 +25,7 @@ export default function Home() {
     {
       id: "interactive-section",
       label: "頁首",
-      component: <InteractiveSection videos={relaxingVideos} images={amazingImages} />
+      component: <InteractiveSection videos={relaxingVideos} gallerySrcs={amazingImages} />
     },
     {
       id: "featured-1",

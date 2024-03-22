@@ -1,12 +1,12 @@
-import {FullscreenGallery} from "./fullscreen-gallery"
+import {FullscreenGallery, Gallery} from "./fullscreen-gallery"
 import {Video} from "./video"
 import {Playground} from "./playground"
 
-export const InteractiveSection = (props: {videos: string[]; images: string[]}) => {
-  const {videos, images} = props
+export const InteractiveSection = (props: {videos: string[]; gallerySrcs: Gallery[]}) => {
+  const {videos, gallerySrcs} = props
   return (
     <FullscreenGallery
-      imgSrcs={images}
+      gallerySrcs={gallerySrcs}
       body={
         <div className="flex flex-row w-full h-full">
           <Video className="w-1/3" ytURLs={videos} />

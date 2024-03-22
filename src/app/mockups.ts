@@ -19,22 +19,51 @@ export const YTVideos = [
 
 export const featuredImages = [
   /*
-  "/test1.webp",
-  "/test2.webp",
-  "/test5.jpeg",
+  {
+    url: "/test1.webp",
+    desc: "David Miller",
+  }, {
+    url: "/test2.webp",
+    desc: "David Miller",
+  }, {
+    url: "/test5.jpeg",
+    desc: "Carol Carter",
+  }, {
+    url: "/test3.jpeg",
+    desc: "David Miller",
+  }, {
+    url: "/test4.jpeg",
+    desc: "Carol Carter",
+  },
   */
-  /*
-  "/test3.jpeg",
-  "/test2.webp",
-  "/test4.jpeg",
-  */
-  "lee.jpeg",
-  "chang.png",
-  "kuo.jpeg",
-  "won.jpeg",
-  "/ai1.jpeg",
-  "/ai2.jpeg",
-  "/ai3.jpeg"
+  {
+    url: "lee.jpeg",
+    desc: "李梅樹《香魚》（1902~1983）台灣原產的香魚，是老一輩人最懷念的食物，三峽河常可捕捉，李梅樹生前也最愛吃香魚，可惜河川汙染後，就再也找不到原生種了，李梅樹這幅《香魚》，為我們紀錄了台灣消失魚種的樣貌，也是碩果僅存的時代見證。"
+  },
+  {
+    url: "chang.png",
+    desc: "張萬傳《四破魚》（1909~2003）出生淡水的前輩畫家張萬傳以畫魚聞名，最出名的創作特色就是「魚畫系列」，在靜物畫中他最偏好的題材為魚，他畫中的魚筆觸強勁、色彩濃厚鮮活，彷彿畫出了魚的生命力，有人說張萬傳把魚的「魚腥味」給畫了出來。"
+  },
+  {
+    url: "kuo.jpeg",
+    desc: "郭柏川《鐵甲魚》（1901~1974）以野獸派筆觸描繪了府城古都風貌及鮮魚水果日常生活滋味，感受藝術日常之況味。以油彩在宣紙大膽塗抹之野獸派風格，青色與朱紅之對比鮮明，成為獨特之繪畫風格。郭柏川喜愛海鮮，台南安平港盛產虱目魚及鐵甲魚，也成為作畫的主題。"
+  },
+  {
+    url: "won.jpeg",
+    desc: "翁崑德《秋刀魚》（1915-1995）臺南前輩藝術家翁崑德於1952年完成的靜物油畫寫生，作品內容主要是以盤上秋刀魚為題材，此作圖像與其同年完成的《海魚》相似，題材應為1951年獲選第六屆全省美展《鮮魚》之延續，直到1974年仍有《海味》出現，可見藝術家對描繪魚之喜好。 《秋刀魚》尺寸縱31公分、橫41.5公分、厚0.6公分。是以油彩顏料繪製於三夾板上之靜物畫。"
+  },
+  {
+    url: "/ai1.jpeg",
+    desc: "AI畫的"
+  },
+  {
+    url: "/ai2.jpeg",
+    desc: "AI畫的"
+  },
+  {
+    url: "/ai3.jpeg",
+    desc: "AI畫的"
+  }
 ]
 export const featuredYTVideos = YTVideos.slice(0, 5)
 
