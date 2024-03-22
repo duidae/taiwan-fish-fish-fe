@@ -43,7 +43,9 @@ export default async function Post({params}: {params: {slug: string}}) {
 
   return (
     <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
-      <BlockNoteRenderer content={content} />
+      <div className="w-4/5">
+        <BlockNoteRenderer content={content} />
+      </div>
     </main>
   )
 }

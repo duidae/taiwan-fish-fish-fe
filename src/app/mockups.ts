@@ -59,7 +59,7 @@ export const featuredPosts = [
     ogImage: "https://www.newsmarket.com.tw/mag/files/2022/06/no204-5-1.jpg",
     ogDescription:
       "在已經今非昔比，絕不能再用過去的習慣來看待魚類生態。我從２００４年做野外採集至今，看著好幾種魚類的族群量，在十多年間下跌９成，許多是因為河川工程，有的疑是被商採耗盡了，這顯示很多淡水魚類物種已經不再是可以任意取用的「資源」，這觀念必須改正了。",
-    url: "https://www.newsmarket.com.tw/mag/11116"
+    url: "/post/aaa"
   },
   {
     ogTitle: "找鮰",
