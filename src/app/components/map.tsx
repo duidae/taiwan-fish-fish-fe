@@ -62,32 +62,38 @@ const Map = () => {
     setTaxonIDs(newSelections)
   }
 
+  const mapComponent = (
+    <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom={true}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {taxonIDs.map(id => (
+        <TileLayer
+          attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
+          url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
+        />
+      ))}
+    </MapContainer>
+  )
+
+  const taxonItems = (
+    <>
+      {taxons.map(taxon => (
+        <Item onChange={() => handleSelect(taxon.taxon.id)} checked={taxonIDs.includes(taxon.taxon.id)}>
+          <a href={`https://www.inaturalist.org/taxa/${taxon.taxon.id}`} target="_blank">
+            <img src={taxon.taxon.default_photo.medium_url} />
+            <span>{taxon.species_guess}</span>
+          </a>
+        </Item>
+      ))}
+    </>
+  )
+
   return (
     <div className="w-full h-full flex flex-row gap-4">
-      <div className="w-3/4">
-        <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom={true}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {taxonIDs.map(id => (
-            <TileLayer
-              attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
-              url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
-            />
-          ))}
-        </MapContainer>
-      </div>
-      <div className="w-1/4 flex flex-col right-0 top-1/4 overflow-scroll">
-        {taxons.map(taxon => (
-          <Item onChange={() => handleSelect(taxon.taxon.id)} checked={taxonIDs.includes(taxon.taxon.id)}>
-            <a href={`https://www.inaturalist.org/taxa/${taxon.taxon.id}`} target="_blank">
-              <img src={taxon.taxon.default_photo.medium_url} />
-              <span>{taxon.species_guess}</span>
-            </a>
-          </Item>
-        ))}
-      </div>
+      <div className="w-3/4">{mapComponent}</div>
+      <div className="w-1/4 flex flex-col right-0 top-1/4 overflow-scroll">{taxonItems}</div>
     </div>
   )
 }
