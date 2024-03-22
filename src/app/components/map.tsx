@@ -69,8 +69,9 @@ const Map = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {taxonIDs.map(id => (
+      {taxonIDs.map((id, index) => (
         <TileLayer
+          key={`tile-layer-${index}`}
           attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
           url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
         />
@@ -80,14 +81,14 @@ const Map = () => {
 
   const taxonItems = (
     <>
-      {taxons?.map(result => {
+      {taxons?.map((result, index) => {
         const taxonID = result.taxon.id
         const taxaURL = `${taxanomyURLPrefix}/${result.taxon.id}`
         const imgURL = result.taxon.default_photo.medium_url
         const title = result.species_guess
 
         return (
-          <Item onChange={() => handleSelect(taxonID)} checked={taxonIDs.includes(taxonID)}>
+          <Item key={`taxon-item-${index}`} onChange={() => handleSelect(taxonID)} checked={taxonIDs.includes(taxonID)}>
             <a href={taxaURL} target="_blank">
               <img src={imgURL} />
               <span>{title}</span>
