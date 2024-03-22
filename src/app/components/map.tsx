@@ -1,5 +1,6 @@
 "use client"
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
 
@@ -12,29 +13,6 @@ import "leaflet/dist/leaflet.css"
 const DEFAULT_ZOOM = 8
 const TAIPEI_CENTER = [25.038357847174, 121.54770626982]
 const TAIWAN_CENTER = [23.973837, 120.97969]
-
-const taxons = [
-  {
-    id: 59115,
-    label: "大肚魚",
-    link: "https://www.inaturalist.org/taxa/59115"
-  },
-  {
-    id: 53911,
-    label: "鯉魚",
-    link: "https://www.inaturalist.org/taxa/53911"
-  },
-  {
-    id: 549770,
-    label: "五線無鬚魮",
-    link: "https://www.inaturalist.org/taxa/549770"
-  },
-  {
-    id: 91566,
-    label: "翼甲鯰屬",
-    link: "https://www.inaturalist.org/taxa/91566"
-  }
-]
 
 // TODO: integrate GBIF
 /*
@@ -61,6 +39,23 @@ const Item = (props: {checked: boolean; onChange: () => void; children?: React.R
 const Map = () => {
   const [coord, setCoord] = useState<LatLngExpression>(TAIWAN_CENTER as LatLngExpression)
   const [taxonIDs, setTaxonIDs] = useState<number[]>([])
+  const [taxons, setTaxons] = useState<any[]>([])
+
+  useEffect(() => {
+    // TODO: remove duplications, add infinite load
+    const fetchObs = async () => {
+      const obs = await axios.get(
+        "https://api.inaturalist.org/v1/observations?place_id=131031&iconic_taxa=Actinopterygii"
+      )
+      if (obs?.data?.results) {
+        setTaxons(obs.data.results)
+      } else {
+        console.warn("Fetch taxons failed!")
+      }
+    }
+
+    fetchObs()
+  }, [])
 
   const handleSelect = (taxonID: number) => {
     const newSelections = taxonIDs.includes(taxonID) ? taxonIDs.filter(id => id !== taxonID) : [...taxonIDs, taxonID]
@@ -83,11 +78,12 @@ const Map = () => {
           ))}
         </MapContainer>
       </div>
-      <div className="w-1/4 flex flex-col right-0 top-1/4">
+      <div className="w-1/4 flex flex-col right-0 top-1/4 overflow-scroll">
         {taxons.map(taxon => (
-          <Item onChange={() => handleSelect(taxon.id)} checked={taxonIDs.includes(taxon.id)}>
-            <a href={`https://www.inaturalist.org/taxa/${taxon.id}`} target="_blank">
-              {taxon.label}
+          <Item onChange={() => handleSelect(taxon.taxon.id)} checked={taxonIDs.includes(taxon.taxon.id)}>
+            <a href={`https://www.inaturalist.org/taxa/${taxon.taxon.id}`} target="_blank">
+              <img src={taxon.taxon.default_photo.medium_url} />
+              <span>{taxon.species_guess}</span>
             </a>
           </Item>
         ))}
