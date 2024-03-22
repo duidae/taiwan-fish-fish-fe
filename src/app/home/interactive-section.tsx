@@ -1,11 +1,11 @@
-import {FullscreenBackground} from "./fullscreen-background"
+import {FullscreenGallery} from "./fullscreen-gallery"
 import {Video} from "./video"
 import {Playground} from "./playground"
 
 export const InteractiveSection = (props: {videos: string[]; images: string[]}) => {
   const {videos, images} = props
   return (
-    <FullscreenBackground
+    <FullscreenGallery
       imgSrcs={images}
       body={
         <div className="flex flex-row w-full h-full">
