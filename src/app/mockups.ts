@@ -20,25 +20,27 @@ export const YTVideos = [
 export const featuredImages = [
   /*
   {
+    url: "/test3.jpeg",
+    desc: "David Miller, 英國藝術家",
+  }, {
+    url: "/test2.webp",
+    desc: "David Miller, 英國藝術家",
+  }, {
+    url: "/test4.jpeg",
+    desc: "Carol Carter, 美國水彩藝術家",
+  }, 
+  /*
+  {
     url: "/test1.webp",
     desc: "David Miller",
   }, {
-    url: "/test2.webp",
-    desc: "David Miller",
-  }, {
     url: "/test5.jpeg",
-    desc: "Carol Carter",
-  }, {
-    url: "/test3.jpeg",
-    desc: "David Miller",
-  }, {
-    url: "/test4.jpeg",
     desc: "Carol Carter",
   },
   */
   {
     url: "lee.jpeg",
-    desc: "李梅樹《香魚》（1902~1983）台灣原產的香魚，是老一輩人最懷念的食物，三峽河常可捕捉，李梅樹生前也最愛吃香魚，可惜河川汙染後，就再也找不到原生種了，李梅樹這幅《香魚》，為我們紀錄了台灣消失魚種的樣貌，也是碩果僅存的時代見證。"
+    desc: "李梅樹《香魚》（1902~1983）台灣原產的香魚，是老一輩人最懷念的食物，三峽河常可捕捉，李梅樹生前也最愛吃香魚，可惜台灣原生種香魚在光復後因河川汙染後就此滅絕，李梅樹這幅《香魚》，為我們紀錄了台灣消失魚種的樣貌，也是碩果僅存的時代見證。"
   },
   {
     url: "chang.png",
@@ -62,7 +64,7 @@ export const featuredImages = [
   },
   {
     url: "/ai3.jpeg",
-    desc: "AI畫的"
+    desc: "AI畫的, 還不錯"
   }
 ]
 export const featuredYTVideos = YTVideos.slice(0, 5)
