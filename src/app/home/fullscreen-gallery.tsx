@@ -50,7 +50,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
         backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
         transition: "background-image 0.4s ease-in-out"
       }}
-      className="bg-black bg-no-repeat bg-center bg-cover flex flex-col w-full h-screen justify-center items-center pt-24"
+      className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
     >
       {body}
       <Bullets>
