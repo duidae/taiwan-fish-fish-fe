@@ -9,8 +9,8 @@ export const InteractiveSection = (props: {videos: string[]; gallerySrcs: Galler
       gallerySrcs={gallerySrcs}
       body={
         <div className="flex flex-row w-full h-full">
-          <Video className="w-1/3" ytURLs={videos} />
-          <Playground className="w-2/3" />
+          {false && <Video className="w-1/3" ytURLs={videos} />}
+          {false && <Playground className="w-2/3" />}
         </div>
       }
     />
