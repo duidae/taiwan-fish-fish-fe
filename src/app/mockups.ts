@@ -40,7 +40,7 @@ export const featuredImages = [
   */
   {
     url: "ilan.webp",
-    desc: "宜蘭深溝釣魚大賽",
+    desc: "宜蘭深溝釣魚大賽"
   },
   {
     url: "lee.jpeg",
