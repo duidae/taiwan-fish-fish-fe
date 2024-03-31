@@ -59,8 +59,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
             viewBox="0 0 24 24"
             width="24"
             height="24"
-            fill="currentColor"
-            class="x19dipnz x1lliihq x1k90msu x2h7rmj x1qfuztq"
+            fill="white"
           >
             <path d="M14.791 5.207 8 12l6.793 6.793a1 1 0 1 1-1.415 1.414l-7.5-7.5a1 1 0 0 1 0-1.414l7.5-7.5a1 1 0 1 1 1.415 1.414z"></path>
           </svg>
@@ -70,8 +69,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
             viewBox="0 0 24 24"
             width="24"
             height="24"
-            fill="currentColor"
-            class="x19dipnz x1lliihq x1k90msu x2h7rmj x1qfuztq"
+            fill="white"
           >
             <path d="M9.209 5.207 16 12l-6.791 6.793a1 1 0 1 0 1.415 1.414l7.5-7.5a1 1 0 0 0 0-1.414l-7.5-7.5a1 1 0 1 0-1.415 1.414z"></path>
           </svg>
