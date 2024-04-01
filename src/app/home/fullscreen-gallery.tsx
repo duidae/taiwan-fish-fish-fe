@@ -12,7 +12,7 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode}) => {
   const {onClick, icon} = props
   return (
     <div
-      className="w-8 h-8 flex flex-row justify-center items-center bg-gray-800/50 hover:bg-gray-400/50 duration-300 rounded-full cursor-pointer"
+      className="w-12 h-12 flex flex-row justify-center items-center bg-gray-800/50 hover:bg-gray-400/50 duration-300 rounded-full cursor-pointer"
       onClick={onClick}
     >
       {icon}
@@ -46,18 +46,16 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
 
   const description = (
     <div className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-4 bg-slate-50 bg-opacity-50">
-      <span>{isClient && gallerySrcs[currentIndex].desc}</span>
+      {isClient && gallerySrcs[currentIndex].desc}
     </div>
   )
 
   const thumbnails = gallerySrcs.map((gallery, index) => {
     return (
-      <div className="cursor-pointer" onClick={() => onImageChange(index)}>
+      <div key={`gallery-thumb-${index}`} className="cursor-pointer" onClick={() => onImageChange(index)}>
         <img
-          style={{borderColor: index === currentIndex ? "white" : "transparent", borderWidth: "1px"}}
-          className="object-cover"
-          width="50px"
-          height="50px"
+          style={{opacity: index === currentIndex ? "1" : "0.5"}}
+          className="w-16 h-16 object-cover"
           src={gallery.url}
         />
       </div>
