@@ -21,14 +21,16 @@ export const featuredImages = [
   /*
   {
     url: "/test3.jpeg",
-    desc: "David Miller, 英國藝術家",
-  }, {
+    desc: "David Miller, 英國藝術家"
+  },
+  {
     url: "/test2.webp",
-    desc: "David Miller, 英國藝術家",
-  }, {
+    desc: "David Miller, 英國藝術家"
+  },
+  {
     url: "/test4.jpeg",
-    desc: "Carol Carter, 美國水彩藝術家",
-  }, 
+    desc: "Carol Carter, 美國水彩藝術家"
+  },
   /*
   {
     url: "/test1.webp",

@@ -27,6 +27,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   const [isClient, setIsClient] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDescOpen, setIsDescOpen] = useState(true)
 
   useEffect(() => {
     setIsClient(true)
@@ -45,12 +46,20 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     onImageChange(currentIndex + 1)
   }
 
+  const onShowDescription = () => {
+    setIsDescOpen(!isDescOpen)
+  }
+
   const description = (
-    <div className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-4 bg-slate-50 bg-opacity-50">
+    <div
+      style={{opacity: isDescOpen ? "1" : "0"}}
+      className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 duration-300"
+    >
       {isClient && gallerySrcs[currentIndex].desc}
     </div>
   )
 
+  // TODO: replace src with low resolution src
   const thumbnails = gallerySrcs.map((gallery, index) => {
     return (
       <div key={`gallery-thumb-${index}`} className="cursor-pointer" onClick={() => onImageChange(index)}>
@@ -64,10 +73,11 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   })
 
   const controller = (
-    <div className="absolute w-full bottom-0 mb-8 flex flex-row justify-center items-center gap-2">
+    <div className="absolute w-full bottom-0 mb-6 flex flex-row justify-center items-center gap-2">
       <ControlBtn onClick={onPrevImage} icon={arrowLeft} />
       <div className="flex flex-row justify-center items-center">{thumbnails}</div>
       <ControlBtn onClick={onNextImage} icon={arrowRight} />
+      <ControlBtn onClick={onShowDescription} icon={"i"} />
     </div>
   )
 
