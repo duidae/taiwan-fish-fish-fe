@@ -32,16 +32,29 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
     onImageChange(currentIndex + 1)
   }
 
-  const galleryController = (
-    <div className="flex flex-row mb-16">
-      <button onClick={onPrevImage}>{arrowLeft}</button>
-      <button onClick={onNextImage}>{arrowRight}</button>
-    </div>
-  )
-
   const description = (
     <div className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-4 bg-slate-50 bg-opacity-50">
       <span>{isClient && gallerySrcs[currentIndex].desc}</span>
+    </div>
+  )
+
+  const controller = (
+    <div className="absolute w-full bottom-0 mb-8 flex flex-row justify-center items-center">
+      <button onClick={onPrevImage}>{arrowLeft}</button>
+      {gallerySrcs.map((gallery, index) => {
+        return (
+          <div className="cursor-pointer" onClick={() => onImageChange(index)}>
+            <img
+              style={{borderColor: index === currentIndex ? "white" : "transparent", borderWidth: "1px"}}
+              className="object-cover"
+              width="50px"
+              height="50px"
+              src={gallery.url}
+            />
+          </div>
+        )
+      })}
+      <button onClick={onNextImage}>{arrowRight}</button>
     </div>
   )
 
@@ -54,8 +67,8 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
       className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
     >
       {body}
-      {galleryController}
       {description}
+      {controller}
     </div>
   )
 }
