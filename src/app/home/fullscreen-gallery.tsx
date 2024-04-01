@@ -1,5 +1,5 @@
 "use client"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {arrowLeft, arrowRight} from "@/app/icons"
 
@@ -10,7 +10,15 @@ export type Gallery = {
 
 export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.ReactNode}) => {
   const {gallerySrcs, body} = props
+
+  // Note: isClient is to fix hydration error from Next.js
+  // ref: https://nextjs.org/docs/messages/react-hydration-error
+  const [isClient, setIsClient] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(gallerySrcs.length))
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const onImageChange = (index: number) => {
     setCurrentIndex(index < 0 ? gallerySrcs.length - 1 : index % gallerySrcs.length)
@@ -25,7 +33,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
   }
 
   const galleryController = (
-    <div className="flex flex-row">
+    <div className="flex flex-row mb-16">
       <button onClick={onPrevImage}>{arrowLeft}</button>
       <button onClick={onNextImage}>{arrowRight}</button>
     </div>
@@ -33,7 +41,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
 
   const description = (
     <div className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-4 bg-slate-50 bg-opacity-50">
-      {gallerySrcs[currentIndex].desc}
+      <span>{isClient && gallerySrcs[currentIndex].desc}</span>
     </div>
   )
 
