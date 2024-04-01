@@ -8,7 +8,19 @@ export type Gallery = {
   desc: string
 }
 
-export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.ReactNode}) => {
+const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode}) => {
+  const {onClick, icon} = props
+  return (
+    <div
+      className="w-8 h-8 flex flex-row justify-center items-center bg-gray-800/50 hover:bg-gray-400/50 duration-300 rounded-full cursor-pointer"
+      onClick={onClick}
+    >
+      {icon}
+    </div>
+  )
+}
+
+export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.ReactNode}) => {
   const {gallerySrcs, body} = props
 
   // Note: isClient is to fix hydration error from Next.js
@@ -38,23 +50,25 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
     </div>
   )
 
+  const thumbnails = gallerySrcs.map((gallery, index) => {
+    return (
+      <div className="cursor-pointer" onClick={() => onImageChange(index)}>
+        <img
+          style={{borderColor: index === currentIndex ? "white" : "transparent", borderWidth: "1px"}}
+          className="object-cover"
+          width="50px"
+          height="50px"
+          src={gallery.url}
+        />
+      </div>
+    )
+  })
+
   const controller = (
-    <div className="absolute w-full bottom-0 mb-8 flex flex-row justify-center items-center">
-      <button onClick={onPrevImage}>{arrowLeft}</button>
-      {gallerySrcs.map((gallery, index) => {
-        return (
-          <div className="cursor-pointer" onClick={() => onImageChange(index)}>
-            <img
-              style={{borderColor: index === currentIndex ? "white" : "transparent", borderWidth: "1px"}}
-              className="object-cover"
-              width="50px"
-              height="50px"
-              src={gallery.url}
-            />
-          </div>
-        )
-      })}
-      <button onClick={onNextImage}>{arrowRight}</button>
+    <div className="absolute w-full bottom-0 mb-8 flex flex-row justify-center items-center gap-2">
+      <ControlBtn onClick={onPrevImage} icon={arrowLeft} />
+      <div className="flex flex-row justify-center items-center">{thumbnails}</div>
+      <ControlBtn onClick={onNextImage} icon={arrowRight} />
     </div>
   )
 
