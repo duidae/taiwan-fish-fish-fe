@@ -26,10 +26,11 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // Note: isClient is to fix hydration error from Next.js
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   const [isClient, setIsClient] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(GetRandomInteger(gallerySrcs.length))
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     setIsClient(true)
+    setCurrentIndex(GetRandomInteger(gallerySrcs.length))
   }, [])
 
   const onImageChange = (index: number) => {
