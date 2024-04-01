@@ -1,7 +1,8 @@
 "use client"
 import {useState} from "react"
-import {GetRandomInteger} from "@/app/utils"
 import styled from "styled-components"
+import {GetRandomInteger} from "@/app/utils"
+import {arrowLeft, arrowRight} from "@/app/icons"
 
 const bulletColor = "rgb(113, 113, 113)"
 const bulletHeight = 60
@@ -44,6 +45,14 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
     setCurrentIndex(index < 0 ? gallerySrcs.length - 1 : index % gallerySrcs.length)
   }
 
+  const onPrevImage = () => {
+    onImageChange(currentIndex - 1)
+  }
+
+  const onNextImage = () => {
+    onImageChange(currentIndex + 1)
+  }
+
   return (
     <div
       style={{
@@ -54,26 +63,8 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body: React.Re
     >
       {body}
       <div className="flex flex-row">
-        <button onClick={() => onImageChange(currentIndex - 1)}>
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="white"
-          >
-            <path d="M14.791 5.207 8 12l6.793 6.793a1 1 0 1 1-1.415 1.414l-7.5-7.5a1 1 0 0 1 0-1.414l7.5-7.5a1 1 0 1 1 1.415 1.414z"></path>
-          </svg>
-        </button>
-        <button onClick={() => onImageChange(currentIndex + 1)}>
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="white"
-          >
-            <path d="M9.209 5.207 16 12l-6.791 6.793a1 1 0 1 0 1.415 1.414l7.5-7.5a1 1 0 0 0 0-1.414l-7.5-7.5a1 1 0 1 0-1.415 1.414z"></path>
-          </svg>
-        </button>
+        <button onClick={onPrevImage}>{arrowLeft}</button>
+        <button onClick={onNextImage}>{arrowRight}</button>
       </div>
       <Bullets>
         {gallerySrcs?.map((gallerySrc, index) => (
