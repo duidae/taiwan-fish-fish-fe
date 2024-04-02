@@ -16,18 +16,18 @@ export type Gallery = {
 
 const getControllerStateIcon = (controllerState: ControllerState) => {
   if (controllerState === ControllerState.FULL) {
-    return "o"
+    return <span style={{color: "white"}}>o</span>
   } else if (controllerState === ControllerState.ICON_ONLY) {
-    return "-"
+    return <span style={{color: "white"}}>-</span>
   }
-  return "+"
+  return <span style={{color: "white"}}>+</span>
 }
 
 const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode}) => {
   const {onClick, icon} = props
   return (
     <div
-      className="w-10 h-10 flex flex-row justify-center items-center bg-gray-800/50 hover:bg-gray-400/50 duration-300 rounded-full cursor-pointer"
+      className="w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer"
       onClick={onClick}
     >
       {icon}
@@ -78,13 +78,19 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setIsDescOpen(!isDescOpen)
   }
 
-  // TODO: add close btn
+  // TODO: refine close btn
   const description = (
     <div
       style={{opacity: isDescOpen ? "1" : "0"}}
       className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 duration-300"
     >
       {isClient && gallerySrcs[currentIndex].desc}
+      <div
+        className="absolute w-6 h-6 top-0 right-0 bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer"
+        onClick={onShowDescription}
+      >
+        x
+      </div>
     </div>
   )
 
@@ -121,7 +127,9 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       </div>
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={arrowRight} />}
       <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />
-      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onShowDescription} icon={"i"} />}
+      {controllerState !== ControllerState.MINIMIZE && (
+        <ControlBtn onClick={onShowDescription} icon={<span style={{color: "white"}}>i</span>} />
+      )}
     </div>
   )
 
