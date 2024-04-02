@@ -86,6 +86,10 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setIsMagnifierOpen(!isMagnifierOpen)
   }
 
+  const onSwitchManifier = (e: MouseEvent<HTMLDivElement>) => {
+    setIsMagnifierOpen(!isMagnifierOpen)
+  }
+
   const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const {left, top, width, height} = e.currentTarget.getBoundingClientRect()
     const x = ((e.pageX - left) / width) * 100
@@ -175,6 +179,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       }}
       className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
       onMouseMove={onMouseMove}
+      onClick={onSwitchManifier}
     >
       {body}
       {isMagnifierOpen && imgMaginifier}
