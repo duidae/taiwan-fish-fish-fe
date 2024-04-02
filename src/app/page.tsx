@@ -12,8 +12,7 @@ export default function Home() {
   const relaxingVideos = chillYTVideos
   const amazingImages = featuredImages
 
-  const headlineVideo = YTVideos[0]
-  const featuredVideos = YTVideos.slice(1)
+  const featuredVideos = YTVideos
 
   const headlinePost = posts[0]
   const featuredPosts = posts.slice(1)
@@ -35,7 +34,6 @@ export default function Home() {
           title={ROUTE_VIDEO.title}
           route={ROUTE_VIDEO.path}
           direction={Direction.LEFT}
-          headline={headlineVideo}
           featured={featuredVideos}
         />
       )

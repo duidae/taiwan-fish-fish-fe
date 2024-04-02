@@ -14,12 +14,11 @@ const ytImgTemplate = "https://i.ytimg.com/vi/${id}/hqdefault.jpg"
 
 export const FeaturedVideos = (
   props: FeaturedSectionCommonprops & {
-    headline: URL
     featured: URL[]
   }
 ) => {
-  const {headline, featured, title, route} = props
-  const [selected, setSelected] = useState(headline)
+  const {featured, title, route} = props
+  const [selected, setSelected] = useState(featured?.[0])
   const [meta, setMeta] = useState<any>([])
 
   useEffect(() => {
