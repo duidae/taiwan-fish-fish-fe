@@ -3,9 +3,24 @@ import {useEffect, useState} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {arrowLeft, arrowRight} from "@/app/icons"
 
+enum ControllerState {
+  FULL = "full",
+  ICON_ONLY = "icon",
+  MINIMIZE = "minimize"
+}
+
 export type Gallery = {
   url: string
   desc: string
+}
+
+const getControllerStateIcon = (controllerState: ControllerState) => {
+  if (controllerState === ControllerState.FULL) {
+    return "o"
+  } else if (controllerState === ControllerState.ICON_ONLY) {
+    return "-"
+  }
+  return "+"
 }
 
 const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode}) => {
@@ -27,7 +42,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   const [isClient, setIsClient] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isControllerOpen, setIsControllerOpen] = useState(true)
+  const [controllerState, setControllerState] = useState(ControllerState.FULL)
   const [isDescOpen, setIsDescOpen] = useState(true)
 
   useEffect(() => {
@@ -47,8 +62,16 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     onImageChange(currentIndex + 1)
   }
 
-  const onAdjustController = () => {
-    setIsControllerOpen(!isControllerOpen)
+  const onControllerStateChange = () => {
+    let newState
+    if (controllerState === ControllerState.FULL) {
+      newState = ControllerState.ICON_ONLY
+    } else if (controllerState === ControllerState.ICON_ONLY) {
+      newState = ControllerState.MINIMIZE
+    } else {
+      newState = ControllerState.FULL
+    }
+    setControllerState(newState)
   }
 
   const onShowDescription = () => {
@@ -79,20 +102,20 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
 
   const controller = (
     <div className="absolute w-full bottom-0 mb-4 flex flex-row justify-center items-center gap-1">
-      <ControlBtn onClick={onPrevImage} icon={arrowLeft} />
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={arrowLeft} />}
       <div
         style={{
           // TODO: improve collapse performance
-          maxWidth: isControllerOpen ? "100%" : "0",
+          maxWidth: controllerState === ControllerState.FULL ? "100%" : "0",
           transition: "max-width .3s ease-in-out"
         }}
         className="flex flex-row justify-center items-center"
       >
         {thumbnails}
       </div>
-      <ControlBtn onClick={onNextImage} icon={arrowRight} />
-      <ControlBtn onClick={onAdjustController} icon={isControllerOpen ? "-" : "+"} />
-      <ControlBtn onClick={onShowDescription} icon={"i"} />
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={arrowRight} />}
+      <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onShowDescription} icon={"i"} />}
     </div>
   )
 
