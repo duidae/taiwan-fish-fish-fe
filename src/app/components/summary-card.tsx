@@ -1,5 +1,5 @@
 import Link from "next/link"
-import {Direction} from "@/app/constant"
+import {Direction, DEFAULT_IMAGE_ASPECT_RATIO} from "@/app/constant"
 
 export enum DisplayMode {
   ROW = "row",
@@ -32,14 +32,13 @@ export const SummaryCard = (props: Summary) => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div
-          className={isColumn ? "max-w-full w-full grow" : "w-1/3"}
-          style={{
-            height: "calc(100% / 16 * 9)",
-            aspectRatio: "16/9"
-          }}
-        >
-          <img className="w-full h-full overflow-hidden object-cover" src={ogImage} alt={ogTitle} />
+        <div className={isColumn ? "max-w-full w-full grow" : "w-1/3"}>
+          <img
+            style={{aspectRatio: DEFAULT_IMAGE_ASPECT_RATIO}}
+            className="w-full h-full overflow-hidden object-cover rounded-md"
+            src={ogImage}
+            alt={ogTitle}
+          />
         </div>
         <div className={isColumn ? "w-full" : "w-2/3"}>
           <h2 className={`mb-3 text-2xl ${isRight ? "text-left" : "text-right"} font-semibold`}>{ogTitle}</h2>

@@ -66,3 +66,5 @@ export enum Direction {
   LEFT = "left",
   RIGHT = "right"
 }
+
+export const DEFAULT_IMAGE_ASPECT_RATIO = "16/9"

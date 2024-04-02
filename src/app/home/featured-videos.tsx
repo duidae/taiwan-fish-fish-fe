@@ -4,7 +4,7 @@ import axios from "axios"
 import Link from "next/link"
 import {GetIDFromYTURL} from "@/app/utils"
 import {FeaturedSectionCommonprops} from "./featured-section"
-import {HEADER_HEIGHT, TOC_WIDTH} from "@/app/constant"
+import {HEADER_HEIGHT, TOC_WIDTH, DEFAULT_IMAGE_ASPECT_RATIO} from "@/app/constant"
 import {BackToSection} from "./back-to-section"
 
 type URL = string
@@ -62,7 +62,11 @@ export const FeaturedVideos = (
           setSelected(url)
         }}
       >
-        <img style={{aspectRatio: "16/9"}} className="h-full object-cover rounded-md" src={coverImg} />
+        <img
+          style={{aspectRatio: DEFAULT_IMAGE_ASPECT_RATIO}}
+          className="h-full object-cover rounded-md"
+          src={coverImg}
+        />
         <div className="grow flex flex-col justify-between">
           <span
             style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "2", overflow: "hidden"}}
