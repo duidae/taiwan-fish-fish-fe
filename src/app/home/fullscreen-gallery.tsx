@@ -29,7 +29,10 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive
     <div
       style={{backgroundColor: isActive ? "gray" : ""}}
       className="w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer"
-      onClick={onClick}
+      onClick={e => {
+        e.stopPropagation()
+        onClick?.()
+      }}
     >
       {icon}
     </div>
