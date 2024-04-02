@@ -81,15 +81,19 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // TODO: refine close btn
   const description = (
     <div
-      style={{opacity: isDescOpen ? "1" : "0"}}
-      className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 duration-300"
+      style={{
+        visibility: isDescOpen ? "visible" : "hidden",
+        opacity: isDescOpen ? "1" : "0",
+        transition: "visibility 0.3s, opacity 0.3s ease-in-out"
+      }}
+      className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 z-10"
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div
-        className="absolute w-6 h-6 top-0 right-0 bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer"
+        className="absolute w-6 h-6 -top-3 -right-3 bg-gray-700 hover:bg-gray-300 duration-300 rounded-full cursor-pointer flex flex-row justify-center items-center"
         onClick={onShowDescription}
       >
-        x
+        <span style={{color: "white"}}>x</span>
       </div>
     </div>
   )
