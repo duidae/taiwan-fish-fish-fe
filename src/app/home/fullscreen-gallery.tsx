@@ -113,7 +113,10 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       {isClient && gallerySrcs[currentIndex].desc}
       <div
         className="absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer flex flex-row justify-center items-center"
-        onClick={onShowDescription}
+        onClick={e => {
+          e.stopPropagation()
+          onShowDescription()
+        }}
       >
         <span style={{color: "white"}}>x</span>
       </div>
@@ -123,7 +126,14 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // TODO: replace src with low resolution src
   const thumbnails = gallerySrcs.map((gallery, index) => {
     return (
-      <div key={`gallery-thumb-${index}`} className="cursor-pointer" onClick={() => onImageChange(index)}>
+      <div
+        key={`gallery-thumb-${index}`}
+        className="cursor-pointer"
+        onClick={e => {
+          e.stopPropagation()
+          onImageChange(index)
+        }}
+      >
         <img
           style={{opacity: index === currentIndex ? "1" : "0.5"}}
           className="w-16 h-16 object-cover"
