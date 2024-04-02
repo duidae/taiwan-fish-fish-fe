@@ -45,6 +45,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // Note: isClient is to fix hydration error from Next.js
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   const [isClient, setIsClient] = useState(false)
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [controllerState, setControllerState] = useState(ControllerState.FULL)
   const [isDescOpen, setIsDescOpen] = useState(true)
@@ -194,6 +195,14 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       onMouseMove={onMouseMove}
       onClick={onSwitchManifier}
     >
+      {false && (
+        <img
+          className="w-full"
+          src={gallerySrcs[currentIndex].url}
+          onMouseMove={onMouseMove}
+          onClick={onSwitchManifier}
+        />
+      )}
       {body}
       {isMagnifierOpen && imgMaginifier}
       {description}

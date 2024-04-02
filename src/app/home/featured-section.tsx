@@ -1,6 +1,6 @@
 import Link from "next/link"
 import {Summary, SummaryCard, DisplayMode} from "@/app/components/summary-card"
-import {HEADER_HEIGHT, TOC_WIDTH, Direction} from "../constant"
+import {HEADER_HEIGHT, TOC_WIDTH, Direction} from "@/app/constant"
 
 export interface FeaturedSectionCommonprops {
   title: string

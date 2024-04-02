@@ -1,8 +1,10 @@
 "use client"
 import {useEffect, useState} from "react"
 import axios from "axios"
+import Link from "next/link"
 import {GetIDFromYTURL} from "@/app/utils"
-import {FeaturedSectionCommonprops, FeaturedSection} from "./featured-section"
+import {FeaturedSectionCommonprops} from "./featured-section"
+import {HEADER_HEIGHT, TOC_WIDTH} from "@/app/constant"
 
 type URL = string
 
@@ -16,7 +18,7 @@ export const FeaturedVideos = (
     featured: URL[]
   }
 ) => {
-  const {headline, featured, ...rest} = props
+  const {headline, featured, title, route} = props
   const [selected, setSelected] = useState(headline)
   const [meta, setMeta] = useState<any>([])
 
@@ -49,28 +51,45 @@ export const FeaturedVideos = (
   ) : null
 
   // TODO: make vertical slider
-  const featuredSlider = (
-    <div className="w-full h-full flex flex-col items-center justify-evenly cursor-pointer">
-      {featured?.map((url, index) => {
-        const ytID = GetIDFromYTURL(url)
-        const coverImg = ytID ? ytImgTemplate.replace("${id}", ytID) : ""
+  const featuredSlider = featured?.map((url, index) => {
+    const ytID = GetIDFromYTURL(url)
+    const coverImg = ytID ? ytImgTemplate.replace("${id}", ytID) : ""
 
-        return (
-          <div
-            className="flex flex-row gap-4"
-            key={`featured-video-${index}`}
-            onClick={() => {
-              setSelected(url)
-            }}
+    return (
+      <div
+        className="w-full h-20 flex flex-row gap-2"
+        key={`featured-video-${index}`}
+        onClick={() => {
+          setSelected(url)
+        }}
+      >
+        <img style={{aspectRatio: "16/9"}} className="h-full object-cover rounded-md" src={coverImg} />
+        <div className="grow flex flex-col justify-between">
+          <span
+            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "2", overflow: "hidden"}}
+            className="text-sm"
           >
-            <img className="overflow-hidden object-cover" width={50} height={50} src={coverImg} />
-            <span>{meta?.[index]?.title}</span>
-            <span>{meta?.[index]?.author_name}</span>
-          </div>
-        )
-      })}
+            {meta?.[index]?.title}
+          </span>
+          <span className="text-xs text-slate-500">{meta?.[index]?.author_name}</span>
+        </div>
+      </div>
+    )
+  })
+
+  return (
+    <div
+      className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center gap-4"
+      style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
+    >
+      <h1>精選{title}</h1>
+      <div className="grow w-full overflow-auto flex flex-row justify-center items-stretch gap-4">
+        <div className="grow">{headlinePlayer}</div>
+        <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredSlider}</div>
+      </div>
+      <div className="h-20 flex flex-row justify-center items-center">
+        <Link href={route}>{`看全部${title} >>`}</Link>
+      </div>
     </div>
   )
-
-  return <FeaturedSection headline={headlinePlayer} featured={featuredSlider} {...rest} />
 }
