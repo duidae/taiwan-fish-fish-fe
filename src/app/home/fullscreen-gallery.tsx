@@ -18,7 +18,7 @@ const getControllerStateIcon = (controllerState: ControllerState) => {
   if (controllerState === ControllerState.FULL) {
     return <span style={{color: "white"}}>o</span>
   } else if (controllerState === ControllerState.ICON_ONLY) {
-    return <span style={{color: "white"}}>-</span>
+    return <span style={{color: "white"}}>{">>"}</span>
   }
   return <span style={{color: "white"}}>+</span>
 }
@@ -111,10 +111,11 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     )
   })
 
+  // TODO: complete controller
   const controller = (
     <div
       style={{
-        justifyContent: controllerState === ControllerState.FULL || isDescOpen ? "center" : "flex-end"
+        justifyContent: controllerState === ControllerState.FULL || isDescOpen ? "center" : "center"
       }}
       className="absolute w-full bottom-0 px-2 mb-4 flex flex-row items-center gap-1"
     >
@@ -130,7 +131,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         {thumbnails}
       </div>
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={arrowRight} />}
-      <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />
+      {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}
       {controllerState !== ControllerState.MINIMIZE && (
         <ControlBtn onClick={onShowDescription} icon={<span style={{color: "white"}}>i</span>} />
       )}
@@ -141,7 +142,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     <div
       style={{
         backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
-        transition: "background-image 0.4s ease-in-out"
+        transition: "background-image 0.3s ease-in-out"
       }}
       className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
     >
