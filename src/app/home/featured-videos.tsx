@@ -37,7 +37,7 @@ export const FeaturedVideos = (
   }, [])
 
   const ytID = GetIDFromYTURL(selected)
-  const headlinePlayer = ytID ? (
+  const ytPlayer = ytID ? (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <iframe
         width="100%"
@@ -50,8 +50,7 @@ export const FeaturedVideos = (
     </div>
   ) : null
 
-  // TODO: make vertical slider
-  const featuredSlider = featured?.map((url, index) => {
+  const featuredVideos = featured?.map((url, index) => {
     const ytID = GetIDFromYTURL(url)
     const coverImg = ytID ? ytImgTemplate.replace("${id}", ytID) : ""
 
@@ -84,8 +83,8 @@ export const FeaturedVideos = (
     >
       <h1>精選{title}</h1>
       <div className="grow w-full overflow-auto flex flex-row justify-center items-stretch gap-4">
-        <div className="grow">{headlinePlayer}</div>
-        <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredSlider}</div>
+        <div className="grow">{ytPlayer}</div>
+        <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredVideos}</div>
       </div>
       <div className="h-20 flex flex-row justify-center items-center">
         <Link href={route}>{`看全部${title} >>`}</Link>
