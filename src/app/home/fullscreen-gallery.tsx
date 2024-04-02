@@ -12,7 +12,7 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode}) => {
   const {onClick, icon} = props
   return (
     <div
-      className="w-12 h-12 flex flex-row justify-center items-center bg-gray-800/50 hover:bg-gray-400/50 duration-300 rounded-full cursor-pointer"
+      className="w-10 h-10 flex flex-row justify-center items-center bg-gray-800/50 hover:bg-gray-400/50 duration-300 rounded-full cursor-pointer"
       onClick={onClick}
     >
       {icon}
@@ -27,6 +27,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   const [isClient, setIsClient] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isControllerOpen, setIsControllerOpen] = useState(true)
   const [isDescOpen, setIsDescOpen] = useState(true)
 
   useEffect(() => {
@@ -44,6 +45,10 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
 
   const onNextImage = () => {
     onImageChange(currentIndex + 1)
+  }
+
+  const onAdjustController = () => {
+    setIsControllerOpen(!isControllerOpen)
   }
 
   const onShowDescription = () => {
@@ -73,10 +78,20 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   })
 
   const controller = (
-    <div className="absolute w-full bottom-0 mb-6 flex flex-row justify-center items-center gap-2">
+    <div className="absolute w-full bottom-0 mb-4 flex flex-row justify-center items-center gap-1">
       <ControlBtn onClick={onPrevImage} icon={arrowLeft} />
-      <div className="flex flex-row justify-center items-center">{thumbnails}</div>
+      <div
+        style={{
+          // TODO: improve collapse performance
+          maxWidth: isControllerOpen ? "100%" : "0",
+          transition: "max-width .3s ease-in-out"
+        }}
+        className="flex flex-row justify-center items-center"
+      >
+        {thumbnails}
+      </div>
       <ControlBtn onClick={onNextImage} icon={arrowRight} />
+      <ControlBtn onClick={onAdjustController} icon={isControllerOpen ? "-" : "+"} />
       <ControlBtn onClick={onShowDescription} icon={"i"} />
     </div>
   )
