@@ -23,10 +23,11 @@ const getControllerStateIcon = (controllerState: ControllerState) => {
   return <span style={{color: "white"}}>+</span>
 }
 
-const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode}) => {
-  const {onClick, icon} = props
+const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive?: boolean}) => {
+  const {onClick, icon, isActive} = props
   return (
     <div
+      style={{backgroundColor: isActive ? "gray" : ""}}
       className="w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer"
       onClick={onClick}
     >
@@ -44,6 +45,9 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   const [currentIndex, setCurrentIndex] = useState(0)
   const [controllerState, setControllerState] = useState(ControllerState.FULL)
   const [isDescOpen, setIsDescOpen] = useState(true)
+  const [isMagnifierOpen, setIsMagnifierOpen] = useState(false)
+  const [pos, setPos] = useState({x: 0, y: 0})
+  const [cursorPos, setCursorPos] = useState({x: 0, y: 0})
 
   useEffect(() => {
     setIsClient(true)
@@ -78,7 +82,18 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setIsDescOpen(!isDescOpen)
   }
 
-  // TODO: refine close btn
+  const onShowMagnifier = () => {
+    setIsMagnifierOpen(!isMagnifierOpen)
+  }
+
+  const onMouseMove = e => {
+    const {left, top, width, height} = e.currentTarget.getBoundingClientRect()
+    const x = ((e.pageX - left) / width) * 100
+    const y = ((e.pageY - top) / height) * 100
+    setPos({x, y})
+    setCursorPos({x: e.pageX - left, y: e.pageY - top})
+  }
+
   const description = (
     <div
       style={{
@@ -132,10 +147,24 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       </div>
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={arrowRight} />}
       {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}
+      <ControlBtn onClick={onShowMagnifier} isActive={isMagnifierOpen} icon={<span style={{color: "white"}}>M</span>} />
       {controllerState !== ControllerState.MINIMIZE && (
         <ControlBtn onClick={onShowDescription} icon={<span style={{color: "white"}}>i</span>} />
       )}
     </div>
+  )
+
+  // TODO: fix incorrect position issue
+  const imgMaginifier = (
+    <div
+      style={{
+        left: `${cursorPos.x - 100}px`,
+        top: `${cursorPos.y - 100}px`,
+        backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
+        backgroundPosition: `${pos.x}% ${pos.y}%`
+      }}
+      className="absolute w-52 h-52 border border-white border-2 bg-black pointer-events-none"
+    />
   )
 
   return (
@@ -145,8 +174,10 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         transition: "background-image 0.3s ease-in-out"
       }}
       className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
+      onMouseMove={onMouseMove}
     >
       {body}
+      {isMagnifierOpen && imgMaginifier}
       {description}
       {controller}
     </div>
