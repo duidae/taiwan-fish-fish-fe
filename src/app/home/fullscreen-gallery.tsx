@@ -78,6 +78,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setIsDescOpen(!isDescOpen)
   }
 
+  // TODO: add close btn
   const description = (
     <div
       style={{opacity: isDescOpen ? "1" : "0"}}
@@ -101,7 +102,12 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   })
 
   const controller = (
-    <div className="absolute w-full bottom-0 mb-4 flex flex-row justify-center items-center gap-1">
+    <div
+      style={{
+        justifyContent: controllerState === ControllerState.FULL || isDescOpen ? "center" : "flex-end"
+      }}
+      className="absolute w-full bottom-0 px-2 mb-4 flex flex-row items-center gap-1"
+    >
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={arrowLeft} />}
       <div
         style={{
