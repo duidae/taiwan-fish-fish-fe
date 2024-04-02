@@ -1,5 +1,5 @@
 "use client"
-import {useEffect, useState} from "react"
+import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {arrowLeft, arrowRight} from "@/app/icons"
 
@@ -86,7 +86,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setIsMagnifierOpen(!isMagnifierOpen)
   }
 
-  const onMouseMove = e => {
+  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const {left, top, width, height} = e.currentTarget.getBoundingClientRect()
     const x = ((e.pageX - left) / width) * 100
     const y = ((e.pageY - top) / height) * 100
@@ -105,7 +105,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div
-        className="absolute w-6 h-6 -top-3 -right-3 bg-gray-700 hover:bg-gray-300 duration-300 rounded-full cursor-pointer flex flex-row justify-center items-center"
+        className="absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer flex flex-row justify-center items-center"
         onClick={onShowDescription}
       >
         <span style={{color: "white"}}>x</span>
