@@ -31,6 +31,7 @@ export default function Home() {
       label: ROUTE_VIDEO.title,
       component: (
         <FeaturedVideos
+          id={"featured-1"}
           title={ROUTE_VIDEO.title}
           route={ROUTE_VIDEO.path}
           direction={Direction.LEFT}

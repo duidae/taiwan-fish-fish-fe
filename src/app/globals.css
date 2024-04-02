@@ -31,6 +31,13 @@ body {
   --theme-blue: #27b5f7;
 }
 
+body h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 /* TODO: move to video component */
 iframe {
   aspect-ratio: 16/9;

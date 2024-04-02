@@ -17,7 +17,7 @@ export const FeaturedVideos = (
     featured: URL[]
   }
 ) => {
-  const {featured, title, route} = props
+  const {id, featured, title, route} = props
   const [selected, setSelected] = useState(featured?.[0])
   const [meta, setMeta] = useState<any>([])
 
@@ -77,10 +77,23 @@ export const FeaturedVideos = (
 
   return (
     <div
-      className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center gap-4"
+      className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center"
       style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
-      <h1>精選{title}</h1>
+      <h1
+        className="cursor-pointer"
+        onClick={() => {
+          const anchor = document.querySelector(`#${id}`) as HTMLElement
+          if (anchor) {
+            window.scrollTo({
+              top: anchor.offsetTop,
+              behavior: "smooth"
+            })
+          }
+        }}
+      >
+        精選{title}
+      </h1>
       <div className="grow w-full overflow-auto flex flex-row justify-center items-stretch gap-4">
         <div className="grow">{ytPlayer}</div>
         <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredVideos}</div>
