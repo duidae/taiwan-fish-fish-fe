@@ -41,6 +41,7 @@ body h1 {
 /* TODO: move to video component */
 iframe {
   aspect-ratio: 16/9;
+  border-radius: 10px;
 }
 
 @layer utilities {

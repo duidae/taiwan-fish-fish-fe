@@ -35,6 +35,23 @@ export const FeaturedVideos = (
       })
   }, [])
 
+  const backToSection = (
+    <div
+      className="cursor-pointer"
+      onClick={() => {
+        const anchor = document.querySelector(`#${id}`) as HTMLElement
+        if (anchor) {
+          window.scrollTo({
+            top: anchor.offsetTop,
+            behavior: "smooth"
+          })
+        }
+      }}
+    >
+      B
+    </div>
+  )
+
   const ytID = GetIDFromYTURL(selected)
   const ytPlayer = ytID ? (
     <div className="w-full h-full flex flex-col items-center justify-center">
@@ -80,20 +97,10 @@ export const FeaturedVideos = (
       className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center"
       style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
-      <h1
-        className="cursor-pointer"
-        onClick={() => {
-          const anchor = document.querySelector(`#${id}`) as HTMLElement
-          if (anchor) {
-            window.scrollTo({
-              top: anchor.offsetTop,
-              behavior: "smooth"
-            })
-          }
-        }}
-      >
-        精選{title}
-      </h1>
+      <div className="flex flex-row items-center gap-2">
+        <h1>精選{title}</h1>
+        {backToSection}
+      </div>
       <div className="grow w-full overflow-auto flex flex-row justify-center items-stretch gap-4">
         <div className="grow">{ytPlayer}</div>
         <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredVideos}</div>
