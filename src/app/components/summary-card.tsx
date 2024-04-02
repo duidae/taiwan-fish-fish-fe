@@ -42,7 +42,7 @@ export const SummaryCard = (props: Summary) => {
         </div>
         <div className={isColumn ? "w-full" : "w-2/3"}>
           <h2 className={`mb-3 text-2xl ${isRight ? "text-left" : "text-right"} font-semibold`}>{ogTitle}</h2>
-          <p className="w-full m-0 text-sm opacity-50">{ogDescription}</p>
+          <p className="w-full m-0 text-sm text-justify opacity-50">{ogDescription}</p>
         </div>
       </Link>
     )
