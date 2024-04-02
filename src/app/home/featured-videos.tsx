@@ -5,6 +5,7 @@ import Link from "next/link"
 import {GetIDFromYTURL} from "@/app/utils"
 import {FeaturedSectionCommonprops} from "./featured-section"
 import {HEADER_HEIGHT, TOC_WIDTH} from "@/app/constant"
+import {BackToSection} from "./back-to-section"
 
 type URL = string
 
@@ -34,23 +35,6 @@ export const FeaturedVideos = (
         console.error(error)
       })
   }, [])
-
-  const backToSection = (
-    <div
-      className="cursor-pointer"
-      onClick={() => {
-        const anchor = document.querySelector(`#${id}`) as HTMLElement
-        if (anchor) {
-          window.scrollTo({
-            top: anchor.offsetTop,
-            behavior: "smooth"
-          })
-        }
-      }}
-    >
-      B
-    </div>
-  )
 
   const ytID = GetIDFromYTURL(selected)
   const ytPlayer = ytID ? (
@@ -99,7 +83,7 @@ export const FeaturedVideos = (
     >
       <div className="flex flex-row items-center gap-2">
         <h1>精選{title}</h1>
-        {backToSection}
+        <BackToSection id={id} />
       </div>
       <div className="grow w-full overflow-auto flex flex-row justify-center items-stretch gap-4">
         <div className="grow">{ytPlayer}</div>

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {Summary, SummaryCard, DisplayMode} from "@/app/components/summary-card"
 import {HEADER_HEIGHT, TOC_WIDTH, Direction} from "@/app/constant"
+import {BackToSection} from "./back-to-section"
 
 export interface FeaturedSectionCommonprops {
   id: string
@@ -15,7 +16,7 @@ type FeaturedSectionProps = FeaturedSectionCommonprops & {
 }
 
 export const FeaturedSection = (props: FeaturedSectionProps) => {
-  const {title, route, headline, featured, direction} = props
+  const {id, title, route, headline, featured, direction} = props
   const isLeft = direction === Direction.LEFT
 
   return (
@@ -23,7 +24,10 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
       className="max-w-screen-2xl w-full h-full flex flex-col justify-center items-center gap-4"
       style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
-      <h1>精選{title}</h1>
+      <div className="flex flex-row items-center gap-2">
+        <h1>精選{title}</h1>
+        <BackToSection id={id} />
+      </div>
       <div className="w-full grow flex flex-row justify-center items-stretch">
         <div className="w-1/2">{isLeft ? headline : featured}</div>
         <div className="w-1/2">{isLeft ? featured : headline}</div>

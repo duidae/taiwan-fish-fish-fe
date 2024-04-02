@@ -44,6 +44,7 @@ export default function Home() {
       label: ROUTE_TOPIC.title,
       component: (
         <FeaturedTextContents
+          id={"featured-2"}
           title={ROUTE_TOPIC.title}
           route={ROUTE_TOPIC.path}
           direction={Direction.RIGHT}
@@ -57,6 +58,7 @@ export default function Home() {
       label: ROUTE_POST.title,
       component: (
         <FeaturedTextContents
+          id={"featured-3"}
           title={ROUTE_POST.title}
           route={ROUTE_POST.path}
           direction={Direction.LEFT}
