@@ -2,6 +2,7 @@
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {arrowLeft, arrowRight} from "@/app/icons"
+import {Z_INDEX} from "@/app/constant"
 
 enum ControllerState {
   FULL = "full",
@@ -109,7 +110,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         opacity: isDescOpen ? "1" : "0",
         transition: "visibility 0.3s, opacity 0.3s ease-in-out"
       }}
-      className="absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 z-10"
+      className={`absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div

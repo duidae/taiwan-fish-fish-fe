@@ -1,6 +1,7 @@
 "use client"
 import {useEffect} from "react"
 import styled from "styled-components"
+import {Z_INDEX} from "@/app/constant"
 
 const Index = styled.div`
   min-height: 16px;
@@ -54,7 +55,9 @@ export const TOC = (props: {indexes: TOCIndex[]}) => {
   }, [])
 
   return (
-    <div className="fixed right-0 top-1/4 w-10 flex flex-col gap-12 bg-white opacity-90 m-1 p-1 pt-2 pb-4 rounded-md shadow-md">
+    <div
+      className={`fixed right-0 top-1/4 w-10 flex flex-col gap-12 bg-white opacity-90 m-1 p-1 pt-2 pb-4 rounded-md shadow-md ${Z_INDEX.TOP}`}
+    >
       {indexes?.map(
         (tocIndex, index) =>
           tocIndex && (

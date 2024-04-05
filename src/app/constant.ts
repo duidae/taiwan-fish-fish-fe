@@ -68,3 +68,8 @@ export enum Direction {
 }
 
 export const DEFAULT_IMAGE_ASPECT_RATIO = "16/9"
+
+export const Z_INDEX = {
+  MIDDLE: "z-10",
+  TOP: "z-50"
+}
