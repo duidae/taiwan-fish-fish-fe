@@ -41,8 +41,18 @@ export const SummaryCard = (props: Summary) => {
           />
         </div>
         <div className={isColumn ? "w-full" : "w-2/3"}>
-          <h2 className={`mb-3 text-2xl ${isRight ? "text-left" : "text-right"} font-semibold`}>{ogTitle}</h2>
-          <p className="w-full m-0 text-sm text-justify opacity-50">{ogDescription}</p>
+          <h2
+            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "2", overflow: "hidden"}}
+            className={`text-2xl ${isRight ? "text-left" : "text-right"} font-semibold`}
+          >
+            {ogTitle}
+          </h2>
+          <p
+            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "4", overflow: "hidden"}}
+            className="w-full m-0 text-base text-justify opacity-50"
+          >
+            {ogDescription}
+          </p>
         </div>
       </Link>
     )

@@ -21,7 +21,7 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
 
   return (
     <div
-      className="max-w-screen-2xl w-full h-full flex flex-col justify-center items-center gap-4"
+      className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center"
       style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
       <div className="flex flex-row items-center gap-2">
