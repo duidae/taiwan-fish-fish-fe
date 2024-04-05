@@ -1,9 +1,9 @@
 import Link from "next/link"
-import {EMAIL, ROUTE_ABOUT, SOCIAL_MEDIA} from "@/app/constant"
+import {EMAIL, ORGANIZATION, ROUTE_ABOUT, SOCIAL_MEDIA} from "@/app/constant"
 
 export const Footer = () => {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row mt-12 mb-8">
       <Link href={ROUTE_ABOUT.path}>{ROUTE_ABOUT.title}</Link>
       <div className="w-full flex flex-row">
         {SOCIAL_MEDIA.map((media, index) => (
@@ -12,9 +12,12 @@ export const Footer = () => {
           </Link>
         ))}
       </div>
-      <Link href={`mailto: ${EMAIL}`} style={{color: "var(--theme-blue)"}}>
-        {EMAIL}
-      </Link>
+      <div className="flex flex-col">
+        {ORGANIZATION}
+        <Link href={`mailto: ${EMAIL}`} style={{color: "var(--theme-blue)"}}>
+          {EMAIL}
+        </Link>
+      </div>
     </div>
   )
 }
