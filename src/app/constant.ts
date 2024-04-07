@@ -35,7 +35,7 @@ export const ROUTES = [
     path: "/models"
   },
   {
-    title: "關於水生",
+    title: `關於${SITE_NAME}`,
     path: "/about"
   }
 ]
