@@ -23,12 +23,11 @@ export const SummaryCard = (props: Summary) => {
   // Assign flex direction: flex-col/flex-row/flex-row-reverse
   const flexAttr = `flex-${isColumn ? "col" : "row"}${!isColumn && isRight ? "-reverse" : ""}`
 
-  // TODO: ellipsis for <p>
   return (
     url && (
       <Link
         href={url}
-        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch px-4 group rounded-lg border border-transparent transition-colors hover:bg-gray-100`}
+        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-6 group rounded-lg border border-transparent transition-colors hover:bg-blue-200`}
         target="_blank"
         rel="noopener noreferrer"
       >
