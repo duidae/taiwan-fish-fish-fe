@@ -47,7 +47,7 @@ export const SummaryCard = (props: Summary) => {
             {ogTitle}
           </h2>
           <p
-            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "4", overflow: "hidden"}}
+            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "3", overflow: "hidden"}}
             className="w-full m-0 text-base text-justify opacity-50"
           >
             {ogDescription}
