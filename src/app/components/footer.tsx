@@ -1,6 +1,6 @@
 import Link from "next/link"
 import {EmailIcon} from "@/app/icons"
-import {COPYRIGHT, EMAIL, ORGANIZATION, ROUTE_ABOUT, SOCIAL_MEDIA, SITE_DESCRIPTION} from "@/app/constant"
+import {COPYRIGHT, EMAIL, ORGANIZATION, ROUTE_ABOUT, SOCIAL_MEDIA, SITE_DESCRIPTION, Color} from "@/app/constant"
 
 export const Footer = () => {
   const logo = <img className="w-10 h-10" src="" />
@@ -32,13 +32,14 @@ export const Footer = () => {
 
   const copyright = `${COPYRIGHT} ${ORGANIZATION}`
 
+  // TODO: fix divider color issue
   return (
     <div className="flex flex-row mt-12 mb-8 p-8">
       <div className="w-1/2 flex flex-col items-center p-4">
         {logo}
         {desc}
       </div>
-      <div className="w-1/2 flex flex-col divide-y divide-blue-200 justify-between">
+      <div className={`w-1/2 flex flex-col divide-y divide-${Color.THEME} justify-between`}>
         <div className="flex flex-row justify-around items-start gap-4">
           {about}
           {socialMedia}

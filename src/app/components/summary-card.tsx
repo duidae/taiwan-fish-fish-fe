@@ -1,5 +1,5 @@
 import Link from "next/link"
-import {Direction, DEFAULT_IMAGE_ASPECT_RATIO} from "@/app/constant"
+import {Color, Direction, DEFAULT_IMAGE_ASPECT_RATIO} from "@/app/constant"
 
 export enum DisplayMode {
   ROW = "row",
@@ -27,7 +27,7 @@ export const SummaryCard = (props: Summary) => {
     url && (
       <Link
         href={url}
-        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-6 group rounded-lg border border-transparent transition-colors hover:bg-blue-200 duration-300`}
+        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-6 group rounded-lg border border-transparent transition-colors hover:bg-${Color.HOVER} duration-300`}
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -74,3 +74,8 @@ export const Z_INDEX = {
   MIDDLE: "z-10",
   TOP: "z-50"
 }
+
+export const Color = {
+  THEME: "blue-100",
+  HOVER: "blue-200"
+}

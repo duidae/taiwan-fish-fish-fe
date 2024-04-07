@@ -50,6 +50,7 @@ export default function Home() {
           direction={Direction.RIGHT}
           headline={headlineTopic}
           featured={featuredTopics}
+          bgColor
         />
       )
     },
