@@ -1,10 +1,10 @@
 "use client"
 import {useEffect, useState} from "react"
 import axios from "axios"
-import Link from "next/link"
 import {GetIDFromYTURL} from "@/app/utils"
 import {FeaturedSectionCommonprops} from "./featured-section"
 import {HEADER_HEIGHT, TOC_WIDTH, DEFAULT_IMAGE_ASPECT_RATIO} from "@/app/constant"
+import {More} from "@/app/components/more"
 import {BackToSection} from "./back-to-section"
 
 type URL = string
@@ -93,12 +93,7 @@ export const FeaturedVideos = (
         <div className="grow">{ytPlayer}</div>
         <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredVideos}</div>
       </div>
-      <Link
-        className="h-20 my-4 px-8 py-4 border-2 border-blue-200 rounded-full hover:bg-blue-200 transition-colors duration-300"
-        href={route}
-      >
-        <h3>{`看更多${title}`}</h3>
-      </Link>
+      <More href={route} title={title} />
     </div>
   )
 }
