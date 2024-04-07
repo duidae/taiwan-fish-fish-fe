@@ -34,12 +34,12 @@ export const Footer = () => {
 
   // TODO: fix divider color issue
   return (
-    <div className="flex flex-row mt-12 mb-8 p-8">
+    <div className="max-w-screen-2xl w-full flex flex-row justify-between mt-12 mb-8 p-8">
       <div className="w-1/2 flex flex-col items-center p-4">
         {logo}
         {desc}
       </div>
-      <div className={`w-1/2 flex flex-col divide-y divide-${Color.THEME} justify-between`}>
+      <div className={`w-1/2 flex flex-col divide-y divide-${Color.HOVER} justify-between`}>
         <div className="flex flex-row justify-around items-start gap-4">
           {about}
           {socialMedia}
