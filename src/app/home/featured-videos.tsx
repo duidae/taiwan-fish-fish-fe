@@ -93,9 +93,12 @@ export const FeaturedVideos = (
         <div className="grow">{ytPlayer}</div>
         <div className="w-96 flex flex-col items-center cursor-pointer overflow-auto gap-2">{featuredVideos}</div>
       </div>
-      <div className="h-20 flex flex-row justify-center items-center">
-        <Link href={route}>{`看全部${title} >>`}</Link>
-      </div>
+      <Link
+        className="h-20 my-4 px-8 py-4 border-2 border-blue-200 rounded-full hover:bg-blue-200 transition-colors duration-300"
+        href={route}
+      >
+        <h3>{`看更多${title}`}</h3>
+      </Link>
     </div>
   )
 }

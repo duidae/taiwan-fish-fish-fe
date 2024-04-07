@@ -42,8 +42,6 @@ body h1 {
 body h3 {
   font-size: 18px;
   font-weight: bold;
-  margin-top: 16px;
-  margin-bottom: 16px;
 }
 
 /* TODO: move to video component */

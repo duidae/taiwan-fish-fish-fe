@@ -32,9 +32,12 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
         <div className="w-1/2">{isLeft ? headline : featured}</div>
         <div className="w-1/2">{isLeft ? featured : headline}</div>
       </div>
-      <div className="h-20 flex flex-row justify-center items-center">
-        <Link href={route}>{`看全部${title} >>`}</Link>
-      </div>
+      <Link
+        className="h-20 my-4 px-8 py-4 border-2 border-blue-200 rounded-full hover:bg-blue-200 transition-colors duration-300"
+        href={route}
+      >
+        <h3>{`看更多${title}`}</h3>
+      </Link>
     </div>
   )
 }
