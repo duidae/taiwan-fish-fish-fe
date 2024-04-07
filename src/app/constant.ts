@@ -4,7 +4,8 @@ export const SITE_NAME = "年年有魚"
 export const SITE_TITLE = `${SITE_NAME} - 來看魚啊`
 export const SITE_DESCRIPTION = `${SITE_NAME}是一個熱愛推廣台灣原生魚類/水族/環境的組織，希望大家一起來認識台灣魚類，推動台灣溪河海洋生態永續！🐟`
 export const ORGANIZATION = "水生生態文化"
-export const EMAIL = "fromwatertw@gmail.com" //"taiwanfishfish@gmail.com"
+export const EMAIL = "fromwatertw@gmail.com"
+export const COPYRIGHT = "Copyright © 2024"
 export const SUBSCRIPTION_URL = "http://eepurl.com/iMaab-/"
 
 export const P5_PLAYGROUND_ID = "P5-playground"
@@ -34,7 +35,7 @@ export const ROUTES = [
     path: "/models"
   },
   {
-    title: "關於我們",
+    title: "關於水生",
     path: "/about"
   }
 ]
