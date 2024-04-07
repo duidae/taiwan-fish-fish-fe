@@ -27,7 +27,7 @@ export const SummaryCard = (props: Summary) => {
     url && (
       <Link
         href={url}
-        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-6 group rounded-lg border border-transparent transition-colors hover:bg-blue-200`}
+        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-6 group rounded-lg border border-transparent transition-colors hover:bg-blue-200 duration-300`}
         target="_blank"
         rel="noopener noreferrer"
       >
