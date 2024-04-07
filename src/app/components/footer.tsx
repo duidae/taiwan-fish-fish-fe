@@ -8,14 +8,14 @@ export const Footer = () => {
   const desc = <div className="p-8">{SITE_DESCRIPTION}</div>
 
   const about = (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       <h3>{"關於我們"}</h3>
       <Link href={ROUTE_ABOUT.path}>{ROUTE_ABOUT.title}</Link>
     </div>
   )
 
   const socialMedia = (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       <h3>{"關注我們"}</h3>
       <div className="w-full flex flex-row gap-2">
         {SOCIAL_MEDIA.map((media, index) => (
@@ -33,7 +33,7 @@ export const Footer = () => {
   const copyright = `${COPYRIGHT} ${ORGANIZATION}`
 
   return (
-    <div className="flex flex-row mt-12 mb-8">
+    <div className="flex flex-row mt-12 mb-8 p-8">
       <div className="w-1/2 flex flex-col items-center p-4">
         {logo}
         {desc}
