@@ -8,7 +8,7 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
   const {slides} = props
 
   return (
-    <div className="w-full h-96 flex">
+    <div className="w-full h-full flex">
       <swiper-container
         autoplay-delay="3500"
         slides-per-view="3"
