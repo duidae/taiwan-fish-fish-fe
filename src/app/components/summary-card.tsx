@@ -33,7 +33,10 @@ export const SummaryCard = (props: Summary) => {
       >
         <div
           style={{backgroundImage: `url(${ogImage})`}}
-          className={"bg-no-repeat bg-center bg-cover " + (isColumn ? "max-h-full w-full h-full grow" : "w-1/3 h-full")}
+          className={
+            "rounded-md bg-no-repeat bg-center bg-cover " +
+            (isColumn ? "max-h-full w-full h-full grow" : "w-1/3 h-full")
+          }
         />
         <div className={isColumn ? "w-full" : "w-2/3 h-full"}>
           <h2
