@@ -10,7 +10,7 @@ export default function Topics() {
   const topics = [...featuredPosts, ...featuredPosts]
 
   const featuredComponents = featuredTopics.map((summary, index) => (
-    <div key={`topic-featured-list-${index}`} className="h-96">
+    <div key={`list-featured-${index}`} className="h-96">
       <SummaryCard
         url={summary.url}
         ogImage={summary.ogImage}
@@ -22,7 +22,7 @@ export default function Topics() {
   ))
 
   const topicComponents = topics.map((summary, index) => (
-    <div key={`topic-list-${index}`} className="h-96">
+    <div key={`list-all-${index}`} className="h-96">
       <SummaryCard
         url={summary.url}
         ogImage={summary.ogImage}
