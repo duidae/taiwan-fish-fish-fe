@@ -21,9 +21,8 @@ export default function Topics() {
   ))
 
   const topicComponents = topics.map((summary, index) => (
-    <div className="h-96">
+    <div key={`post-list-${index}`} className="h-96">
       <SummaryCard
-        key={`post-list-${index}`}
         url={summary.url}
         ogImage={summary.ogImage}
         ogTitle={summary.ogTitle}
