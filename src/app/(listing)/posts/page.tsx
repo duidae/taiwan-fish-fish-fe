@@ -9,18 +9,7 @@ export default function Posts() {
   const posts = [..._featuredPosts, ..._featuredPosts]
 
   const featuredComponents = featuredPosts.map((summary, index) => (
-    <SummaryCard
-      key={`post-list-${index}`}
-      url={summary.url}
-      ogImage={summary.ogImage}
-      ogTitle={summary.ogTitle}
-      ogDescription={summary.ogDescription}
-      displayMode={DisplayMode.COLUMN}
-    />
-  ))
-
-  const postComponents = posts.map((summary, index) => (
-    <div key={`post-list-${index}`} className="h-96">
+    <div key={`list-featured-${index}`} className="h-96">
       <SummaryCard
         url={summary.url}
         ogImage={summary.ogImage}
@@ -31,18 +20,40 @@ export default function Posts() {
     </div>
   ))
 
-  return (
-    <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
-      <div className="text-2xl mb-8">
-        <h1>精選文章</h1>
-      </div>
-      <div className="w-4/5">
+  const postComponents = posts.map((summary, index) => (
+    <div key={`list-all-${index}`} className="h-96">
+      <SummaryCard
+        url={summary.url}
+        ogImage={summary.ogImage}
+        ogTitle={summary.ogTitle}
+        ogDescription={summary.ogDescription}
+        displayMode={DisplayMode.COLUMN}
+      />
+    </div>
+  ))
+
+  const featured = (
+    <div className="flex flex-col w-full items-center">
+      <h1 className="my-8">精選文章</h1>
+      <div className="w-full">
         <Slider slides={featuredComponents} />
       </div>
-      <div className="text-2xl mt-8 mb-8">
-        <h1>所有文章</h1>
+    </div>
+  )
+
+  const all = (
+    <div className="flex flex-col w-full items-center">
+      <h1 className="my-8">所有文章</h1>
+      <div className="w-full grid text-center lg:grid-cols-3 md:grid-cols-2 lg:text-left gap-8 mb-4">
+        {postComponents}
       </div>
-      <div className="w-4/5 grid text-center lg:grid-cols-3 lg:text-left gap-8 mt-4 mb-4">{postComponents}</div>
-    </main>
+    </div>
+  )
+
+  return (
+    <>
+      {featured}
+      {all}
+    </>
   )
 }
