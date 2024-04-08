@@ -1,6 +1,5 @@
-import {Slider} from "@/app/components/slider"
 import {SummaryCard, DisplayMode} from "@/app/components/summary-card"
-import {Color} from "@/app/constant"
+import {List} from "../list"
 
 // TODO: remove mockup
 import {featuredPosts} from "@/app/mockups"
@@ -21,7 +20,7 @@ export default function Topics() {
     </div>
   ))
 
-  const topicComponents = topics.map((summary, index) => (
+  const listComponents = topics.map((summary, index) => (
     <div key={`list-all-${index}`} className="h-96">
       <SummaryCard
         url={summary.url}
@@ -33,28 +32,5 @@ export default function Topics() {
     </div>
   ))
 
-  const featured = (
-    <div className="flex flex-col w-full items-center">
-      <h1 className="my-8">精選專題</h1>
-      <div className="w-full">
-        <Slider slides={featuredComponents} />
-      </div>
-    </div>
-  )
-
-  const all = (
-    <div className="flex flex-col w-full items-center">
-      <h1 className="my-8">所有專題</h1>
-      <div className="w-full grid text-center lg:grid-cols-3 md:grid-cols-2 lg:text-left gap-8 mb-4">
-        {topicComponents}
-      </div>
-    </div>
-  )
-
-  return (
-    <>
-      {featured}
-      {all}
-    </>
-  )
+  return <List featuredComponents={featuredComponents} listComponents={listComponents} title="專題" />
 }
