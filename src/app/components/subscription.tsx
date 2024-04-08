@@ -4,7 +4,7 @@ import {SUBSCRIPTION_URL} from "@/app/constant"
 export const SubscribeBtn = () => {
   return (
     <Link href={SUBSCRIPTION_URL} target="_blank" rel="noopener noreferrer">
-      訂閱
+      訂閱電子報
     </Link>
   )
 }
