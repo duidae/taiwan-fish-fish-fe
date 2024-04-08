@@ -36,7 +36,7 @@ export default function Topics() {
   const featured = (
     <div className="flex flex-col w-full items-center">
       <h1 className="my-8">精選專題</h1>
-      <div className="w-10/12">
+      <div className="w-full">
         <Slider slides={featuredComponents} />
       </div>
     </div>
@@ -45,13 +45,15 @@ export default function Topics() {
   const all = (
     <div className="flex flex-col w-full items-center">
       <h1 className="my-8">所有專題</h1>
-      <div className="w-4/5 grid text-center lg:grid-cols-3 lg:text-left gap-8 mt-4 mb-4">{topicComponents}</div>
+      <div className="w-full grid text-center lg:grid-cols-3 md:grid-cols-2 lg:text-left gap-8 mb-4">
+        {topicComponents}
+      </div>
     </div>
   )
 
   return (
-    <main className={`w-full flex flex-col items-center mt-16 mb-8 `}>
-      <div className={`max-w-screen-2xl w-full flex flex-col divide-y divide-${Color.HOVER} gap-10`}>
+    <main className={`w-full flex flex-col items-center mt-16 mb-8`}>
+      <div className={`max-w-screen-2xl w-full flex flex-col divide-y divide-${Color.HOVER} gap-10 px-8`}>
         {featured}
         {all}
       </div>
