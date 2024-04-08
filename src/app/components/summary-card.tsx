@@ -1,5 +1,5 @@
 import Link from "next/link"
-import {Color, Direction, DEFAULT_IMAGE_ASPECT_RATIO} from "@/app/constant"
+import {Color, Direction} from "@/app/constant"
 
 export enum DisplayMode {
   ROW = "row",
@@ -27,28 +27,24 @@ export const SummaryCard = (props: Summary) => {
     url && (
       <Link
         href={url}
-        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-6 group rounded-lg border border-transparent transition-colors hover:bg-${Color.HOVER} duration-300`}
+        className={`w-full h-full flex ${flexAttr} gap-2 items-center justify-stretch p-4 group rounded-lg border border-transparent transition-colors hover:bg-${Color.HOVER} duration-300`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className={isColumn ? "max-w-full w-full grow" : "w-1/3"}>
-          <img
-            style={{aspectRatio: DEFAULT_IMAGE_ASPECT_RATIO}}
-            className="w-full h-full overflow-hidden object-cover rounded-md"
-            src={ogImage}
-            alt={ogTitle}
-          />
-        </div>
-        <div className={isColumn ? "w-full" : "w-2/3"}>
+        <div
+          style={{backgroundImage: `url(${ogImage})`}}
+          className={"bg-no-repeat bg-center bg-cover " + (isColumn ? "max-h-full w-full h-full grow" : "w-1/3 h-full")}
+        />
+        <div className={isColumn ? "w-full" : "w-2/3 h-full"}>
           <h2
-            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "2", overflow: "hidden"}}
+            style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden"}}
             className={`text-2xl ${isRight ? "text-left" : "text-right"} font-semibold`}
           >
             {ogTitle}
           </h2>
           <p
             style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "3", overflow: "hidden"}}
-            className="w-full m-0 text-base text-justify opacity-50"
+            className="w-full m-0 text-sm text-justify opacity-50"
           >
             {ogDescription}
           </p>

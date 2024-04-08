@@ -21,11 +21,11 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
   const isLeft = direction === Direction.LEFT
 
   return (
-    <div className={`w-full h-screen flex flex-row justify-center ${bgColor ? `bg-${Color.THEME}` : ""}`}>
-      <div
-        className="max-w-screen-2xl max-h-screen h-full flex flex-col justify-center items-center"
-        style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
-      >
+    <div
+      className={`w-full h-screen flex flex-row justify-center ${bgColor ? `bg-${Color.THEME}` : ""}`}
+      style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
+    >
+      <div className="max-w-screen-2xl w-full h-full flex flex-col justify-center items-center">
         <div className="flex flex-row items-center gap-2">
           <h1>精選{title}</h1>
           <BackToSection id={id} />
