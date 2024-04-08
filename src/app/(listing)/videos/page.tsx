@@ -1,6 +1,6 @@
 import {Slider} from "@/app/components/slider"
 import {GetIDFromYTURL} from "@/app/utils"
-import {YTVideos} from "../mockups"
+import {YTVideos} from "@/app/mockups"
 
 export default function Videos() {
   const featuredYTURLs = YTVideos

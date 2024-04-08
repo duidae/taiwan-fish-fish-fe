@@ -2,7 +2,7 @@ import {Slider} from "@/app/components/slider"
 import {SummaryCard, DisplayMode} from "@/app/components/summary-card"
 
 // TODO: remove mockup
-import {featuredPosts as _featuredPosts} from "../mockups"
+import {featuredPosts as _featuredPosts} from "@/app/mockups"
 
 export default function Posts() {
   const featuredPosts = _featuredPosts

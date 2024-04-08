@@ -3,7 +3,7 @@ import {SummaryCard, DisplayMode} from "@/app/components/summary-card"
 import {Color} from "@/app/constant"
 
 // TODO: remove mockup
-import {featuredPosts} from "../mockups"
+import {featuredPosts} from "@/app/mockups"
 
 export default function Topics() {
   const featuredTopics = featuredPosts
