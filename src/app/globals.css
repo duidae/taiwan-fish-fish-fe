@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --theme-blue: #27b5f7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,13 +23,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  /* TODO: handle swiper style inside file */
-  --swiper-pagination-color: white;
-  --swiper-pagination-bullet-inactive-color: gray;
-  --swiper-pagination-bullet-inactive-opacity: 1;
-
-  --theme-blue: #27b5f7;
 }
 
 /* TODO: add H1/H2/H3/H4 component */
