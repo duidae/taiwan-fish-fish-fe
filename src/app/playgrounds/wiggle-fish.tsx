@@ -3,6 +3,7 @@ import {useState} from "react"
 import styled from "styled-components"
 import {sketch} from "./sketches/wiggle-fish"
 import {GetRandomInteger} from "@/app/utils"
+import {Style} from "@/app/constant"
 import {P5Wrapper} from "./util"
 
 const Image = styled.img<{$isActive: boolean}>`
@@ -11,7 +12,7 @@ const Image = styled.img<{$isActive: boolean}>`
   padding: ${props => (props.$isActive ? "0px" : "4px")};
   border-radius: 20px;
   cursor: pointer;
-  transition: padding 0.3s;
+  transition: padding ${Style.DURATION}ms;
 `
 
 const fishSrcs = ["/Puntius Snyderi.jpeg", "/Puntius Semifasciolatus.jpeg"]

@@ -1,7 +1,7 @@
 "use client"
 import {useEffect, useRef} from "react"
 import styled from "styled-components"
-import {Z_INDEX} from "@/app/constant"
+import {Z_INDEX, Style} from "@/app/constant"
 
 const Index = styled.div`
   min-height: 16px;
@@ -11,7 +11,7 @@ const Index = styled.div`
   font-weight: 400;
   word-wrap: break-word;
   color: #8e8e8e;
-  transition: 0.3s;
+  transition: ${Style.DURATION}ms;
 
   &.isActive {
     color: var(--theme-blue);

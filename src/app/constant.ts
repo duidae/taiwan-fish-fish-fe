@@ -75,6 +75,10 @@ export const Z_INDEX = {
   TOP: "z-50"
 }
 
+export const Style = {
+  DURATION: 300
+}
+
 export const Color = {
   THEME: "blue-100",
   HOVER: "blue-200"

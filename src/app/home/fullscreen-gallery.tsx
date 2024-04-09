@@ -2,7 +2,7 @@
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {arrowLeft, arrowRight} from "@/app/icons"
-import {Z_INDEX} from "@/app/constant"
+import {Z_INDEX, Style} from "@/app/constant"
 
 enum ControllerState {
   FULL = "full",
@@ -29,7 +29,7 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive
   return (
     <div
       style={{backgroundColor: isActive ? "gray" : ""}}
-      className="w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer"
+      className={`w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 duration-${Style.DURATION} rounded-full cursor-pointer`}
       onClick={e => {
         e.stopPropagation()
         onClick?.()
@@ -108,13 +108,13 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       style={{
         visibility: isDescOpen ? "visible" : "hidden",
         opacity: isDescOpen ? "1" : "0",
-        transition: "visibility 0.3s, opacity 0.3s ease-in-out"
+        transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
       className={`absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div
-        className="absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-300 rounded-full cursor-pointer flex flex-row justify-center items-center"
+        className={`absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-${Style.DURATION} rounded-full cursor-pointer flex flex-row justify-center items-center`}
         onClick={e => {
           e.stopPropagation()
           onShowDescription()
@@ -190,7 +190,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     <div
       style={{
         backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
-        transition: "background-image 0.3s ease-in-out"
+        transition: `background-image ${Style.DURATION}ms ease-in-out`
       }}
       className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
       onMouseMove={onMouseMove}
