@@ -17,6 +17,7 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
         pagination-clickable="true"
         pagination-dynamic-bullets="true"
         loop="true"
+        space-between="10"
         style={{width: "100%"}}
       >
         {slides?.map((slide, index) => {
