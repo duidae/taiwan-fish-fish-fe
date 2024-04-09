@@ -8,7 +8,7 @@ export default function Models() {
   const models = _models
 
   const featuredComponents = featuredModels.map((model, index) => (
-    <div key={`embed-model-${index}`} dangerouslySetInnerHTML={{__html: model}} />
+    <div className="pb-8" key={`embed-model-${index}`} dangerouslySetInnerHTML={{__html: model}} />
   ))
 
   const modelComponents = models.map((model, index) => (

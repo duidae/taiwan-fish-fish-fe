@@ -9,7 +9,6 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
 
   // HowTo of swiper web component in react, ref: https://swiperjs.com/blog/using-swiper-element-in-react
   useEffect(() => {
-    // Register Swiper web component
     register()
 
     const params = {
@@ -20,7 +19,23 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
       navigation: true,
       pagination: {clickable: true},
       loop: true,
-      spaceBetween: 10
+      spaceBetween: 10,
+      injectStyles: [
+        `
+        .swiper-button-prev, .swiper-button-next {
+          width: 48px;
+          height: 48px;
+          color: white;
+          background-color: var(--theme-blue);
+          border-radius: 100%;
+
+          svg {
+            width: 60%;
+            height: 60%;
+          }
+        }
+      }`
+      ]
     }
 
     Object.assign(swiperRef.current, params)

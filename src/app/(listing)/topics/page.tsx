@@ -9,7 +9,7 @@ export default function Topics() {
   const topics = [...featuredPosts, ...featuredPosts]
 
   const featuredComponents = featuredTopics.map((summary, index) => (
-    <div key={`list-featured-${index}`} className="h-96">
+    <div key={`list-featured-${index}`} className="h-96 mb-8">
       <SummaryCard
         url={summary.url}
         ogImage={summary.ogImage}

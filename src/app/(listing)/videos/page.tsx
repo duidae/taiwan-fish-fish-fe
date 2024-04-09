@@ -11,7 +11,7 @@ export default function Videos() {
     const ytID = GetIDFromYTURL(url)
 
     return (
-      <div key={`video-list-${index}`} className="w-full h-full flex flex-col items-center justify-center">
+      <div key={`video-list-${index}`} className="w-full h-full flex flex-col items-center justify-center pb-8">
         <iframe
           width="100%"
           height="100%"
