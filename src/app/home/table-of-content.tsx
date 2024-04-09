@@ -1,5 +1,5 @@
 "use client"
-import {useEffect} from "react"
+import {useEffect, useRef} from "react"
 import styled from "styled-components"
 import {Z_INDEX} from "@/app/constant"
 
@@ -11,8 +11,9 @@ const Index = styled.div`
   font-weight: 400;
   word-wrap: break-word;
   color: #8e8e8e;
+  transition: 0.3s;
 
-  &.active {
+  &.isActive {
     color: var(--theme-blue);
   }
 `
@@ -20,22 +21,30 @@ const Index = styled.div`
 export type TOCIndex = {id: string; label: string}
 
 const tocIndexIDPrefix = "toc-index-"
-const activeClassname = "active"
+const activeClassname = "isActive"
 
 export const TOC = (props: {indexes: TOCIndex[]}) => {
   const {indexes} = props
 
+  const prevAnchorIDRef = useRef<string | null>(null)
+
   useEffect(() => {
+    prevAnchorIDRef.current = `${tocIndexIDPrefix}${indexes?.[0].id}`
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           const id = entry.target.getAttribute("id")
           const indexID = `${tocIndexIDPrefix}${id}`
-          const index = document.querySelector(`#${indexID}`)
+          const indexEl = document.querySelector(`#${indexID}`)
           if (entry.isIntersecting) {
-            index?.classList?.add(activeClassname)
+            if (prevAnchorIDRef.current !== indexID) {
+              document.querySelector(`#${prevAnchorIDRef.current}`)?.classList?.remove(activeClassname)
+            }
+            indexEl?.classList?.add(activeClassname)
+            prevAnchorIDRef.current = indexID
           } else {
-            index?.classList?.remove(activeClassname)
+            indexEl?.classList?.remove(activeClassname)
           }
         })
       },
