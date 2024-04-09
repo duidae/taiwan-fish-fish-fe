@@ -3,6 +3,7 @@ import {List} from "../list"
 // TODO: remove mockup
 import {models as _models} from "@/app/mockups"
 
+// TODO: replace iframe with <a target="_blank">thumbnail</a>
 export default function Models() {
   const featuredModels = _models
   const models = _models

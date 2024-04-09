@@ -3,6 +3,7 @@ import {List} from "../list"
 
 import {YTVideos} from "@/app/mockups"
 
+// TODO: replace iframe with <a target="_blank">thumbnail</a>
 export default function Videos() {
   const featuredYTURLs = YTVideos
   const ytURLs = YTVideos
