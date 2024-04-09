@@ -1,4 +1,4 @@
-import {FBIcon, GithubIcon} from "./icons"
+import {FBIcon, GithubIcon} from "@/app/assets/icons"
 
 export const SITE_NAME = "年年有魚"
 export const SITE_TITLE = `${SITE_NAME} - 來看魚啊`

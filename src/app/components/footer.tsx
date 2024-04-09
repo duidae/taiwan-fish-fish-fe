@@ -1,5 +1,5 @@
 import Link from "next/link"
-import {EmailIcon} from "@/app/icons"
+import {EmailIcon} from "@/app/assets/icons"
 import {SubscribeBtn} from "@/app/components/subscription"
 import {COPYRIGHT, EMAIL, ORGANIZATION, ROUTE_ABOUT, SOCIAL_MEDIA, SITE_DESCRIPTION, Color} from "@/app/constant"
 

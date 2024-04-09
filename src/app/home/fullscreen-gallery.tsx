@@ -1,7 +1,7 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
-import {arrowLeft, arrowRight} from "@/app/icons"
+import {arrowLeft, arrowRight} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
 
 enum ControllerState {

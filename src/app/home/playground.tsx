@@ -1,5 +1,5 @@
 // import { WiggleFish } from '@/app/playgrounds/wiggle-fish'
-import {SimpleCanvas} from "@/app/playgrounds/simple-canvas"
+import {SimpleCanvas} from "@/app/assets/playgrounds/simple-canvas"
 import {P5_PLAYGROUND_ID} from "@/app/constant"
 
 export const Playground = (props: {className?: string}) => {
