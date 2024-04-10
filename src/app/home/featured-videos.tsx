@@ -42,6 +42,10 @@ export const FeaturedVideos = (
       <iframe
         width="100%"
         height="100%"
+        style={{
+          aspectRatio: "16/9",
+          borderRadius: "10px"
+        }}
         loading="lazy"
         src={ytEmbedTemplate.replace("${id}", ytID)}
         frameBorder="0"

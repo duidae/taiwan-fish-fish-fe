@@ -114,7 +114,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     >
       <div
         style={{borderRadius: "10px 10px 0px 0px"}}
-        className={`w-${isChillOpen ? "4/5" : "1/4"} h-8 ml-4 flex flex-row justify-between items-center bg-gray-400/50`}
+        className={`${isChillOpen ? "w-4/5" : "ml-4 gap-6"} h-8 flex flex-row justify-between items-center bg-gray-400/50`}
       >
         <div className="w-6 h-6 ml-2 opacity-50">{YoutubeIcon}</div>
         <span
