@@ -131,9 +131,9 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         style={{display: isChillOpen ? "" : "none"}}
         src="https://www.youtube.com/embed/Ra8yYB38Qw0?si=_XW60dNfrid5zgHq"
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
+        allowFullScreen
       />
     </div>
   )
@@ -145,7 +145,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         opacity: isDescOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`absolute w-1/4 right-0 bottom-0 rounded-md p-4 m-6 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
+      className={`absolute w-1/4 right-0 bottom-0 rounded-md p-4 mr-12 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div
@@ -186,7 +186,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       style={{
         justifyContent: controllerState === ControllerState.FULL || isDescOpen ? "center" : "center"
       }}
-      className="absolute w-full bottom-0 px-2 mb-4 flex flex-row items-center gap-1"
+      className="absolute w-full bottom-0 px-2 flex flex-row items-center gap-1"
     >
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={ArrowLeft} />}
       <div
