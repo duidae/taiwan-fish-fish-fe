@@ -5,7 +5,7 @@ import {SubscribeBtn} from "./subscription"
 export const Header = () => {
   return (
     <div
-      style={{backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))"}}
+      style={{backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"}}
       className="fixed top-0 w-full flex flex-row justify-center"
     >
       <nav
