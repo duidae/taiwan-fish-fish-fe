@@ -16,5 +16,5 @@ export default function Models() {
     <div key={`embed-model-${index}`} dangerouslySetInnerHTML={{__html: model}} />
   ))
 
-  return <List featuredComponents={featuredComponents} listComponents={modelComponents} title="模型" />
+  return <List autoplay={false} featuredComponents={featuredComponents} listComponents={modelComponents} title="模型" />
 }

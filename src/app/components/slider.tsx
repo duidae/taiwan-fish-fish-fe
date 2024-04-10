@@ -2,8 +2,8 @@
 import {useEffect, useRef} from "react"
 import {register} from "swiper/element/bundle"
 
-export const Slider = (props: {slides: React.ReactNode[]}) => {
-  const {slides} = props
+export const Slider = (props: {slides: React.ReactNode[]; autoplay?: boolean}) => {
+  const {slides, autoplay} = props
 
   const swiperRef = useRef<any>(null)
 
@@ -12,9 +12,12 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
     register()
 
     const params = {
-      autoplay: {
-        delay: 3500
-      },
+      autoplay:
+        autoplay === false
+          ? false
+          : {
+              delay: 3500
+            },
       slidesPerView: 3,
       navigation: true,
       pagination: {clickable: true},

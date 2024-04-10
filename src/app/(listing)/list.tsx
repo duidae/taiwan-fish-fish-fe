@@ -4,14 +4,15 @@ export const List = (props: {
   featuredComponents: React.ReactNode[]
   listComponents: React.ReactNode
   title: string
+  autoplay?: boolean
 }) => {
-  const {featuredComponents, listComponents, title} = props
+  const {featuredComponents, listComponents, title, autoplay} = props
 
   const featured = (
     <div className="flex flex-col w-full items-center">
       <h1 className="my-8">精選{title}</h1>
       <div className="w-full">
-        <Slider slides={featuredComponents} />
+        <Slider slides={featuredComponents} autoplay={autoplay} />
       </div>
     </div>
   )
