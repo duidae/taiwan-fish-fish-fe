@@ -129,9 +129,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         </span>
       </div>
       <iframe
-        width="80%"
-        height="500"
-        style={{display: isChillOpen ? "" : "none"}}
+        style={{width:"80%", height: '50vh', display: isChillOpen ? "" : "none"}}
         src="https://www.youtube.com/embed/Ra8yYB38Qw0?si=_XW60dNfrid5zgHq"
         title="YouTube video player"
         frameBorder="0"
