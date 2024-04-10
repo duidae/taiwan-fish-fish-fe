@@ -1,7 +1,7 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
-import {arrowLeft, arrowRight} from "@/app/assets/icons"
+import {ArrowLeft, ArrowRight} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
 
 enum ControllerState {
@@ -153,7 +153,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       }}
       className="absolute w-full bottom-0 px-2 mb-4 flex flex-row items-center gap-1"
     >
-      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={arrowLeft} />}
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={ArrowLeft} />}
       <div
         style={{
           // TODO: improve collapse performance
@@ -164,7 +164,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       >
         {thumbnails}
       </div>
-      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={arrowRight} />}
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={ArrowRight} />}
       {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}
       <ControlBtn onClick={onShowMagnifier} isActive={isMagnifierOpen} icon={<span style={{color: "white"}}>M</span>} />
       {controllerState !== ControllerState.MINIMIZE && (
