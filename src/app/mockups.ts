@@ -1,3 +1,4 @@
+export const chillYTVideo = ""
 export const chillYTVideos = [
   "https://www.youtube.com/embed/aod40An1DLQ?si=_Y18xwVEIoOHQTLJ",
   "https://www.youtube.com/embed/wPQnp65MYz4?si=s9NnnMzG6nXJzh_j",

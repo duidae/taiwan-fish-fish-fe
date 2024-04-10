@@ -53,6 +53,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   const [isMagnifierOpen, setIsMagnifierOpen] = useState(false)
   const [pos, setPos] = useState({x: 0, y: 0})
   const [cursorPos, setCursorPos] = useState({x: 0, y: 0})
+  const [isChillOpen, setIsChillOpen] = useState(true)
 
   useEffect(() => {
     setIsClient(true)
@@ -102,6 +103,40 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setPos({x, y})
     setCursorPos({x: e.pageX - left, y: e.pageY - top})
   }
+
+  const onControlChill = () => {
+    setIsChillOpen(!isChillOpen)
+  }
+
+  const chillVideo = (
+    <div className={`absolute w-1/4 left-0 bottom-0 flex flex-col items-center ${Z_INDEX.TOP}`}>
+      <div
+        style={{borderRadius: "10px 10px 0px 0px"}}
+        className="w-4/5 h-8 flex flex-row justify-end items-center bg-gray-400/50"
+      >
+        <span
+          className="cursor-pointer px-4"
+          style={{color: "white"}}
+          onClick={e => {
+            e.stopPropagation()
+            onControlChill()
+          }}
+        >
+          -
+        </span>
+      </div>
+      <iframe
+        width="80%"
+        height="500"
+        style={{display: isChillOpen ? "" : "none"}}
+        src="https://www.youtube.com/embed/Ra8yYB38Qw0?si=_XW60dNfrid5zgHq"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      />
+    </div>
+  )
 
   const description = (
     <div
@@ -206,8 +241,9 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       )}
       {body}
       {isMagnifierOpen && imgMaginifier}
-      {description}
+      {chillVideo}
       {controller}
+      {description}
     </div>
   )
 }

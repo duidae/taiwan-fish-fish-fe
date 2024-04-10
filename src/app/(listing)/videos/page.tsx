@@ -8,6 +8,7 @@ import {List} from "../list"
 
 import {YTVideos} from "@/app/mockups"
 
+// TODO: replace duplicate templates
 const ytOEmbedTemplate = "https://youtube.com/oembed?url=${url}&format=json"
 const ytImgTemplate = "https://i.ytimg.com/vi_webp/${id}/maxresdefault.webp"
 const fallbackYTImgTemplate = "https://i.ytimg.com/vi/${id}/hqdefault.jpg"
