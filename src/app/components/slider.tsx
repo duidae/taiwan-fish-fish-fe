@@ -34,7 +34,7 @@ export const Slider = (props: {slides: React.ReactNode[]}) => {
             height: 60%;
           }
         }
-      }`
+      `
       ]
     }
 

@@ -49,10 +49,10 @@ export default function Videos() {
     })
     Promise.all(requests)
       .then(responses => {
-        setFeaturedMetadata(responses.slice(0, featuredYTURLs.length).map(response => response.data))
-        setMetadata(
-          responses.slice(featuredYTURLs.length, featuredYTURLs.length + ytURLs.length).map(response => response.data)
-        )
+        const featuredResponses = responses.slice(0, featuredYTURLs.length)
+        const ytResponses = responses.slice(featuredYTURLs.length, featuredYTURLs.length + ytURLs.length)
+        setFeaturedMetadata(featuredResponses?.map(response => response.data))
+        setMetadata(ytResponses?.map(response => response.data))
       })
       .catch(error => {
         console.error(error)
