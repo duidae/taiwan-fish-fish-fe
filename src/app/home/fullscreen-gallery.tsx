@@ -1,7 +1,7 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
-import {ArrowLeft, ArrowRight} from "@/app/assets/icons"
+import {ArrowLeft, ArrowRight, YoutubeIcon} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
 
 enum ControllerState {
@@ -114,8 +114,9 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     >
       <div
         style={{borderRadius: "10px 10px 0px 0px"}}
-        className={`w-${isChillOpen ? "4/5" : "1/4"} h-8 ml-4 flex flex-row justify-end items-center bg-gray-400/50`}
+        className={`w-${isChillOpen ? "4/5" : "1/4"} h-8 ml-4 flex flex-row justify-between items-center bg-gray-400/50`}
       >
+        <div className="w-6 h-6 ml-2 opacity-50">{YoutubeIcon}</div>
         <span
           className={`cursor-pointer w-6 h-6 text-center align-middle hover:bg-gray-400 rounded-md duration-${Style.DURATION}`}
           style={{color: "white"}}
