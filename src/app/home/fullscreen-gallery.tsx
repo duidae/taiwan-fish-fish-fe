@@ -109,13 +109,15 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   }
 
   const chillVideo = (
-    <div className={`absolute w-1/4 left-0 bottom-0 flex flex-col items-center ${Z_INDEX.TOP}`}>
+    <div
+      className={`absolute w-1/4 left-0 bottom-0 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
+    >
       <div
         style={{borderRadius: "10px 10px 0px 0px"}}
-        className="w-4/5 h-8 flex flex-row justify-end items-center bg-gray-400/50"
+        className={`w-${isChillOpen ? "4/5" : "1/4"} h-8 ml-4 flex flex-row justify-end items-center bg-gray-400/50`}
       >
         <span
-          className="cursor-pointer px-4"
+          className={`cursor-pointer w-6 h-6 text-center align-middle hover:bg-gray-400 rounded-md duration-${Style.DURATION}`}
           style={{color: "white"}}
           onClick={e => {
             e.stopPropagation()
