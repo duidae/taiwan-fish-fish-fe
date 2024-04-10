@@ -9,7 +9,7 @@ import {BackToSection} from "./back-to-section"
 
 type URL = string
 
-const ytOEmbedTemplate = "http://youtube.com/oembed?url=${url}&format=json"
+const ytOEmbedTemplate = "https://youtube.com/oembed?url=${url}&format=json"
 const ytEmbedTemplate = "https://www.youtube.com/embed/${id}"
 const ytImgTemplate = "https://i.ytimg.com/vi/${id}/hqdefault.jpg"
 
