@@ -4,9 +4,8 @@ import {SubscribeBtn} from "@/app/components/subscription"
 import {COPYRIGHT, EMAIL, ORGANIZATION, ROUTE_ABOUT, SOCIAL_MEDIA, SITE_DESCRIPTION, Color} from "@/app/constant"
 
 export const Footer = () => {
-  const logo = <img className="w-10 h-10" src="" />
-
-  const desc = <div className="p-8">{SITE_DESCRIPTION}</div>
+  const logo = <img className="w-48 h-48" src="/logo.svg" />
+  const desc = <div className="w-2/3 p-4">{SITE_DESCRIPTION}</div>
 
   const about = (
     <div className="flex flex-col gap-2">
@@ -41,7 +40,7 @@ export const Footer = () => {
         {logo}
         {desc}
       </div>
-      <div className={`w-1/2 flex flex-col divide-y divide-${Color.HOVER} justify-between`}>
+      <div className={`w-1/2 flex flex-col divide-y divide-${Color.HOVER} justify-center`}>
         <div className="flex flex-row justify-start items-start gap-16 mb-8">
           {about}
           {socialMedia}

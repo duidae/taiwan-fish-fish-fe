@@ -1,5 +1,6 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
+import Link from "next/link"
 import {GetRandomInteger} from "@/app/utils"
 import {ArrowLeft, ArrowRight, YoutubeIcon} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
@@ -107,6 +108,12 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   const onControlChill = () => {
     setIsChillOpen(!isChillOpen)
   }
+
+  const logo = (
+    <Link className='absolute top-0 left-0 mt-4 ml-16' href="/">
+      <img className="h-24" src="/logo-horizontal.svg" />
+    </Link>
+  )
 
   const chillVideo = (
     <div
@@ -232,6 +239,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       onMouseMove={onMouseMove}
       onClick={onSwitchManifier}
     >
+      {logo}
       {false && (
         <img
           className="w-full"
