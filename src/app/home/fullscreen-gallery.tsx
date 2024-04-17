@@ -104,11 +104,11 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setCursorPos({x: e.pageX - left, y: e.pageY - top})
   }
 
-  const onControlChill = () => {
-    setIsChillOpen(!isChillOpen)
+  const onControlChill = (value: boolean) => {
+    setIsChillOpen(value)
   }
 
-  const chillVideo = (
+  const chillVideo = (isChillOpen ?
     <div
       className={`absolute w-1/4 left-0 bottom-0 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
     >
@@ -122,7 +122,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
           style={{color: "white"}}
           onClick={e => {
             e.stopPropagation()
-            onControlChill()
+            onControlChill(false)
           }}
         >
           -
@@ -136,7 +136,11 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       />
-    </div>
+    </div> :
+    <div className={`absolute w-10 h-10 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/50 cursor-pointer ${Z_INDEX.TOP}`} onClick={e => {
+      e.stopPropagation()
+      onControlChill(true)
+    }}><div className="w-6 h-6 opacity-50">{YoutubeIcon}</div></div>
   )
 
   const description = (
@@ -146,7 +150,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         opacity: isDescOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`absolute w-1/4 right-0 bottom-0 rounded-md p-4 mr-12 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
+      className={`absolute w-1/4 right-0 bottom-0 rounded-md p-4 mb-4 mr-12 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div
@@ -187,7 +191,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       style={{
         justifyContent: controllerState === ControllerState.FULL || isDescOpen ? "center" : "center"
       }}
-      className="absolute w-full bottom-0 px-2 flex flex-row items-center gap-1"
+      className="absolute w-full bottom-0 px-2 pb-4 flex flex-row items-center gap-1"
     >
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={ArrowLeft} />}
       <div
@@ -198,7 +202,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         }}
         className="flex flex-row justify-center items-center"
       >
-        {thumbnails}
+        {false && thumbnails}
       </div>
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={ArrowRight} />}
       {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}

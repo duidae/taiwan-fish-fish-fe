@@ -85,7 +85,7 @@ export default function Home() {
   return (
     <main className="flex flex-col w-full items-center justify-between">
       {sectionsJSX}
-      <TOC indexes={tocIndexes} />
+      {/*<TOC indexes={tocIndexes} />*/}
     </main>
   )
 }
