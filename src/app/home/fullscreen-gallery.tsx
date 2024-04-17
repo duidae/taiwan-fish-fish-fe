@@ -53,7 +53,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   const [isMagnifierOpen, setIsMagnifierOpen] = useState(false)
   const [pos, setPos] = useState({x: 0, y: 0})
   const [cursorPos, setCursorPos] = useState({x: 0, y: 0})
-  const [isChillOpen, setIsChillOpen] = useState(true)
+  const [isChillOpen, setIsChillOpen] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
