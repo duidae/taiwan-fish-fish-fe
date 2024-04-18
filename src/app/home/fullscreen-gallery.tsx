@@ -1,7 +1,7 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
-import {ArrowLeft, ArrowRight, YoutubeIcon} from "@/app/assets/icons"
+import {ArrowLeft, ArrowRight} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
 
 enum ControllerState {
@@ -53,7 +53,6 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   const [isMagnifierOpen, setIsMagnifierOpen] = useState(false)
   const [pos, setPos] = useState({x: 0, y: 0})
   const [cursorPos, setCursorPos] = useState({x: 0, y: 0})
-  const [isChillOpen, setIsChillOpen] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
@@ -103,45 +102,6 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
     setPos({x, y})
     setCursorPos({x: e.pageX - left, y: e.pageY - top})
   }
-
-  const onControlChill = (value: boolean) => {
-    setIsChillOpen(value)
-  }
-
-  const chillVideo = (isChillOpen ?
-    <div
-      className={`absolute w-1/4 left-0 bottom-0 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
-    >
-      <div
-        style={{borderRadius: "10px 10px 0px 0px"}}
-        className={`${isChillOpen ? "w-4/5" : "ml-4 gap-6"} h-8 flex flex-row justify-between items-center bg-gray-400/50`}
-      >
-        <div className="w-6 h-6 ml-2 opacity-50">{YoutubeIcon}</div>
-        <span
-          className={`cursor-pointer w-6 h-6 text-center align-middle hover:bg-gray-400 rounded-md duration-${Style.DURATION}`}
-          style={{color: "white"}}
-          onClick={e => {
-            e.stopPropagation()
-            onControlChill(false)
-          }}
-        >
-          -
-        </span>
-      </div>
-      <iframe
-        style={{width:"80%", height: '50vh', display: isChillOpen ? "" : "none"}}
-        src="https://www.youtube.com/embed/Ra8yYB38Qw0?si=_XW60dNfrid5zgHq"
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-    </div> :
-    <div className={`absolute w-10 h-10 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`} onClick={e => {
-      e.stopPropagation()
-      onControlChill(true)
-    }}><div className="w-6 h-6 opacity-50">{YoutubeIcon}</div></div>
-  )
 
   const description = (
     <div
@@ -246,7 +206,6 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       )}
       {body}
       {isMagnifierOpen && imgMaginifier}
-      {chillVideo}
       {controller}
       {description}
     </div>

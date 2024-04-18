@@ -41,10 +41,10 @@ export const ROUTES = [
 ]
 
 export const ROUTE_HEADER = ROUTES.slice(0, 5)
-export const ROUTE_VIDEO = ROUTES.find(route => route.title === '影音')
-export const ROUTE_TOPIC = ROUTES.find(route => route.title === '專題')
-export const ROUTE_POST = ROUTES.find(route => route.title === '文章')
-export const ROUTE_ABOUT = ROUTES.find(route => route.path === '/about')
+export const ROUTE_VIDEO = ROUTES.find(route => route.title === "影音")
+export const ROUTE_TOPIC = ROUTES.find(route => route.title === "專題")
+export const ROUTE_POST = ROUTES.find(route => route.title === "文章")
+export const ROUTE_ABOUT = ROUTES.find(route => route.path === "/about")
 
 export const SOCIAL_MEDIA = [
   {

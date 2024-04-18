@@ -3,7 +3,7 @@ import {ROUTE_HEADER, Z_INDEX} from "@/app/constant"
 
 export const Header = () => {
   const logo = (
-    <Link className='mt-4 ml-16' href="/">
+    <Link className="mt-4 ml-16" href="/">
       <img className="h-20" src="/logo-horizontal.svg" />
     </Link>
   )
