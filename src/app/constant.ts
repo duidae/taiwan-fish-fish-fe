@@ -15,16 +15,16 @@ export const TOC_WIDTH = 40
 // TODO: 魚傳媒/魚博館/魚美館
 export const ROUTES = [
   {
-    title: "影音",
-    path: "/videos"
-  },
-  {
     title: "專題",
     path: "/topics"
   },
   {
     title: "文章",
     path: "/posts"
+  },
+  {
+    title: "影音",
+    path: "/videos"
   },
   {
     title: "魚地圖",
@@ -41,10 +41,10 @@ export const ROUTES = [
 ]
 
 export const ROUTE_HEADER = ROUTES.slice(0, 5)
-export const ROUTE_VIDEO = ROUTES[0]
-export const ROUTE_TOPIC = ROUTES[1]
-export const ROUTE_POST = ROUTES[2]
-export const ROUTE_ABOUT = ROUTES[5]
+export const ROUTE_VIDEO = ROUTES.find(route => route.title === '影音')
+export const ROUTE_TOPIC = ROUTES.find(route => route.title === '專題')
+export const ROUTE_POST = ROUTES.find(route => route.title === '文章')
+export const ROUTE_ABOUT = ROUTES.find(route => route.path === '/about')
 
 export const SOCIAL_MEDIA = [
   {

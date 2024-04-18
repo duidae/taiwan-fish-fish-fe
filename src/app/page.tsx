@@ -28,23 +28,10 @@ export default function Home() {
     },
     {
       id: "featured-1",
-      label: ROUTE_VIDEO.title,
-      component: (
-        <FeaturedVideos
-          id={"featured-1"}
-          title={ROUTE_VIDEO.title}
-          route={ROUTE_VIDEO.path}
-          direction={Direction.LEFT}
-          featured={featuredVideos}
-        />
-      )
-    },
-    {
-      id: "featured-2",
       label: ROUTE_TOPIC.title,
       component: (
         <FeaturedTextContents
-          id={"featured-2"}
+          id={"featured-1"}
           title={ROUTE_TOPIC.title}
           route={ROUTE_TOPIC.path}
           direction={Direction.RIGHT}
@@ -55,11 +42,11 @@ export default function Home() {
       )
     },
     {
-      id: "featured-3",
+      id: "featured-2",
       label: ROUTE_POST.title,
       component: (
         <FeaturedTextContents
-          id={"featured-3"}
+          id={"featured-2"}
           title={ROUTE_POST.title}
           route={ROUTE_POST.path}
           direction={Direction.LEFT}
@@ -67,7 +54,20 @@ export default function Home() {
           featured={featuredPosts}
         />
       )
-    }
+    },
+    {
+      id: "featured-3",
+      label: ROUTE_VIDEO.title,
+      component: (
+        <FeaturedVideos
+          id={"featured-3"}
+          title={ROUTE_VIDEO.title}
+          route={ROUTE_VIDEO.path}
+          direction={Direction.LEFT}
+          featured={featuredVideos}
+        />
+      )
+    },
   ]
 
   const sectionsJSX = sections.map((seciton, index) => {
