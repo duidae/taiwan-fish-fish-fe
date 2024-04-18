@@ -110,7 +110,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         opacity: isDescOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`absolute w-1/4 right-0 bottom-0 text-sm lg:text-base rounded-md p-4 mb-4 mr-12 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
+      className={`absolute w-1/4 right-0 bottom-0 text-sm lg:text-base rounded-md p-4 mb-4 mr-16 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       {isClient && gallerySrcs[currentIndex].desc}
       <div
