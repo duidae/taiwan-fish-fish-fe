@@ -1,6 +1,6 @@
 import {FBIcon, GithubIcon} from "@/app/assets/icons"
 
-export const SITE_NAME = "年年有魚"
+export const SITE_NAME = "水生" //"年年有魚"
 export const SITE_TITLE = `${SITE_NAME} - 來看魚啊`
 export const SITE_DESCRIPTION = `${SITE_NAME}是一個熱愛推廣台灣原生魚類/水族/環境的組織，希望大家一起來認識台灣魚類，推動台灣溪河海洋生態永續！🐟`
 export const ORGANIZATION = "水生生態文化"
