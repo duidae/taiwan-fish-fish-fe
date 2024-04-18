@@ -1,3 +1,9 @@
-.back-to-top.hidden {
+.back-to-top {
+  visibility: visible;
+  opacity: 1;
+}
+
+.hide {
   visibility: hidden;
+  opacity: 0;
 }

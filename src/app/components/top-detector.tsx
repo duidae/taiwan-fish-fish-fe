@@ -1,6 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 import { BACK_TO_TOP_ELEMENT_ID } from '@/app/constant'
+import styles from './back-to-top.module.css'
 
 const topDetectorID = 'top-detector'
 
@@ -12,8 +13,8 @@ export const TopDetector = () => {
           `#${BACK_TO_TOP_ELEMENT_ID}`
         )
         entry.isIntersecting
-          ? backToTopElement?.classList?.add('hidden')
-          : backToTopElement?.classList?.remove('hidden')
+          ? backToTopElement?.classList?.add(styles.hide)
+          : backToTopElement?.classList?.remove(styles.hide)
       },
       {
         root: null,
