@@ -12,7 +12,7 @@ export const ChillVideo = () => {
 
   const controlPanel = (
     <div
-      style={{borderRadius: "10px 10px 0px 0px"}}
+      style={{borderRadius: "5px 5px 0px 0px"}}
       className="w-full h-10 flex flex-row justify-between items-center bg-gray-400/80"
     >
       <div className="w-8 h-8 ml-2">{YoutubeIcon}</div>
