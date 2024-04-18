@@ -1,7 +1,6 @@
 import {InteractiveSection} from "@/app/home/interactive-section"
 import {FeaturedVideos} from "@/app/home/featured-videos"
 import {FeaturedTextContents} from "@/app/home/featured-section"
-import {TOC} from "@/app/home/table-of-content"
 import {ChillVideo} from "@/app/components/chill-video"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
 
@@ -79,15 +78,10 @@ export default function Home() {
     )
   })
 
-  const tocIndexes = sections.map(section => {
-    return {id: section.id, label: section.label}
-  })
-
   return (
     <main className="flex flex-col w-full items-center justify-between">
       <ChillVideo />
       {sectionsJSX}
-      {/*<TOC indexes={tocIndexes} />*/}
     </main>
   )
 }
