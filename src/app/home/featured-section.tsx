@@ -22,7 +22,7 @@ export const FeaturedSection = (props: FeaturedSectionProps) => {
 
   return (
     <div
-      className={`w-full h-screen flex flex-row justify-center ${bgColor ? `bg-${Color.THEME}` : ""}`}
+      className={`w-full h-screen flex flex-row justify-center ${bgColor ? `bg-${Color.BACKGROUND}` : ""}`}
       style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
       <div className="max-w-screen-2xl w-full h-full flex flex-col justify-center items-center">

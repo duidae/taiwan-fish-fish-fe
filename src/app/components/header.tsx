@@ -9,7 +9,7 @@ export const Header = () => {
   )
 
   const routes = ROUTE_HEADER.map((route, index) => (
-    <Link className='hover:underline decoration-2 underline-offset-8' key={`header-router-${index}`} href={route.path}>
+    <Link className="hover:underline decoration-2 underline-offset-8" key={`header-router-${index}`} href={route.path}>
       {route.title}
     </Link>
   ))

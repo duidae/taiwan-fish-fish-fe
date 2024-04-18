@@ -38,7 +38,6 @@ export default function Home() {
           direction={Direction.RIGHT}
           headline={headlineTopic}
           featured={featuredTopics}
-          bgColor
         />
       )
     },
@@ -53,6 +52,7 @@ export default function Home() {
           direction={Direction.LEFT}
           headline={headlinePost}
           featured={featuredPosts}
+          bgColor
         />
       )
     },

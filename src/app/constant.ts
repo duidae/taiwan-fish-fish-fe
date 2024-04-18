@@ -13,19 +13,26 @@ export const HEADER_HEIGHT = 64
 export const TOC_WIDTH = 40
 
 // TODO: 魚傳媒/魚博館/魚美館
+export const ROUTE_VIDEO = {
+  title: "影音",
+  path: "/videos"
+}
+export const ROUTE_TOPIC = {
+  title: "專題",
+  path: "/topics"
+}
+export const ROUTE_POST = {
+  title: "文章",
+  path: "/posts"
+}
+export const ROUTE_ABOUT = {
+  title: `關於${SITE_NAME}`,
+  path: "/about"
+}
 export const ROUTES = [
-  {
-    title: "專題",
-    path: "/topics"
-  },
-  {
-    title: "文章",
-    path: "/posts"
-  },
-  {
-    title: "影音",
-    path: "/videos"
-  },
+  ROUTE_TOPIC,
+  ROUTE_POST,
+  ROUTE_VIDEO,
   {
     title: "魚地圖",
     path: "/map"
@@ -34,17 +41,10 @@ export const ROUTES = [
     title: "數位保種(3D)",
     path: "/models"
   },
-  {
-    title: `關於${SITE_NAME}`,
-    path: "/about"
-  }
+  ROUTE_ABOUT
 ]
 
 export const ROUTE_HEADER = ROUTES.slice(0, 5)
-export const ROUTE_VIDEO = ROUTES.find(route => route.title === "影音")
-export const ROUTE_TOPIC = ROUTES.find(route => route.title === "專題")
-export const ROUTE_POST = ROUTES.find(route => route.title === "文章")
-export const ROUTE_ABOUT = ROUTES.find(route => route.path === "/about")
 
 export const SOCIAL_MEDIA = [
   {
@@ -81,5 +81,6 @@ export const Style = {
 
 export const Color = {
   THEME: "blue-100",
-  HOVER: "blue-200"
+  HOVER: "blue-200",
+  BACKGROUND: "slate-200"
 }
