@@ -32,7 +32,7 @@ export const ChillVideo = () => {
   // TODO: skeleton for iframe
   const expandedComponent = (
     <div
-      className={`${isChillOpen ? "" : "hidden"} fixed w-1/4 h-2/5 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
+      className={`${isChillOpen ? "visible" : "invisible"} fixed w-1/4 h-2/5 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
     >
       {controlPanel}
       <iframe
@@ -48,7 +48,7 @@ export const ChillVideo = () => {
 
   const reducedComponent = (
     <div
-      className={`${isChillOpen ? "hidden" : ""} fixed w-12 h-12 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`}
+      className={`${isChillOpen ? "invisible" : "visible"} fixed w-12 h-12 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`}
       onClick={e => {
         e.stopPropagation()
         onControlChill(true)
