@@ -13,9 +13,9 @@ export const ChillVideo = () => {
   const controlPanel = (
     <div
       style={{borderRadius: "10px 10px 0px 0px"}}
-      className="w-full h-10 flex flex-row justify-between items-center bg-gray-400/50"
+      className="w-full h-10 flex flex-row justify-between items-center bg-gray-400/80"
     >
-      <div className="w-8 h-8 ml-2 opacity-50">{YoutubeIcon}</div>
+      <div className="w-8 h-8 ml-2">{YoutubeIcon}</div>
       <span
         className={`cursor-pointer w-6 h-6 text-center align-middle hover:bg-gray-400 rounded-full duration-${Style.DURATION}`}
         style={{color: "white"}}
@@ -32,7 +32,12 @@ export const ChillVideo = () => {
   // TODO: skeleton for iframe
   const expandedComponent = (
     <div
-      className={`${isChillOpen ? "visible" : "invisible"} fixed w-1/4 h-2/5 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
+      style={{
+        visibility: isChillOpen ? "visible" : "hidden",
+        opacity: isChillOpen ? "1" : "0",
+        transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
+      }}
+      className={`fixed w-1/4 h-1/2 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
     >
       {controlPanel}
       <iframe
@@ -48,13 +53,13 @@ export const ChillVideo = () => {
 
   const reducedComponent = (
     <div
-      className={`${isChillOpen ? "invisible" : "visible"} fixed w-12 h-12 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`}
+      className={`${isChillOpen ? "invisible" : "visible"} fixed w-12 h-12 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full opacity-50 hover:opacity-100 bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`}
       onClick={e => {
         e.stopPropagation()
         onControlChill(true)
       }}
     >
-      <div className="w-8 h-8 opacity-50">{YoutubeIcon}</div>
+      <div className="w-8 h-8">{YoutubeIcon}</div>
     </div>
   )
 
