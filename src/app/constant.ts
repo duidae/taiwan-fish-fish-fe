@@ -11,6 +11,7 @@ export const SUBSCRIPTION_URL = "http://eepurl.com/iMaab-/"
 export const P5_PLAYGROUND_ID = "P5-playground"
 export const HEADER_HEIGHT = 64
 export const TOC_WIDTH = 40
+export const BACK_TO_TOP_ELEMENT_ID = 'back-to-top'
 
 // TODO: 魚傳媒/魚博館/魚美館
 export const ROUTE_VIDEO = {
