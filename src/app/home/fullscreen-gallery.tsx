@@ -29,7 +29,7 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive
   return (
     <div
       style={{backgroundColor: isActive ? "gray" : ""}}
-      className={`w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 duration-${Style.DURATION} rounded-full cursor-pointer`}
+      className={`w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 transition hover:duration-${Style.DURATION} rounded-full cursor-pointer`}
       onClick={e => {
         e.stopPropagation()
         onClick?.()
@@ -137,7 +137,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
         allowFullScreen
       />
     </div> :
-    <div className={`absolute w-10 h-10 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/50 cursor-pointer ${Z_INDEX.TOP}`} onClick={e => {
+    <div className={`absolute w-10 h-10 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`} onClick={e => {
       e.stopPropagation()
       onControlChill(true)
     }}><div className="w-6 h-6 opacity-50">{YoutubeIcon}</div></div>
