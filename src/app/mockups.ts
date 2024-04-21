@@ -43,6 +43,10 @@ export const featuredImages = [
   },
   */
   {
+    url: "chou.jpeg",
+    desc: "魚類攝影, 周銘泰"
+  },
+  {
     url: "ilan.webp",
     desc: "宜蘭深溝釣魚大賽"
   },

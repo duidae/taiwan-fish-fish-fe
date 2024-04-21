@@ -56,7 +56,8 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
 
   useEffect(() => {
     setIsClient(true)
-    setCurrentIndex(GetRandomInteger(gallerySrcs.length))
+    //TODO: random gallery initially
+    // setCurrentIndex(GetRandomInteger(gallerySrcs.length))
   }, [])
 
   const onImageChange = (index: number) => {
