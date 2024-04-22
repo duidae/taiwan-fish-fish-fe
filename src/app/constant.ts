@@ -73,7 +73,8 @@ export const DEFAULT_IMAGE_ASPECT_RATIO = "16/9"
 
 export const Z_INDEX = {
   MIDDLE: "z-10",
-  TOP: "z-50"
+  UPPER: "z-25",
+  TOP: "z-50",
 }
 
 export const Style = {
@@ -83,5 +84,5 @@ export const Style = {
 export const Color = {
   THEME: "blue-100",
   HOVER: "blue-200",
-  BACKGROUND: "slate-200"
+  BACKGROUND: "slate-200",
 }
