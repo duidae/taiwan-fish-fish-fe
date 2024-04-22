@@ -17,6 +17,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   display: flex;
@@ -40,14 +44,6 @@ body h3 {
   font-size: 18px;
   font-weight: bold;
 }
-
-/* TODO: move to video component */
-/*
-iframe {
-  aspect-ratio: 16/9;
-  border-radius: 10px;
-}
-*/
 
 @layer utilities {
   .text-balance {
