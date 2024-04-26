@@ -1,4 +1,4 @@
-import {FullscreenGallery} from "@/app/home/fullscreen-gallery"
+import {FullscreenGallery, Gallery} from "@/app/home/fullscreen-gallery"
 import {FeaturedVideos} from "@/app/home/featured-videos"
 import {FeaturedTextContents} from "@/app/home/featured-section"
 import {ChillVideo} from "@/app/components/chill-video"
@@ -21,7 +21,7 @@ export default function Home() {
     {
       id: "gallery-section",
       label: "頁首",
-      component: <FullscreenGallery items={featuredGalleries} />
+      component: <FullscreenGallery items={featuredGalleries as Gallery[]} />
     },
     {
       id: "featured-1",
