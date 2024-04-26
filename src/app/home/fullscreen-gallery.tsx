@@ -67,16 +67,16 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
     // setCurrentIndex(GetRandomInteger(gallerySrcs.length))
   }, [])
 
-  const onImageChange = (index: number) => {
+  const onGalleryChange = (index: number) => {
     setCurrentIndex(index < 0 ? items.length - 1 : index % items.length)
   }
 
-  const onPrevImage = () => {
-    onImageChange(currentIndex - 1)
+  const onPrevGallery = () => {
+    onGalleryChange(currentIndex - 1)
   }
 
-  const onNextImage = () => {
-    onImageChange(currentIndex + 1)
+  const onNextGallery = () => {
+    onGalleryChange(currentIndex + 1)
   }
 
   const onControllerStateChange = () => {
@@ -163,7 +163,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
       }}
       className="absolute w-full bottom-0 px-2 pb-4 flex flex-row items-center gap-1"
     >
-      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevImage} icon={ArrowLeft} />}
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onPrevGallery} icon={ArrowLeft} />}
       <div
         style={{
           // TODO: improve collapse performance
@@ -172,7 +172,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
         }}
         className="flex flex-row justify-center items-center"
       ></div>
-      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={ArrowRight} />}
+      {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextGallery} icon={ArrowRight} />}
       {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}
       <ControlBtn
         onClick={onShowMagnifier}
