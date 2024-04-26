@@ -5,7 +5,7 @@ import {ChillVideo} from "@/app/components/chill-video"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
 
 // TODO: remove mockups when cms is ready
-import {chillYTVideos, featuredImages, YTVideos, featuredPosts as posts} from "./mockups"
+import {chillYTVideos, featuredGalleries, featuredImages, YTVideos, featuredPosts as posts} from "./mockups"
 
 export default function Home() {
   // TODO: fetch contents from API
@@ -24,7 +24,7 @@ export default function Home() {
     {
       id: "interactive-section",
       label: "頁首",
-      component: <InteractiveSection videos={relaxingVideos} gallerySrcs={amazingImages} />
+      component: <InteractiveSection videos={relaxingVideos} gallerySrcs={amazingImages} items={featuredGalleries} />
     },
     {
       id: "featured-1",

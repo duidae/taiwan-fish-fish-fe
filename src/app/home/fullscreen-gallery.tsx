@@ -1,8 +1,14 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
+import {Viewer3D} from "@/app/components/3d-viewer"
 import {ArrowLeft, ArrowRight} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
+
+enum GalleryType {
+  MODEL = "model",
+  IMAGE = "image"
+}
 
 enum ControllerState {
   FULL = "full",
@@ -11,6 +17,7 @@ enum ControllerState {
 }
 
 export type Gallery = {
+  type: GalleryType
   url: string
   desc: string
 }
@@ -24,8 +31,8 @@ const getControllerStateIcon = (controllerState: ControllerState) => {
   return <span style={{color: "white"}}>+</span>
 }
 
-const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive?: boolean}) => {
-  const {onClick, icon, isActive} = props
+const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive?: boolean; disabled?: boolean}) => {
+  const {onClick, icon, isActive, disabled} = props
   return (
     <div
       style={{backgroundColor: isActive ? "gray" : ""}}
@@ -40,8 +47,8 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive
   )
 }
 
-export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.ReactNode}) => {
-  const {gallerySrcs, body} = props
+export const FullscreenGallery = (props: {items: Gallery[]}) => {
+  const {items} = props
 
   // Note: isClient is to fix hydration error from Next.js
   // ref: https://nextjs.org/docs/messages/react-hydration-error
@@ -61,7 +68,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   }, [])
 
   const onImageChange = (index: number) => {
-    setCurrentIndex(index < 0 ? gallerySrcs.length - 1 : index % gallerySrcs.length)
+    setCurrentIndex(index < 0 ? items.length - 1 : index % items.length)
   }
 
   const onPrevImage = () => {
@@ -113,7 +120,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       }}
       className={`absolute w-1/4 right-0 bottom-0 text-sm lg:text-base rounded-md p-4 mb-4 mr-16 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
-      {isClient && gallerySrcs[currentIndex].desc}
+      {isClient && items[currentIndex].desc}
       <div
         className={`absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-${Style.DURATION} rounded-full cursor-pointer flex flex-row justify-center items-center`}
         onClick={e => {
@@ -127,6 +134,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
   )
 
   // TODO: replace src with low resolution src
+  /*
   const thumbnails = gallerySrcs.map((gallery, index) => {
     return (
       <div
@@ -145,6 +153,7 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       </div>
     )
   })
+  */
 
   // TODO: complete controller
   const controller = (
@@ -162,12 +171,15 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
           transition: "max-width .3s ease-in-out"
         }}
         className="flex flex-row justify-center items-center"
-      >
-        {false && thumbnails}
-      </div>
+      ></div>
       {controllerState !== ControllerState.MINIMIZE && <ControlBtn onClick={onNextImage} icon={ArrowRight} />}
       {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}
-      <ControlBtn onClick={onShowMagnifier} isActive={isMagnifierOpen} icon={<span style={{color: "white"}}>M</span>} />
+      <ControlBtn
+        onClick={onShowMagnifier}
+        disabled={items[currentIndex].type === GalleryType.IMAGE}
+        isActive={isMagnifierOpen}
+        icon={<span style={{color: "white"}}>M</span>}
+      />
       {controllerState !== ControllerState.MINIMIZE && (
         <ControlBtn onClick={onShowDescription} icon={<span style={{color: "white"}}>i</span>} />
       )}
@@ -180,32 +192,36 @@ export const FullscreenGallery = (props: {gallerySrcs: Gallery[]; body?: React.R
       style={{
         left: `${cursorPos.x - 100}px`,
         top: `${cursorPos.y - 100}px`,
-        backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
+        backgroundImage: `url(${items[currentIndex].url})`,
         backgroundPosition: `${pos.x}% ${pos.y}%`
       }}
       className="absolute w-52 h-52 border border-white border-2 bg-black pointer-events-none"
     />
   )
 
+  const getSelectedGellery = () => {
+    if (items[currentIndex].type === GalleryType.MODEL) {
+      return <Viewer3D />
+    } else if (items[currentIndex].type === GalleryType.IMAGE) {
+      return (
+        <img className="h-full" src={items[currentIndex].url} onMouseMove={onMouseMove} onClick={onSwitchManifier} />
+      )
+    } else {
+      return null
+    }
+  }
+
   return (
     <div
       style={{
-        backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
+        //backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
         transition: `background-image ${Style.DURATION}ms ease-in-out`
       }}
       className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
-      onMouseMove={onMouseMove}
-      onClick={onSwitchManifier}
+      //onMouseMove={onMouseMove}
+      //onClick={onSwitchManifier}
     >
-      {false && (
-        <img
-          className="w-full"
-          src={gallerySrcs[currentIndex].url}
-          onMouseMove={onMouseMove}
-          onClick={onSwitchManifier}
-        />
-      )}
-      {body}
+      {getSelectedGellery()}
       {isMagnifierOpen && imgMaginifier}
       {controller}
       {description}
