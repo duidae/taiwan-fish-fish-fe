@@ -16,13 +16,7 @@ export const Viewer3D = () => {
         frameloop="demand"
         camera={{fov: 0.4, near: 0.1, far: 1000, position: [0, 0, 5]}}
       >
-        <OrbitControls
-          autoRotate
-          enableZoom={true}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-          enablePan={false}
-        />
+        <OrbitControls autoRotate enableZoom={true} enableRotate={true} />
         <Suspense fallback={null}>
           <Model />
         </Suspense>

@@ -212,15 +212,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
   }
 
   return (
-    <div
-      style={{
-        //backgroundImage: `url(${gallerySrcs[currentIndex].url})`,
-        transition: `background-image ${Style.DURATION}ms ease-in-out`
-      }}
-      className="bg-black bg-no-repeat bg-center bg-contain flex flex-col w-full h-screen justify-center items-center pt-24"
-      //onMouseMove={onMouseMove}
-      //onClick={onSwitchManifier}
-    >
+    <div className="bg-black flex flex-col w-full h-screen justify-center items-center">
       {getSelectedGellery()}
       {isMagnifierOpen && imgMaginifier}
       {controller}

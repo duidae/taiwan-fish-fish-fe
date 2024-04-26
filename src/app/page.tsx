@@ -1,17 +1,14 @@
-import {InteractiveSection} from "@/app/home/interactive-section"
+import {FullscreenGallery} from "@/app/home/fullscreen-gallery"
 import {FeaturedVideos} from "@/app/home/featured-videos"
 import {FeaturedTextContents} from "@/app/home/featured-section"
 import {ChillVideo} from "@/app/components/chill-video"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
 
 // TODO: remove mockups when cms is ready
-import {chillYTVideos, featuredGalleries, featuredImages, YTVideos, featuredPosts as posts} from "./mockups"
+import {featuredGalleries, YTVideos, featuredPosts as posts} from "./mockups"
 
 export default function Home() {
   // TODO: fetch contents from API
-  const relaxingVideos = chillYTVideos
-  const amazingImages = featuredImages
-
   const featuredVideos = YTVideos
 
   const headlinePost = posts[0]
@@ -22,9 +19,9 @@ export default function Home() {
 
   const sections = [
     {
-      id: "interactive-section",
+      id: "gallery-section",
       label: "頁首",
-      component: <InteractiveSection videos={relaxingVideos} gallerySrcs={amazingImages} items={featuredGalleries} />
+      component: <FullscreenGallery items={featuredGalleries} />
     },
     {
       id: "featured-1",
