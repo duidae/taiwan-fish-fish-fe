@@ -1,18 +1,13 @@
 import {FullscreenGallery, Gallery} from "./fullscreen-gallery"
-import {Video} from "./video"
-import {Playground} from "./playground"
+import { Viewer3D } from "@/app/components/3d-viewer"
 
 export const InteractiveSection = (props: {videos: string[]; gallerySrcs: Gallery[]}) => {
-  const {videos, gallerySrcs} = props
+  const {gallerySrcs} = props
+
   return (
     <FullscreenGallery
       gallerySrcs={gallerySrcs}
-      body={
-        <div className="flex flex-row w-full h-full">
-          {false && <Video className="w-1/3" ytURLs={videos} />}
-          {false && <Playground className="w-2/3" />}
-        </div>
-      }
+      body={<Viewer3D/>}
     />
   )
 }
