@@ -201,7 +201,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
 
   const getSelectedGellery = () => {
     if (items[currentIndex].type === GalleryType.MODEL) {
-      return <Viewer3D />
+      return <Viewer3D src={items[currentIndex].url} />
     } else if (items[currentIndex].type === GalleryType.IMAGE) {
       return (
         <img className="h-full" src={items[currentIndex].url} onMouseMove={onMouseMove} onClick={onSwitchManifier} />

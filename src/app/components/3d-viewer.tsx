@@ -3,12 +3,14 @@ import {Suspense} from "react"
 import {Canvas} from "@react-three/fiber"
 import {OrbitControls, useGLTF} from "@react-three/drei"
 
-const Model = (props: any) => {
-  const gltf = useGLTF("/mosquitofish_gambusia_affinis/scene.gltf")
+const Model = (props: {src: string}) => {
+  const {src} = props
+  const gltf = useGLTF(src)
   return <primitive {...props} object={gltf.scene} />
 }
 
-export const Viewer3D = () => {
+export const Viewer3D = (props: {src: string}) => {
+  const {src} = props
   return (
     <div className="flex flex-row w-full h-full">
       <Canvas
@@ -18,7 +20,7 @@ export const Viewer3D = () => {
       >
         <OrbitControls autoRotate enableZoom={true} enableRotate={true} />
         <Suspense fallback={null}>
-          <Model />
+          <Model src={src} />
         </Suspense>
       </Canvas>
     </div>
