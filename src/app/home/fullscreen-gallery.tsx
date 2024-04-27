@@ -118,9 +118,9 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
         opacity: isDescOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`absolute w-1/4 right-0 bottom-0 text-sm lg:text-base rounded-md p-4 mb-4 mr-16 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
+      className={`absolute md:w-1/4 md:right-0 bottom-0 text-sm lg:text-base rounded-md p-4 ml-8 mr-8 mb-16 md:mb-4 md:mr-16 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
-      {isClient && items[currentIndex].desc}
+      <span className="text-base md:text-lg">{isClient && items[currentIndex].desc}</span>
       <div
         className={`absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-${Style.DURATION} rounded-full cursor-pointer flex flex-row justify-center items-center`}
         onClick={e => {

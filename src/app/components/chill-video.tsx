@@ -37,7 +37,7 @@ export const ChillVideo = () => {
         opacity: isChillOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`fixed w-1/4 h-1/2 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
+      className={`fixed w-1/2 md:w-1/4 h-1/2 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
     >
       {controlPanel}
       <iframe
@@ -53,13 +53,13 @@ export const ChillVideo = () => {
 
   const reducedComponent = (
     <div
-      className={`${isChillOpen ? "invisible" : "visible"} fixed w-12 h-12 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-8 rounded-full opacity-50 hover:opacity-100 bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`}
+      className={`${isChillOpen ? "invisible" : "visible"} fixed w-10 h-10 md:w-12 md:h-12 left-0 bottom-0 flex flex-col justify-center items-center mb-4 ml-4 md:ml-8 rounded-full opacity-50 hover:opacity-100 bg-gray-400/60 hover:bg-gray-200/50 transition hover:duration-${Style.DURATION} cursor-pointer ${Z_INDEX.TOP}`}
       onClick={e => {
         e.stopPropagation()
         onControlChill(true)
       }}
     >
-      <div className="w-8 h-8">{YoutubeIcon}</div>
+      <div className="w-6 h-6 md:w-8 md:h-8">{YoutubeIcon}</div>
     </div>
   )
 
