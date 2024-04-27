@@ -28,22 +28,21 @@ export const Header = () => {
     </Link>
   ))
 
-  return (
-    <div
-      style={{backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"}}
-      className={`fixed top-0 w-full flex flex-row justify-between ${Z_INDEX.TOP}`}
-    >
-      {logo}
-      <nav className="hidden w-full max-w-4xl md:flex flex-row justify-end items-start font-mono text-md md:text-lg text-white mt-4 mr-8 pt-2 gap-4 md:gap-8 lg:gap-16">
-        {routes}
-      </nav>
+  const menu = (
+    <nav className="hidden w-full max-w-4xl md:flex flex-row justify-end items-start font-mono text-md md:text-lg text-white mt-4 mr-8 pt-2 gap-4 md:gap-8 lg:gap-16">
+      {routes}
+    </nav>
+  )
+
+  const mobileMenu = (
+    <>
       {!isHamburgerOpen && (
         <div className="block md:hidden mt-4 mr-8 cursor-pointer" onClick={onHamburgerOpen}>
           {HamburgerIcon}
         </div>
       )}
       {isHamburgerOpen && (
-        <div className="md:hidden absolute right-0 top-0 flex flex-col p-4 bg-slate-700">
+        <div className="absolute right-0 top-0 md:hidden flex flex-col p-4 bg-slate-700">
           <div className="flex flex-row justify-end cursor-pointer" onClick={onHamburgerClose}>
             {CrossIcon}
           </div>
@@ -52,6 +51,17 @@ export const Header = () => {
           </nav>
         </div>
       )}
+    </>
+  )
+
+  return (
+    <div
+      style={{backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"}}
+      className={`fixed top-0 w-full flex flex-row justify-between ${Z_INDEX.TOP}`}
+    >
+      {logo}
+      {menu}
+      {mobileMenu}
     </div>
   )
 }
