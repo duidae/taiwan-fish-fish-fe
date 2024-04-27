@@ -162,3 +162,20 @@ export const YoutubeIcon = (
     <path d="M 45,24 27,14 27,34" fill="#fff"></path>
   </svg>
 )
+
+export const HamburgerIcon = (
+  <svg width="30" height="30" viewBox="0 0 18 14" aria-hidden="true" data-type="type-1">
+    <rect fill={"white"} y="0.00" width="18" height="3" rx="1"></rect>
+    <rect fill={"white"} y="6.15" width="18" height="3" rx="1"></rect>
+    <rect fill={"white"} y="12.3" width="18" height="3" rx="1"></rect>
+  </svg>
+)
+
+export const CrossIcon = (
+  <svg width="16" height="16" viewBox="0 0 15 15">
+    <path
+      fill="white"
+      d="M1 15a1 1 0 01-.71-.29 1 1 0 010-1.41l5.8-5.8-5.8-5.8A1 1 0 011.7.29l5.8 5.8 5.8-5.8a1 1 0 011.41 1.41l-5.8 5.8 5.8 5.8a1 1 0 01-1.41 1.41l-5.8-5.8-5.8 5.8A1 1 0 011 15z"
+    ></path>
+  </svg>
+)
