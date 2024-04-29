@@ -209,7 +209,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
       )
     } else if (items[currentIndex].type === GalleryType.IMAGE) {
       return (
-        <img className="h-full" src={items[currentIndex].url} onMouseMove={onMouseMove} onClick={onSwitchManifier} />
+        <img className="h-full object-contain" src={items[currentIndex].url} onMouseMove={onMouseMove} onClick={onSwitchManifier} />
       )
     } else {
       return null
