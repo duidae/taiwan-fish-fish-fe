@@ -24,7 +24,6 @@ export const Viewer3D = (props: {src: string}) => {
         camera={{fov: 0.4, near: 0.1, far: 1000, position: [0, 0, 5]}}
       >
         <OrbitControls autoRotate enableZoom={true} enableRotate={true} />
-        <ambientLight intensity={0.1} />
         <Suspense fallback={<Loader />}>
           <Model src={src} />
         </Suspense>
