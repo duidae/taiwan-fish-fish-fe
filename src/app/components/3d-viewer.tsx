@@ -1,7 +1,12 @@
 "use client"
 import {Suspense} from "react"
 import {Canvas} from "@react-three/fiber"
-import {OrbitControls, useGLTF} from "@react-three/drei"
+import {OrbitControls, useGLTF, Html, useProgress} from "@react-three/drei"
+
+const Loader = () => {
+  const {progress} = useProgress()
+  return <Html center>{progress}% loaded</Html>
+}
 
 const Model = (props: {src: string}) => {
   const {src} = props
@@ -19,7 +24,7 @@ export const Viewer3D = (props: {src: string}) => {
         camera={{fov: 0.4, near: 0.1, far: 1000, position: [0, 0, 5]}}
       >
         <OrbitControls autoRotate enableZoom={true} enableRotate={true} />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader />}>
           <Model src={src} />
         </Suspense>
       </Canvas>
