@@ -5,7 +5,7 @@ import {OrbitControls, useGLTF, Html, useProgress} from "@react-three/drei"
 
 const Loader = () => {
   const {progress} = useProgress()
-  return <Html center>{progress}% loaded</Html>
+  return <Html center className="text-white text-nowrap">Loading 3D model: {progress}% loaded...</Html>
 }
 
 const Model = (props: {src: string}) => {
@@ -24,6 +24,7 @@ export const Viewer3D = (props: {src: string}) => {
         camera={{fov: 0.4, near: 0.1, far: 1000, position: [0, 0, 5]}}
       >
         <OrbitControls autoRotate enableZoom={true} enableRotate={true} />
+        <ambientLight intensity={0.1} />
         <Suspense fallback={<Loader />}>
           <Model src={src} />
         </Suspense>

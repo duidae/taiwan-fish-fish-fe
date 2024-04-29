@@ -36,6 +36,7 @@ export const Footer = () => {
   // TODO: fix divider color issue
   return (
     <div className="max-w-screen-2xl w-full flex flex-row justify-between mx-8 mt-8">
+      {/*
       <div className="w-1/2 flex flex-col items-center p-4">
         {logo}
         {desc}
@@ -47,6 +48,7 @@ export const Footer = () => {
         </div>
         <div className="py-4">{copyright}</div>
       </div>
+    */}
     </div>
   )
 }
