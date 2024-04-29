@@ -3,7 +3,7 @@ import {Suspense} from "react"
 import {Canvas} from "@react-three/fiber"
 import {OrbitControls, useGLTF, Html, useProgress} from "@react-three/drei"
 
-const Loader = () => {
+const Loading = () => {
   const {progress} = useProgress()
   return <Html center className="text-white text-nowrap">Loading 3D model: {progress?.toFixed(2)}% loaded...</Html>
 }
@@ -24,7 +24,7 @@ export const Viewer3D = (props: {src: string}) => {
         camera={{fov: 0.4, near: 0.1, far: 1000, position: [0, 0, 5]}}
       >
         <OrbitControls autoRotate enableZoom={true} enableRotate={true} />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loading />}>
           <Model src={src} />
         </Suspense>
       </Canvas>
