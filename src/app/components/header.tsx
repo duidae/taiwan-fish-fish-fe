@@ -37,7 +37,7 @@ export const Header = () => {
   const mobileMenu = (
     <>
       {!isHamburgerOpen && (
-        <div className="block md:hidden mt-4 mr-8 cursor-pointer" onClick={onHamburgerOpen}>
+        <div className="block md:hidden mt-8 mr-8 cursor-pointer" onClick={onHamburgerOpen}>
           {HamburgerIcon}
         </div>
       )}
