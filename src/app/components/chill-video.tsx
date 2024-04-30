@@ -37,7 +37,7 @@ export const ChillVideo = () => {
         opacity: isChillOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`fixed w-1/2 md:w-1/4 h-1/2 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
+      className={`fixed w-full md:w-1/2 lg:w-96 h-1/2 left-0 bottom-0 px-8 flex flex-col items-${isChillOpen ? "center" : "start"} ${Z_INDEX.TOP}`}
     >
       {controlPanel}
       <iframe
