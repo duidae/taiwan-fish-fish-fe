@@ -5,7 +5,7 @@ import {COPYRIGHT, EMAIL, ORGANIZATION, ROUTE_ABOUT, SOCIAL_MEDIA, SITE_DESCRIPT
 
 export const Footer = () => {
   const logo = <img className="w-48 h-48" src="/logo.svg" />
-  const desc = <div className="w-2/3 p-4">{SITE_DESCRIPTION}</div>
+  const desc = <div>{SITE_DESCRIPTION}</div>
 
   const about = (
     <div className="flex flex-col gap-2">
@@ -18,7 +18,7 @@ export const Footer = () => {
   const socialMedia = (
     <div className="flex flex-col gap-2">
       <h2 className="mb-4">{"關注我們"}</h2>
-      <div className="w-full flex flex-row gap-4">
+      <div className="w-full flex flex-row gap-2 md:gap-4">
         {SOCIAL_MEDIA.map((media, index) => (
           <Link key={`social-media-link-${index}`} href={media.url} target="_blank" rel="noopener noreferrer">
             {media.icon}
@@ -35,20 +35,18 @@ export const Footer = () => {
 
   // TODO: fix divider color issue
   return (
-    <div className="max-w-screen-2xl w-full flex flex-row justify-between mx-8 mt-8">
-      {/*
-      <div className="w-1/2 flex flex-col items-center p-4">
+    <div className="max-w-screen-2xl w-full flex flex-col lg:flex-row justify-between items-center px-24 my-8 gap-8">
+      <div className="w-full lg:w-1/2 flex flex-col items-center">
         {logo}
         {desc}
       </div>
-      <div className={"w-1/2 flex flex-col divide-y divide-gray-500 justify-center pr-8"}>
-        <div className="flex flex-row justify-start items-start gap-16 mb-8">
+      <div className={"w-full lg:w-1/2 flex flex-col divide-y divide-gray-500 justify-center pr-8 gap-4"}>
+        <div className="flex flex-row justify-start items-start gap-4 md:gap-16">
           {about}
           {socialMedia}
         </div>
         <div className="py-4">{copyright}</div>
       </div>
-    */}
     </div>
   )
 }
