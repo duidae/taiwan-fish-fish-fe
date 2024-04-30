@@ -5,7 +5,11 @@ import {OrbitControls, useGLTF, Html, useProgress} from "@react-three/drei"
 
 const Loading = () => {
   const {progress} = useProgress()
-  return <Html center className="text-white text-nowrap">Loading 3D model: {progress?.toFixed(2)}% loaded...</Html>
+  return (
+    <Html center className="text-white text-nowrap">
+      Loading 3D model: {progress?.toFixed(2)}% loaded...
+    </Html>
+  )
 }
 
 const Model = (props: {src: string}) => {

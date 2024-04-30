@@ -2,7 +2,8 @@
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {Viewer3D} from "@/app/components/3d-viewer"
-import {ArrowLeft, ArrowRight} from "@/app/assets/icons"
+import {Goto} from "@/app/components/goto"
+import {ArrowLeft, ArrowRight, ArrowDown} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
 
 enum GalleryType {
@@ -118,7 +119,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
         opacity: isDescOpen ? "1" : "0",
         transition: `visibility ${Style.DURATION}ms, opacity ${Style.DURATION}ms ease-in-out`
       }}
-      className={`absolute md:w-1/4 md:right-0 bottom-0 text-sm lg:text-base rounded-md p-2 md:p-4 ml-8 mr-8 mb-16 md:mb-4 md:mr-16 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
+      className={`absolute md:w-1/4 md:right-0 bottom-0 text-sm lg:text-base rounded-md p-2 md:p-4 ml-8 mr-8 mb-16 md:mb-4 md:mr-20 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       <span className="text-base md:text-lg">{isClient && items[currentIndex].desc}</span>
       <div
@@ -204,17 +205,31 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
       return (
         <>
           <Viewer3D src={items[currentIndex].url} />
-          <img className="absolute bottom-20 w-10 h-10" src="/hand_3D_interactive.png" alt="3D"/>
+          <img className="absolute bottom-20 w-10 h-10" src="/hand_3D_interactive.png" alt="3D" />
         </>
       )
     } else if (items[currentIndex].type === GalleryType.IMAGE) {
       return (
-        <img className="h-full object-contain" src={items[currentIndex].url} onMouseMove={onMouseMove} onClick={onSwitchManifier} />
+        <img
+          className="h-full object-contain"
+          src={items[currentIndex].url}
+          onMouseMove={onMouseMove}
+          onClick={onSwitchManifier}
+        />
       )
     } else {
       return null
     }
   }
+
+  const goto = (
+    <Goto
+      elementID="featured-1"
+      className={`absolute bottom-0 right-0 w-10 h-10 flex flex-row justify-center items-center mb-4 mr-4 rounded-full bg-gray-700/60 hover:bg-gray-300/50 transition hover:duration-${Style.DURATION}`}
+    >
+      {ArrowDown}
+    </Goto>
+  )
 
   return (
     <div className="bg-black flex flex-col w-full h-screen justify-center items-center">
@@ -222,6 +237,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
       {isMagnifierOpen && imgMaginifier}
       {controller}
       {description}
+      {goto}
     </div>
   )
 }
