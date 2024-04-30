@@ -46,7 +46,7 @@ export const Header = () => {
           <div className="flex flex-row justify-end cursor-pointer" onClick={onHamburgerClose}>
             {CrossIcon}
           </div>
-          <nav className="max-w-4xl flex flex-col justify-end items-start font-mono text-md md:text-lg text-white pt-2 gap-4 md:gap-8 lg:gap-16">
+          <nav className="max-w-4xl flex flex-col justify-end items-start font-mono text-xl text-white pt-2 gap-4 md:gap-8 lg:gap-16">
             {routes}
           </nav>
         </div>
