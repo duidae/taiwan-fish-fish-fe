@@ -87,7 +87,7 @@ const Map = () => {
         return (
           <div key={`taxon-item-${index}`} className="flex flex-col items-center gap-2">
             <img
-              className={`w-20 h-20 rounded-full cursor-pointer ${taxonIDs.includes(taxonID) ? "border-4 border-sky-400" : ""}`}
+              className={`w-20 h-20 m-1 rounded-full cursor-pointer ${taxonIDs.includes(taxonID) ? "outline outline-sky-400" : ""}`}
               src={imgURL}
               onClick={() => handleSelect(taxonID)}
             />
