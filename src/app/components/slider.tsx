@@ -21,12 +21,12 @@ export const Slider = (props: {slides: React.ReactNode[]; autoplay?: boolean}) =
       breakpoints: {
         640: {
           slidesPerView: 2,
-          spaceBetween: 10,
+          spaceBetween: 10
         },
         1024: {
           slidesPerView: 3,
-          spaceBetween: 10,
-        },
+          spaceBetween: 10
+        }
       },
       navigation: true,
       pagination: {clickable: true},

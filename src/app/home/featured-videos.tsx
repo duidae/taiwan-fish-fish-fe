@@ -57,16 +57,17 @@ export const FeaturedVideos = (
   const featuredVideos = featured?.map((url, index) => {
     const ytID = GetIDFromYTURL(url)
     const coverImg = ytID ? ytImgTemplate.replace("${id}", ytID) : ""
-    const desc = <>
-    <span
-      style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "2", overflow: "hidden"}}
-      className="text-sm"
-    >
-      {meta?.[index]?.title}
-    </span>
-    <span className="text-xs text-slate-500">{meta?.[index]?.author_name}</span>
-    </>
-  
+    const desc = (
+      <>
+        <span
+          style={{display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "2", overflow: "hidden"}}
+          className="text-sm"
+        >
+          {meta?.[index]?.title}
+        </span>
+        <span className="text-xs text-slate-500">{meta?.[index]?.author_name}</span>
+      </>
+    )
 
     return (
       <div
@@ -81,9 +82,7 @@ export const FeaturedVideos = (
           className="min-w-24 h-full object-cover rounded-md"
           src={coverImg}
         />
-        <div className="hidden lg:block grow flex flex-col justify-between">
-          {desc}
-        </div>
+        <div className="hidden lg:block grow flex flex-col justify-between">{desc}</div>
       </div>
     )
   })
@@ -99,7 +98,9 @@ export const FeaturedVideos = (
       </div>
       <div className="grow w-full overflow-auto flex flex-col lg:flex-row justify-center items-stretch gap-4">
         <div className="grow">{ytPlayer}</div>
-        <div className="w-full lg:w-96 flex flex-row lg:flex-col items-center cursor-pointer overflow-x-scroll lg:overflow-y-scroll gap-2">{featuredVideos}</div>
+        <div className="w-full lg:w-96 flex flex-row lg:flex-col items-center cursor-pointer overflow-x-scroll lg:overflow-y-scroll gap-2">
+          {featuredVideos}
+        </div>
       </div>
       <More href={route} title={title} />
     </div>

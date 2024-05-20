@@ -29,27 +29,23 @@ const TAIWAN_CENTER = [23.973837, 120.97969]
 />
 */
 
-const Item = (props: {checked: boolean; onChange: () => void; children?: React.ReactNode}) => {
-  const {checked, onChange, children} = props
-  return (
-    <div className="flex flex-row gap-4">
-      <input className="cursor-pointer" type="checkbox" onChange={onChange} checked={checked} />
-      {children}
-    </div>
-  )
-}
-
 const Map = () => {
   const [coord, setCoord] = useState<LatLngExpression>(TAIWAN_CENTER as LatLngExpression)
   const [taxonIDs, setTaxonIDs] = useState<number[]>([])
   const [taxons, setTaxons] = useState<any[]>([])
 
   useEffect(() => {
-    // TODO: remove duplications, add infinite load
+    // TODO: add infinite load
     const fetchObs = async () => {
       const obs = await axios.get(searchURL)
       if (obs?.data?.results) {
-        setTaxons(obs.data.results)
+        let ids: number[] = []
+        let unique: any[] = []
+        obs.data.results.forEach((result: any) => {
+          const currentID = result.taxon.id
+          !ids.includes(currentID) && ids.push(currentID) && unique.push(result)
+        })
+        setTaxons(unique)
       } else {
         console.warn("Fetch taxons failed!")
       }
@@ -88,21 +84,27 @@ const Map = () => {
         const title = result.species_guess
 
         return (
-          <Item key={`taxon-item-${index}`} onChange={() => handleSelect(taxonID)} checked={taxonIDs.includes(taxonID)}>
+          <div key={`taxon-item-${index}`} className="flex flex-row gap-4">
             <div className="flex flex-col items-center">
-              <img className="w-16 h-16 rounded-full" src={imgURL} />
-              <a className="flex flex-col items-center" href={taxaURL} target="_blank">{title}</a>
+              <img
+                className={`w-16 h-16 rounded-full cursor-pointer ${taxonIDs.includes(taxonID) ? "border-4 border-sky-400" : ""}`}
+                src={imgURL}
+                onClick={() => handleSelect(taxonID)}
+              />
+              <a className="flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
+                {title}
+              </a>
             </div>
-          </Item>
+          </div>
         )
       })}
     </>
   )
 
   return (
-    <div className="w-full h-full flex flex-row gap-4">
+    <div className="w-full h-full flex flex-row py-20 gap-4">
       <div className="w-3/4">{mapComponent}</div>
-      <div className="w-1/4 flex flex-row right-0 top-1/4 flex-wrap">{taxonItems}</div>
+      <div className="w-1/4 flex flex-row flex-wrap right-0 top-1/4 gap-4 overflow-y-scroll">{taxonItems}</div>
     </div>
   )
 }
