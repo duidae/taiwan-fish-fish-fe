@@ -89,10 +89,10 @@ const Map = () => {
 
         return (
           <Item key={`taxon-item-${index}`} onChange={() => handleSelect(taxonID)} checked={taxonIDs.includes(taxonID)}>
-            <a href={taxaURL} target="_blank">
-              <img src={imgURL} />
-              <span>{title}</span>
-            </a>
+            <div className="flex flex-col items-center">
+              <img className="w-16 h-16 rounded-full" src={imgURL} />
+              <a className="flex flex-col items-center" href={taxaURL} target="_blank">{title}</a>
+            </div>
           </Item>
         )
       })}
@@ -102,7 +102,7 @@ const Map = () => {
   return (
     <div className="w-full h-full flex flex-row gap-4">
       <div className="w-3/4">{mapComponent}</div>
-      <div className="w-1/4 flex flex-col right-0 top-1/4 overflow-scroll">{taxonItems}</div>
+      <div className="w-1/4 flex flex-row right-0 top-1/4 flex-wrap">{taxonItems}</div>
     </div>
   )
 }
