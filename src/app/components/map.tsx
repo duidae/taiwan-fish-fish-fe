@@ -20,6 +20,7 @@ const taxanomyURLPrefix = "https://www.inaturalist.org/taxa"
 const DEFAULT_ZOOM = 8
 const TAIPEI_CENTER = [25.038357847174, 121.54770626982]
 const TAIWAN_CENTER = [23.973837, 120.97969]
+const MAX_SELECTION = 5
 
 // TODO: integrate GBIF
 /*
@@ -84,17 +85,15 @@ const Map = () => {
         const title = result.species_guess
 
         return (
-          <div key={`taxon-item-${index}`} className="flex flex-row gap-4">
-            <div className="flex flex-col items-center">
-              <img
-                className={`w-16 h-16 rounded-full cursor-pointer ${taxonIDs.includes(taxonID) ? "border-4 border-sky-400" : ""}`}
-                src={imgURL}
-                onClick={() => handleSelect(taxonID)}
-              />
-              <a className="flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
-                {title}
-              </a>
-            </div>
+          <div key={`taxon-item-${index}`} className="flex flex-col items-center gap-2">
+            <img
+              className={`w-16 h-16 rounded-full cursor-pointer ${taxonIDs.includes(taxonID) ? "border-4 border-sky-400" : ""}`}
+              src={imgURL}
+              onClick={() => handleSelect(taxonID)}
+            />
+            <a className="w-16 flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
+              {title ?? "Unknown"}
+            </a>
           </div>
         )
       })}
@@ -104,7 +103,7 @@ const Map = () => {
   return (
     <div className="w-full h-full flex flex-row py-20 gap-4">
       <div className="w-3/4">{mapComponent}</div>
-      <div className="w-1/4 flex flex-row flex-wrap right-0 top-1/4 gap-4 overflow-y-scroll">{taxonItems}</div>
+      <div className="w-1/4 flex flex-row flex-wrap gap-4 overflow-y-scroll">{taxonItems}</div>
     </div>
   )
 }
