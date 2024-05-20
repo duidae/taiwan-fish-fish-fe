@@ -103,7 +103,7 @@ const Map = () => {
   return (
     <div className="w-full h-full flex flex-row py-20 gap-4">
       <div className="w-3/4">{mapComponent}</div>
-      <div className="w-1/4 flex flex-row flex-wrap gap-4 overflow-y-scroll">{taxonItems}</div>
+      <div className="w-1/4 flex flex-row justify-center flex-wrap gap-4 overflow-y-scroll">{taxonItems}</div>
     </div>
   )
 }
