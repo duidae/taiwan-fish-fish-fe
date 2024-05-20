@@ -9,7 +9,7 @@ export const List = (props: {
   const {featuredComponents, listComponents, title, autoplay} = props
 
   const featured = (
-    <div className="flex flex-col w-full items-center">
+    <div className="flex flex-col w-full items-center mb-8">
       <h1 className="my-8">精選{title}</h1>
       <div className="w-full">
         <Slider slides={featuredComponents} autoplay={autoplay} />
@@ -27,9 +27,9 @@ export const List = (props: {
   )
 
   return (
-    <>
+    <div className="divide-y divide-gray-500">
       {featured}
       {all}
-    </>
+    </div>
   )
 }
