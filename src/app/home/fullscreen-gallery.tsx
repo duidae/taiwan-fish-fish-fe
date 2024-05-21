@@ -35,7 +35,7 @@ const getControllerStateIcon = (controllerState: ControllerState) => {
 const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive?: boolean; disabled?: boolean}) => {
   const {onClick, icon, isActive, disabled} = props
   return (
-    <div
+    !disabled && <div
       style={{backgroundColor: isActive ? "gray" : ""}}
       className={`w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 transition hover:duration-${Style.DURATION} rounded-full cursor-pointer`}
       onClick={e => {
@@ -177,7 +177,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
       {false && <ControlBtn onClick={onControllerStateChange} icon={getControllerStateIcon(controllerState)} />}
       <ControlBtn
         onClick={onShowMagnifier}
-        disabled={items[currentIndex].type === GalleryType.IMAGE}
+        disabled={items[currentIndex].type !== GalleryType.IMAGE}
         isActive={isMagnifierOpen}
         icon={<span style={{color: "white"}}>M</span>}
       />
