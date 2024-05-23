@@ -1,11 +1,14 @@
 "use client"
 import {useEffect, useState, MouseEvent} from "react"
+import dynamic from "next/dynamic"
 import {GetRandomInteger} from "@/app/utils"
-import {Viewer3D} from "@/app/components/3d-viewer"
-import {ModelViewer} from "@/app/components/3d-model-viewer"
 import {Goto} from "@/app/components/goto"
 import {ArrowLeft, ArrowRight, ArrowDown} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
+
+const ModelViewer = dynamic(() => import("@/app/components/3d-model-viewer"), {
+  ssr: false
+})
 
 enum GalleryType {
   MODEL = "model",

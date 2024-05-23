@@ -1,5 +1,3 @@
-// TODO: try model viewer
-// https://github.com/google/model-viewer
 "use client"
 import {Suspense} from "react"
 import {Canvas} from "@react-three/fiber"

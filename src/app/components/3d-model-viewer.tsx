@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from "react"
+import "@google/model-viewer/lib/model-viewer"
 
 declare global {
   namespace JSX {
@@ -28,10 +28,9 @@ interface ModelViewerJSX {
   sx?: any
 }
 
+// TODO: handle ios model(*.usdz)
 export const ModelViewer = (props: {src: string; cover: string}) => {
   const {src, cover} = props
-
-  useEffect(() => { import('@google/model-viewer').catch(console.error); }, [])
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
