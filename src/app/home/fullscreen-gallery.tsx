@@ -2,6 +2,7 @@
 import {useEffect, useState, MouseEvent} from "react"
 import {GetRandomInteger} from "@/app/utils"
 import {Viewer3D} from "@/app/components/3d-viewer"
+import {ModelViewer} from "@/app/components/3d-model-viewer"
 import {Goto} from "@/app/components/goto"
 import {ArrowLeft, ArrowRight, ArrowDown} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
@@ -20,6 +21,7 @@ enum ControllerState {
 export type Gallery = {
   type: GalleryType
   url: string
+  cover?: string
   desc: string
 }
 
@@ -35,16 +37,18 @@ const getControllerStateIcon = (controllerState: ControllerState) => {
 const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive?: boolean; disabled?: boolean}) => {
   const {onClick, icon, isActive, disabled} = props
   return (
-    !disabled && <div
-      style={{backgroundColor: isActive ? "gray" : ""}}
-      className={`w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 transition hover:duration-${Style.DURATION} rounded-full cursor-pointer`}
-      onClick={e => {
-        e.stopPropagation()
-        onClick?.()
-      }}
-    >
-      {icon}
-    </div>
+    !disabled && (
+      <div
+        style={{backgroundColor: isActive ? "gray" : ""}}
+        className={`w-10 h-10 flex flex-row justify-center items-center bg-gray-700/60 hover:bg-gray-300/50 transition hover:duration-${Style.DURATION} rounded-full cursor-pointer`}
+        onClick={e => {
+          e.stopPropagation()
+          onClick?.()
+        }}
+      >
+        {icon}
+      </div>
+    )
   )
 }
 
@@ -204,8 +208,9 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
     if (items[currentIndex].type === GalleryType.MODEL) {
       return (
         <>
-          <Viewer3D src={items[currentIndex].url} />
-          <img className="absolute bottom-20 w-10 h-10" src="/hand_3D_interactive.png" alt="3D" />
+          <ModelViewer src={items[currentIndex].url} cover={items[currentIndex].cover ?? ""} />
+          {/*<Viewer3D src={items[currentIndex].url} />
+          <img className="absolute bottom-20 w-10 h-10" src="/hand_3D_interactive.png" alt="3D" />*/}
         </>
       )
     } else if (items[currentIndex].type === GalleryType.IMAGE) {
