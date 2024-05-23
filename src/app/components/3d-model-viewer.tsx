@@ -31,7 +31,7 @@ interface ModelViewerJSX {
 export const ModelViewer = (props: {src: string; cover: string}) => {
   const {src, cover} = props
 
-  useEffect(() => { import('@google/model-viewer').catch(console.error); }, []);
+  useEffect(() => { import('@google/model-viewer').catch(console.error); }, [])
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
