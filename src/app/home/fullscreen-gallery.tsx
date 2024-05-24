@@ -3,7 +3,7 @@ import {useEffect, useState, MouseEvent} from "react"
 import dynamic from "next/dynamic"
 import {GetRandomInteger} from "@/app/utils"
 import {Goto} from "@/app/components/goto"
-import {ArrowLeft, ArrowRight, ArrowDown} from "@/app/assets/icons"
+import {ArrowLeft, ArrowRight} from "@/app/assets/icons"
 import {Z_INDEX, Style} from "@/app/constant"
 
 const ModelViewer = dynamic(() => import("@/app/components/3d-model-viewer"), {
@@ -129,7 +129,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
       className={`absolute md:w-1/4 md:right-0 bottom-0 text-sm lg:text-base rounded-md p-2 md:p-4 ml-8 mr-8 mb-16 md:mb-4 md:mr-20 bg-slate-50 bg-opacity-50 ${Z_INDEX.MIDDLE}`}
     >
       <span className="text-base md:text-lg">{isClient && items[currentIndex].desc}</span>
-      <div
+      {/*<div
         className={`absolute w-6 h-6 -top-3 -right-3 bg-gray-700/60 hover:bg-gray-300/50 duration-${Style.DURATION} rounded-full cursor-pointer flex flex-row justify-center items-center`}
         onClick={e => {
           e.stopPropagation()
@@ -137,7 +137,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
         }}
       >
         <span style={{color: "white"}}>x</span>
-      </div>
+      </div>*/}
     </div>
   )
 
@@ -224,12 +224,23 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
     }
   }
 
+  const controllBtn = (
+    <>
+      <div className="absolute top-1/2 left-0 ml-4">
+        <ControlBtn onClick={onPrevGallery} icon={ArrowLeft} />
+      </div>
+      <div className="absolute top-1/2 right-0 mr-4">
+        <ControlBtn onClick={onNextGallery} icon={ArrowRight} />
+      </div>
+    </>
+  )
+
   const goto = (
     <Goto
       elementID="featured-1"
-      className={`absolute bottom-0 right-0 w-10 h-10 flex flex-row justify-center items-center mb-4 mr-4 rounded-full bg-gray-700/60 hover:bg-gray-300/50 transition hover:duration-${Style.DURATION}`}
+      className={`absolute bottom-0 flex flex-row justify-center items-center pb-4 mb-4 mr-4`}
     >
-      {ArrowDown}
+      <img src="/angle-down.svg" className="w-14" />
     </Goto>
   )
 
@@ -237,7 +248,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
     <div className="bg-black flex flex-col w-full h-screen justify-center items-center">
       {getSelectedGellery()}
       {isMagnifierOpen && imgMaginifier}
-      {controller}
+      {controllBtn}
       {description}
       {goto}
     </div>
