@@ -27,7 +27,7 @@ export default function RootLayout({
         <div className="flex flex-col w-full min-h-screen items-center">
           {children}
           <div className={`w-full flex flex-col items-center bg-${Color.THEME}`}>
-            <Footer />
+            {false && <Footer />}
           </div>
           <BackToTop />
         </div>

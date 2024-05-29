@@ -1,84 +1,57 @@
-import {FullscreenGallery, Gallery} from "@/app/home/fullscreen-gallery"
-import {FeaturedVideos} from "@/app/home/featured-videos"
-import {FeaturedTextContents} from "@/app/home/featured-section"
-import {ChillVideo} from "@/app/components/chill-video"
-import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
-
-// TODO: remove mockups when cms is ready
-import {featuredGalleries, YTVideos, featuredPosts as posts} from "./mockups"
+'use client'
+import styles from './page.module.css'
+import { useState, useEffect, useRef } from 'react'
 
 export default function Home() {
-  // TODO: fetch contents from API
-  const featuredVideos = YTVideos
+  const pageRef = useRef<HTMLDivElement>(null)
 
-  const headlinePost = posts[0]
-  const featuredPosts = posts.slice(1)
+  const count = 3
+  const [current, setCurrent] = useState(0)
+  const [animationState, setAnimationState] = useState(false)
 
-  const headlineTopic = posts[0]
-  const featuredTopics = posts.slice(1)
-
-  const sections = [
-    {
-      id: "gallery-section",
-      label: "頁首",
-      component: <FullscreenGallery items={featuredGalleries as Gallery[]} />
-    },
-    {
-      id: "featured-1",
-      label: ROUTE_TOPIC.title,
-      component: (
-        <FeaturedTextContents
-          id={"featured-1"}
-          title={ROUTE_TOPIC.title}
-          route={ROUTE_TOPIC.path}
-          direction={Direction.RIGHT}
-          headline={headlineTopic}
-          featured={featuredTopics}
-        />
-      )
-    },
-    {
-      id: "featured-2",
-      label: ROUTE_POST.title,
-      component: (
-        <FeaturedTextContents
-          id={"featured-2"}
-          title={ROUTE_POST.title}
-          route={ROUTE_POST.path}
-          direction={Direction.LEFT}
-          headline={headlinePost}
-          featured={featuredPosts}
-          bgColor
-        />
-      )
-    },
-    {
-      id: "featured-3",
-      label: ROUTE_VIDEO.title,
-      component: (
-        <FeaturedVideos
-          id={"featured-3"}
-          title={ROUTE_VIDEO.title}
-          route={ROUTE_VIDEO.path}
-          direction={Direction.LEFT}
-          featured={featuredVideos}
-        />
-      )
+  const gotoNum = (index: number) => {
+    console.log('gotoNum', index, current, pageRef.current?.children)
+    if (index !== current && !animationState) {
+      setAnimationState(true)
+      setTimeout(() => setAnimationState(false), 500)
+      if (pageRef.current?.children) {
+        for (let i = 0; i < count; i++) {
+          const slide = pageRef.current?.children?.[i] as HTMLElement
+          slide.style.transition = 'bottom 0.5s ease-in-out'
+          slide.style.bottom = (index - i) * 100 + '%'
+        }
+        setCurrent(index)
+      }
     }
-  ]
+  }
 
-  const sectionsJSX = sections.map((seciton, index) => {
-    return (
-      <div key={`home-section-${index}`} id={seciton.id} className="w-full h-screen flex flex-col items-center">
-        {seciton.component}
-      </div>
-    )
-  })
+  const gotoNext = () => {
+    console.log('gotoNext', current)
+    current < count - 1 && gotoNum(current + 1)
+  }
+
+  const gotoPrev = () => {
+    console.log('gotoPrev', current)
+    current > 0 && gotoNum(current - 1)
+  }
+
+  useEffect(() => {
+    pageRef.current?.addEventListener('wheel', (e) => {
+      e.deltaY < 0 ? gotoPrev() : gotoNext()
+    })
+  }, [])
 
   return (
-    <main className="flex flex-col w-full items-center justify-between">
-      <ChillVideo />
-      {sectionsJSX}
-    </main>
+    <>
+      <div className={styles.main_container} ref={pageRef}>
+        <div className={`${styles.page} bg-green-400`}>
+        </div>
+        <div className={`${styles.page} bg-red-400`}>
+        </div>
+        <div className={`${styles.page} bg-blue-400`}>
+        </div>
+      </div>
+      <div className='w-full absolute bottom-0'>{current}</div>
+    </>
   )
 }
