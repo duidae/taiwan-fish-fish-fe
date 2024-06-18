@@ -79,7 +79,7 @@ export const FeaturedVideos = (
       >
         <img
           style={{aspectRatio: DEFAULT_IMAGE_ASPECT_RATIO}}
-          className="min-w-24 h-full object-cover rounded-md"
+          className="w-24 h-full object-cover rounded-md"
           src={coverImg}
         />
         <div className="hidden lg:block grow flex flex-col justify-between">{desc}</div>
