@@ -21,7 +21,7 @@ export default function Home() {
   const sections = [
     {
       id: "gallery-section",
-      label: "頁首",
+      label: "模型",
       component: <FullscreenGallery items={featuredGalleries as Gallery[]} />
     },
     {

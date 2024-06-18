@@ -226,10 +226,10 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
 
   const controllBtn = (
     <>
-      <div className="absolute top-1/2 left-0 ml-4">
+      <div className="absolute top-1/2 left-0 ml-16">
         <ControlBtn onClick={onPrevGallery} icon={ArrowLeft} />
       </div>
-      <div className="absolute top-1/2 right-0 mr-4">
+      <div className="absolute top-1/2 right-0 mr-16">
         <ControlBtn onClick={onNextGallery} icon={ArrowRight} />
       </div>
     </>
