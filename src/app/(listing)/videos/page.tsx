@@ -36,7 +36,7 @@ const YTFacade = (props: {imageURL: string; url: string; title: string; classNam
 }
 
 export default function Videos() {
-  const featuredYTURLs = YTVideos
+  const featuredYTURLs = YTVideos.slice(0,5)
   const ytURLs = YTVideos
 
   const [featuredMetadata, setFeaturedMetadata] = useState<any>([])
