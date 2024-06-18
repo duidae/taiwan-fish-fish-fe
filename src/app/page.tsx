@@ -1,22 +1,12 @@
 import {FullscreenGallery, Gallery} from "@/app/home/fullscreen-gallery"
 import {FeaturedVideos} from "@/app/home/featured-videos"
 import {FeaturedTextContents} from "@/app/home/featured-section"
+import {TOC} from "@/app/home/table-of-content"
 import {ChillVideo} from "@/app/components/chill-video"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
 
 // TODO: remove mockups when cms is ready
 import {featuredGalleries, YTVideos, featuredPosts as posts} from "./mockups"
-
-const calendar = (
-  <iframe
-    src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTaipei&bgcolor=%23ffffff&src=ZnJvbXdhdGVydHdAZ21haWwuY29t&src=emgtdHcudGFpd2FuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%23F09300"
-    style={{border: "solid 1px #777"}}
-    width="800"
-    height="600"
-    frameBorder="0"
-    scrolling="no"
-  ></iframe>
-)
 
 export default function Home() {
   // TODO: fetch contents from API
@@ -75,6 +65,16 @@ export default function Home() {
           featured={featuredVideos}
         />
       )
+    },
+    {
+      id: "featured-4",
+      label: "活動",
+      component: (
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTaipei&bgcolor=%23ffffff&src=ZnJvbXdhdGVydHdAZ21haWwuY29t&src=emgtdHcudGFpd2FuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%23F09300"
+          style={{border: "solid 1px #777", width: "80vw", height: "70vh"}}
+        ></iframe>
+      )
     }
   ]
 
@@ -86,11 +86,15 @@ export default function Home() {
     )
   })
 
+  const sectionIndexs = sections.map(section => {
+    return {id: section.id, label: section.label}
+  })
+
   return (
     <main className="flex flex-col w-full items-center justify-between">
       <ChillVideo />
       {sectionsJSX}
-      {calendar}
+      <TOC indexes={sectionIndexs} />
     </main>
   )
 }
