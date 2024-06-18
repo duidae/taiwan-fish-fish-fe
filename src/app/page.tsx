@@ -88,9 +88,9 @@ export default function Home() {
 
   return (
     <main className="flex flex-col w-full items-center justify-between">
-      <ChillVideo />
       {sectionsJSX}
       <TOC indexes={sectionIndexs} />
+      <ChillVideo />
     </main>
   )
 }

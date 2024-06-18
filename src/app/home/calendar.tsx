@@ -1,10 +1,12 @@
 import {HEADER_HEIGHT, TOC_WIDTH} from "@/app/constant"
 
+const paddingTop = 24
+
 export const Calendar = () => {
   return (
     <div
-      className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center"
-      style={{paddingTop: `${HEADER_HEIGHT}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
+      className="max-w-screen-2xl max-h-screen w-full h-screen flex flex-col justify-center items-center pb-10"
+      style={{paddingTop: `${HEADER_HEIGHT + paddingTop}px`, paddingRight: `${TOC_WIDTH}px`, paddingLeft: `${TOC_WIDTH}px`}}
     >
       <div className="flex flex-row items-center gap-2">
         <h1>活動日曆</h1>
