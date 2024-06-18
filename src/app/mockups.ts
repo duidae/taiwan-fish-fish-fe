@@ -44,7 +44,6 @@ export const featuredGalleries = [
     url: "/black_diving_beetle_c._brevis/scene.gltf",
     desc: "台灣沼蝦(Macrobrachium formosense)，台灣分佈：除西北部未發現，世界分佈：台灣、琉球、小笠原及日本。"
   },
-  */
   {
     type: "image",
     url: "chou.jpeg",
@@ -90,6 +89,7 @@ export const featuredGalleries = [
     url: "/ai3.jpeg",
     desc: "AI畫的, 還不錯"
   }
+    */
 ]
 
 export const featuredImages = [
