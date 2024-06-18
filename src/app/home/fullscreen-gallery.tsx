@@ -224,33 +224,24 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
     }
   }
 
-  const controllBtn = (
-    <>
-      <div className="absolute top-1/2 left-0 ml-16">
+  const controllBtns = (
+    <div className="absolute bottom-0 flex flex-col justify-center items-center pb-8 gap-12">
+      <div className="flex flex-row gap-6">
         <ControlBtn onClick={onPrevGallery} icon={ArrowLeft} />
-      </div>
-      <div className="absolute top-1/2 right-0 mr-16">
         <ControlBtn onClick={onNextGallery} icon={ArrowRight} />
       </div>
-    </>
-  )
-
-  const goto = (
-    <Goto
-      elementID="featured-1"
-      className={`absolute bottom-0 flex flex-row justify-center items-center pb-4 mb-4 mr-4`}
-    >
-      <img src="/angle-down.svg" className="w-14" />
-    </Goto>
+      <Goto elementID="featured-1" className={`bottom-0 flex flex-row justify-center items-center pb-4`}>
+        <img src="/angle-down.svg" className="w-14" alt="Next section" />
+      </Goto>
+    </div>
   )
 
   return (
     <div className="bg-black flex flex-col w-full h-screen justify-center items-center">
       {getSelectedGellery()}
       {isMagnifierOpen && imgMaginifier}
-      {controllBtn}
+      {controllBtns}
       {description}
-      {goto}
     </div>
   )
 }
