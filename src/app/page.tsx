@@ -1,6 +1,7 @@
 import {FullscreenGallery, Gallery} from "@/app/home/fullscreen-gallery"
 import {FeaturedVideos} from "@/app/home/featured-videos"
 import {FeaturedTextContents} from "@/app/home/featured-section"
+import {Calendar} from "@/app/home/calendar"
 import {TOC} from "@/app/home/table-of-content"
 import {ChillVideo} from "@/app/components/chill-video"
 import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
@@ -69,12 +70,7 @@ export default function Home() {
     {
       id: "featured-4",
       label: "活動",
-      component: (
-        <iframe
-          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTaipei&bgcolor=%23ffffff&src=ZnJvbXdhdGVydHdAZ21haWwuY29t&src=emgtdHcudGFpd2FuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%23F09300"
-          style={{width: "80vw", height: "70vh"}}
-        ></iframe>
-      )
+      component: <Calendar />
     }
   ]
 
