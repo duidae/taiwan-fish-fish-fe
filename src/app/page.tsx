@@ -7,6 +7,8 @@ import {ROUTE_VIDEO, ROUTE_TOPIC, ROUTE_POST, Direction} from "@/app/constant"
 // TODO: remove mockups when cms is ready
 import {featuredGalleries, YTVideos, featuredPosts as posts} from "./mockups"
 
+const calendar = <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTaipei&bgcolor=%23ffffff&src=ZnJvbXdhdGVydHdAZ21haWwuY29t&src=emgtdHcudGFpd2FuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%23F09300" style={{border:'solid 1px #777'}} width="800" height="600" frameBorder="0" scrolling="no"></iframe>
+
 export default function Home() {
   // TODO: fetch contents from API
   const featuredVideos = YTVideos
@@ -79,6 +81,7 @@ export default function Home() {
     <main className="flex flex-col w-full items-center justify-between">
       <ChillVideo />
       {sectionsJSX}
+      {calendar}
     </main>
   )
 }
