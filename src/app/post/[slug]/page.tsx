@@ -1,6 +1,7 @@
 import {Metadata} from "next"
 import {notFound} from "next/navigation"
 import {BlockNoteRenderer} from "@/app/components/block-note-renderer"
+import {SITE_URL} from "@/app/constant"
 
 // TODO: remove mockup
 import {postMockup} from "@/app/mockups"
@@ -9,11 +10,11 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
   const {slug} = params
 
   return {
+    alternates: {
+      canonical: `${SITE_URL}/post/${slug}`,
+    },
     /*
     title: `${topicMeta?.ogTitle ? topicMeta.ogTitle + ' - ' : ''}${OG_SUFFIX}`,
-    alternates: {
-      canonical: `${KIDS_URL_ORIGIN}/topic/${slug}`,
-    },
     openGraph: {
       title: topicMeta?.ogTitle ?? OG_SUFFIX,
       description: topicMeta?.ogDescription ?? GENERAL_DESCRIPTION,
