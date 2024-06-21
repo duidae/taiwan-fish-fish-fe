@@ -37,7 +37,7 @@ export const featuredGalleries = [
     url: "/japanese_freshwater_crab.glb",
     cover: "/japanese_freshwater_crab.png",
     desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
-  }
+  },
   /*
   {
     type: "model",
@@ -54,6 +54,7 @@ export const featuredGalleries = [
     url: "ilan.webp",
     desc: "宜蘭深溝釣魚大賽"
   },
+  */
   {
     type: "image",
     url: "chang.png",
@@ -64,6 +65,7 @@ export const featuredGalleries = [
     url: "lee.jpeg",
     desc: "李梅樹（1902~1983）-《香魚》：台灣原產的香魚，是老一輩人最懷念的食物，三峽河常可捕捉，李梅樹生前也最愛吃香魚，可惜台灣原生種香魚在光復後因河川汙染後就此滅絕，李梅樹這幅《香魚》，為我們紀錄了台灣消失魚種的樣貌，也是碩果僅存的時代見證。"
   },
+  /*
   {
     type: "image",
     url: "kuo.jpeg",
@@ -89,7 +91,7 @@ export const featuredGalleries = [
     url: "/ai3.jpeg",
     desc: "AI畫的, 還不錯"
   }
-    */
+  */
 ]
 
 export const featuredImages = [

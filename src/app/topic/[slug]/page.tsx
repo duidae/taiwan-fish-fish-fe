@@ -36,7 +36,7 @@ export default async function Topic({params}: {params: {slug: string}}) {
   const {slug} = params
 
   if (!slug) {
-    return notFound()
+    notFound()
   }
 
   const content = topicMockup

@@ -37,7 +37,7 @@ export default async function Post({params}: {params: {slug: string}}) {
   const {slug} = params
 
   if (!slug) {
-    return notFound()
+    notFound()
   }
 
   const content = postMockup
