@@ -22,6 +22,12 @@ export const YTVideos = [
 export const featuredGalleries = [
   {
     type: "model",
+    url: "/fed3a183016941ffb89532776378d6cf_big.glb",
+    cover: "/mosquitofish_gambusia_affinis.png",
+    desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
+  },
+  {
+    type: "model",
     url: "/mosquitofish_gambusia_affinis.glb",
     cover: "/mosquitofish_gambusia_affinis.png",
     desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
