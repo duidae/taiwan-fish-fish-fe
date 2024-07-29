@@ -22,7 +22,7 @@ export default function Home() {
   const sections = [
     {
       id: "gallery-section",
-      label: "模型",
+      label: "圖鑑",
       component: <FullscreenGallery items={featuredGalleries as Gallery[]} />
     },
     {

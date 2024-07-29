@@ -38,11 +38,25 @@ export const featuredGalleries = [
     cover: "/japanese_freshwater_crab.png",
     desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
   },
+  /*
   {
     type: "model",
     url: "/fed3a183016941ffb89532776378d6cf.glb",
     cover: "/mosquitofish_gambusia_affinis.png",
     desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
+  },
+  */
+  {
+    type: "model",
+    url: "/Plerygoplichthys.glb",
+    cover: "/mosquitofish_gambusia_affinis.png",
+    desc: "雜交翼甲鯰(Plerygoplichthys sp.)，俗名垃圾魚，原產於中南美洲，常見外來種。"
+  },
+  {
+    type: "model",
+    url: "/Carassius_auratus.glb",
+    cover: "/mosquitofish_gambusia_affinis.png",
+    desc: "朱文錦(Carassius auratus)，又名朱文金，常見外來種。"
   },
   /*
   {

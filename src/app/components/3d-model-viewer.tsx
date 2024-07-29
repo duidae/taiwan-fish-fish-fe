@@ -50,7 +50,7 @@ export const ModelViewer = (props: {src: string; cover: string}) => {
         auto-rotate
         camera-controls
         camera-orbit="0deg 90deg 0deg 8.37364m"
-        alt="3D model"
+        alt="3D fish model"
       >
         <div className="w-full h-full flex flex-col items-center justify-center" slot="poster">
           <img src={cover} />
