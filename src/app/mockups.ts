@@ -28,24 +28,10 @@ export const featuredGalleries = [
   },
   {
     type: "model",
-    url: "/bluegill_lepomis_macrochirus.glb",
-    cover: "/bluegill_lepomis_macrochirus.png",
-    desc: "藍鰓太陽魚(Lepomis macrochirus)，本魚分布於北美洲聖勞倫斯河五大湖區與密西西比河流域至墨西哥北部間的溪流及湖泊中。藍鰓太陽魚適應力強，引入其他國家時，常會造成當地的生態破壞。"
-  },
-  {
-    type: "model",
     url: "/japanese_freshwater_crab.glb",
     cover: "/japanese_freshwater_crab.png",
     desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
   },
-  /*
-  {
-    type: "model",
-    url: "/fed3a183016941ffb89532776378d6cf.glb",
-    cover: "/mosquitofish_gambusia_affinis.png",
-    desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
-  },
-  */
   {
     type: "model",
     url: "/Plerygoplichthys.glb",
@@ -54,11 +40,17 @@ export const featuredGalleries = [
   },
   {
     type: "model",
+    url: "/bluegill_lepomis_macrochirus.glb",
+    cover: "/bluegill_lepomis_macrochirus.png",
+    desc: "藍鰓太陽魚(Lepomis macrochirus)，本魚分布於北美洲聖勞倫斯河五大湖區與密西西比河流域至墨西哥北部間的溪流及湖泊中。藍鰓太陽魚適應力強，引入其他國家時，常會造成當地的生態破壞。"
+  },
+  /*
+  {
+    type: "model",
     url: "/Carassius_auratus.glb",
     cover: "/mosquitofish_gambusia_affinis.png",
     desc: "朱文錦(Carassius auratus)，又名朱文金，常見外來種。"
   },
-  /*
   {
     type: "model",
     url: "/black_diving_beetle_c._brevis/scene.gltf",
@@ -74,7 +66,12 @@ export const featuredGalleries = [
     url: "ilan.webp",
     desc: "宜蘭深溝釣魚大賽"
   },
-  */
+  {
+    type: "model",
+    url: "/fed3a183016941ffb89532776378d6cf.glb",
+    cover: "/mosquitofish_gambusia_affinis.png",
+    desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
+  },
   {
     type: "image",
     url: "chang.png",
@@ -85,7 +82,6 @@ export const featuredGalleries = [
     url: "lee.jpeg",
     desc: "李梅樹（1902~1983）-《香魚》：台灣原產的香魚，是老一輩人最懷念的食物，三峽河常可捕捉，李梅樹生前也最愛吃香魚，可惜台灣原生種香魚在光復後因河川汙染後就此滅絕，李梅樹這幅《香魚》，為我們紀錄了台灣消失魚種的樣貌，也是碩果僅存的時代見證。"
   },
-  /*
   {
     type: "image",
     url: "kuo.jpeg",
