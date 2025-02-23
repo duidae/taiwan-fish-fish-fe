@@ -66,7 +66,7 @@ export const SOCIAL_MEDIA = [
 ]
 
 export enum Direction {
-  LEFT =   "left",
+  LEFT = "left",
   RIGHT = "right"
 }
 
