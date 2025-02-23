@@ -11,8 +11,8 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
 
   return {
     alternates: {
-      canonical: `${SITE_URL}/post/${slug}`,
-    },
+      canonical: `${SITE_URL}/post/${slug}`
+    }
     /*
     title: `${topicMeta?.ogTitle ? topicMeta.ogTitle + ' - ' : ''}${OG_SUFFIX}`,
     openGraph: {
