@@ -25,6 +25,7 @@ export default function Home() {
       label: "圖鑑",
       component: <FullscreenGallery items={featuredGalleries as Gallery[]} />
     },
+    /*
     {
       id: "featured-1",
       label: ROUTE_TOPIC.title,
@@ -54,6 +55,7 @@ export default function Home() {
         />
       )
     },
+    */
     {
       id: "featured-3",
       label: ROUTE_VIDEO.title,
