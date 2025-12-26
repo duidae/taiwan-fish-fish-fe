@@ -225,7 +225,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
   }
 
   const controllBtns = (
-    <div className="absolute bottom-0 flex flex-col justify-center items-center pb-8 gap-12">
+    <div className="absolute bottom-0 flex flex-col justify-center items-center pb-8 gap-12 z-20">
       <div className="flex flex-row gap-6">
         <ControlBtn onClick={onPrevGallery} icon={ArrowLeft} />
         <ControlBtn onClick={onNextGallery} icon={ArrowRight} />
