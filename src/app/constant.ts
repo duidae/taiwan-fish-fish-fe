@@ -33,9 +33,15 @@ export const ROUTE_ABOUT = {
 }
 export const ROUTES = [
   {
-    title: "台灣原生魚3D模型",
+    title: "台灣原生魚類3D圖鑑",
     path: "/models"
   },
+  /*
+  {
+    title: "大河小溪",
+    path: "/rivers"
+  }, 
+  */
   {
     title: "魚地圖",
     path: "/map"
