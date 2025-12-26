@@ -33,15 +33,15 @@ export const ROUTE_ABOUT = {
 }
 export const ROUTES = [
   {
+    title: "台灣原生魚3D模型",
+    path: "/models"
+  },
+  {
     title: "魚地圖",
     path: "/map"
   },
   {
-    title: "數位保種(3D)",
-    path: "/models"
-  },
-  {
-    title: "專案",
+    title: "相關專案",
     children: [
       {
         title: "張萬傳網路美術館",
