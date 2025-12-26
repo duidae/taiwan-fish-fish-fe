@@ -32,9 +32,6 @@ export const ROUTE_ABOUT = {
   path: "/about"
 }
 export const ROUTES = [
-  ROUTE_TOPIC,
-  ROUTE_POST,
-  ROUTE_VIDEO,
   {
     title: "魚地圖",
     path: "/map"
@@ -43,10 +40,25 @@ export const ROUTES = [
     title: "數位保種(3D)",
     path: "/models"
   },
+  {
+    title: "專案",
+    children: [
+      {
+        title: "張萬傳網路美術館",
+        path: "https://www.wan-chuan-chang.com/",
+        external: true
+      },
+      {
+        title: "31屆台大藝術季",
+        path: "https://ntu-art-festival-31.vercel.app/",
+        external: true
+      }
+    ]
+  },
   ROUTE_ABOUT
 ]
 
-export const ROUTE_HEADER = ROUTES.slice(0, 5)
+export const ROUTE_HEADER = ROUTES.slice(0, 3)
 
 export const SOCIAL_MEDIA = [
   {
