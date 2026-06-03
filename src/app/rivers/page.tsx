@@ -1,6 +1,5 @@
 "use client"
 import {useEffect, useRef} from "react"
-import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 
 const RIVER_MAP_API = "https://river-watcher.bambooculture.tw/api/getpcc?limit=3000&requireGeom=True&matches=2000-2099"
@@ -12,26 +11,8 @@ function RiversPage() {
   useEffect(() => {
     if (!mapRef.current) return
 
-    // create map once
-    if (!leafletMapRef.current) {
-      const map = L.map(mapRef.current, {
-        center: [23.7, 121],
-        zoom: 8,
-        maxZoom: 18,
-        minZoom: 7
-      })
+    let L: any = undefined
 
-      const mbUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      const mbAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      const streets = L.tileLayer(mbUrl, {attribution: mbAttr})
-      streets.addTo(map)
-
-      L.control.zoom({position: "topright"}).addTo(map)
-
-      leafletMapRef.current = map
-    }
-
-    // load markercluster css+script from CDN then fetch data
     const addClusterScript = async () => {
       // add CSS
       const cssHref = "https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
@@ -61,14 +42,15 @@ function RiversPage() {
 
       // fetch PCC GeoJSON
       try {
+        const map = leafletMapRef.current!
         // try direct fetch first (requires remote server to allow CORS)
+        /*
         let res = await fetch(RIVER_MAP_API, {mode: "cors"})
         if (!res.ok) {
           // non-2xx status — throw to trigger fallback
           throw new Error("non-OK response")
         }
         const data = await res.json()
-        const map = leafletMapRef.current!
         const markers = (window as any).L.markerClusterGroup({maxClusterRadius: 30})
         const geo = L.geoJSON(data, {
           pointToLayer: (feature: any, latlng: L.LatLngExpression) => {
@@ -84,6 +66,28 @@ function RiversPage() {
         })
         markers.addLayer(geo)
         markers.addTo(map)
+        */
+
+        // try to fetch and render local river GeoJSON
+        try {
+          const rres = await fetch("/api/local-rivers")
+          if (rres.ok) {
+            const rivers = await rres.json()
+            const riverStyle = {
+              fillColor: "#0FC9DC",
+              color: "#0FC9DC",
+              weight: 3,
+              opacity: 0.7,
+              fillOpacity: 0.7
+            }
+            const riverLayer = L.geoJSON(rivers, {
+              style: riverStyle
+            })
+            riverLayer.addTo(map)
+          }
+        } catch (err) {
+          // ignore missing local file
+        }
       } catch (e) {
         // If direct fetch fails (likely CORS), retry via public CORS proxy
         try {
@@ -115,7 +119,34 @@ function RiversPage() {
       }
     }
 
-    addClusterScript()
+    const init = async () => {
+      // dynamically import leaflet only on client
+      const leafletModule = await import("leaflet")
+      L = (window as any).L = leafletModule && (leafletModule.default || leafletModule)
+
+      // create map once
+      if (!leafletMapRef.current) {
+        const map = L.map(mapRef.current, {
+          center: [23.7, 121],
+          zoom: 8,
+          maxZoom: 18,
+          minZoom: 7
+        })
+
+        const mbUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        const mbAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        const streets = L.tileLayer(mbUrl, {attribution: mbAttr})
+        streets.addTo(map)
+
+        L.control.zoom({position: "topright"}).addTo(map)
+
+        leafletMapRef.current = map
+      }
+
+      await addClusterScript()
+    }
+
+    init()
 
     return () => {
       if (leafletMapRef.current) {
