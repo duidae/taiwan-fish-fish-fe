@@ -55,8 +55,8 @@ export const ROUTES = [
         external: true
       },
       {
-        title: "31屆台大藝術季",
-        path: "https://ntu-art-festival-31.vercel.app/",
+        title: "31屆臺大藝術季",
+        path: "https://ntu-art-festival-31-cloudflare.duidae.workers.dev/",
         external: true
       }
     ]
