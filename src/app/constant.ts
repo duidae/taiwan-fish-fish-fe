@@ -36,12 +36,10 @@ export const ROUTES = [
     title: "台灣原生魚類3D圖鑑",
     path: "/models"
   },
-  /*
   {
     title: "大河小溪",
     path: "/rivers"
-  }, 
-  */
+  },
   {
     title: "魚地圖",
     path: "/map"
@@ -64,7 +62,7 @@ export const ROUTES = [
   ROUTE_ABOUT
 ]
 
-export const ROUTE_HEADER = ROUTES.slice(0, 3)
+export const ROUTE_HEADER = ROUTES.slice(0, 4)
 
 export const SOCIAL_MEDIA = [
   {
