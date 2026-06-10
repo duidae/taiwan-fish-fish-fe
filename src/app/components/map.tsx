@@ -2,7 +2,7 @@
 import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
-import {MapContainer, TileLayer, LayersControl, Marker, Popup} from "react-leaflet"
+import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON} from "react-leaflet"
 const {BaseLayer, Overlay} = LayersControl
 
 /*
@@ -42,6 +42,10 @@ const Map = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [hasMore, setHasMore] = useState<boolean>(true)
   const listRef = useRef<HTMLDivElement | null>(null)
+  const [mapInstance, setMapInstance] = useState<L.Map | null>(null)
+  const [allRivers, setAllRivers] = useState<any | null>(null)
+  const [riverResults, setRiverResults] = useState<any | null>(null)
+  const [riverQuery, setRiverQuery] = useState<string>("")
 
   useEffect(() => {
     fetchObs(1)
@@ -97,9 +101,15 @@ const Map = () => {
   }
 
   const mapComponent = (
-    <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom>
+    <MapContainer
+      className="w-full h-full"
+      center={coord}
+      zoom={DEFAULT_ZOOM}
+      scrollWheelZoom
+      whenCreated={m => setMapInstance(m)}
+    >
       <LayersControl position="topright" collapsed={false}>
-        <BaseLayer checked name="街道圖">
+        <BaseLayer checked name="溪流圖">
           <TileLayer
             attribution={defaultTileAttr}
             url={`https://api.mapbox.com/styles/v1/js00193/ck0lupyad8k061dmv7zvbvwgv/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
@@ -126,6 +136,9 @@ const Map = () => {
           </Overlay>
         ))}
       </LayersControl>
+      {riverResults && (
+        <GeoJSON data={riverResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
+      )}
     </MapContainer>
   )
 
@@ -153,17 +166,92 @@ const Map = () => {
     </>
   )
 
+  const fetchAllRivers = async () => {
+    if (allRivers) return allRivers
+    try {
+      const res = await fetch("/api/local-rivers")
+      if (!res.ok) throw new Error("fetch failed")
+      const data = await res.json()
+      setAllRivers(data)
+      return data
+    } catch (e) {
+      console.warn("failed to load rivers", e)
+      return null
+    }
+  }
+
+  const handleSearchSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault()
+    if (!riverQuery || riverQuery.trim().length < 1) return
+    const data = await fetchAllRivers()
+    if (!data) return
+    const q = riverQuery.trim().toLowerCase()
+    const matches = data.features.filter((f: any) => {
+      const name = (f.properties?.name || "").toString().toLowerCase()
+      return name.includes(q)
+    })
+    if (matches.length > 0) {
+      const fc = {type: "FeatureCollection", features: matches}
+      setRiverResults(fc)
+      // fit map to results
+      try {
+        const bounds = L.geoJSON(fc).getBounds()
+        mapInstance && bounds.isValid() && mapInstance.fitBounds(bounds)
+      } catch (err) {
+        console.warn("fitBounds failed", err)
+      }
+    } else {
+      setRiverResults(null)
+    }
+  }
+
+  const handleResultClick = (feature: any) => {
+    if (!feature) return
+    const coords = feature.geometry?.coordinates
+    if (coords) {
+      // GeoJSON coordinates are [lng, lat]
+      const latlng: LatLngExpression = [coords[1], coords[0]]
+      mapInstance && mapInstance.setView(latlng as any, 13)
+    }
+  }
+
   return (
     <div className="w-full h-full flex flex-row py-20 gap-4">
       <div className="w-3/4">{mapComponent}</div>
-      <div
-        ref={listRef}
-        onScroll={handleScroll}
-        className="w-1/4 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll"
-      >
-        {taxonItems}
-        {loading && <div className="w-full text-center">載入中…</div>}
-        {!hasMore && <div className="w-full text-center">已載入全部</div>}
+      <div className="w-1/4 flex flex-col gap-4">
+        <form /*onSubmit={handleSearchSubmit}*/ className="flex gap-2 items-center">
+          <input
+            className="flex-1 p-2 border rounded"
+            placeholder="搜尋河川"
+            value={riverQuery}
+            onChange={e => setRiverQuery(e.target.value)}
+          />
+          <button className="btn btn-style1 p-2" type="submit">
+            搜尋
+          </button>
+        </form>
+
+        <div
+          ref={listRef}
+          onScroll={handleScroll}
+          className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll p-2"
+        >
+          {riverResults ? (
+            <div className="w-full">
+              <div className="text-sm font-semibold mb-2">搜尋結果</div>
+              {riverResults.features.map((f: any, i: number) => (
+                <div key={`river-${i}`} className="p-1 cursor-pointer" onClick={() => handleResultClick(f)}>
+                  {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            taxonItems
+          )}
+
+          {loading && <div className="w-full text-center">載入中…</div>}
+          {!hasMore && <div className="w-full text-center">已載入全部</div>}
+        </div>
       </div>
     </div>
   )
