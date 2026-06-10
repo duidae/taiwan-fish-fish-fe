@@ -5,7 +5,7 @@ import styles from "./page.module.css"
 
 const RIVER_MAP_API = "https://river-watcher.bambooculture.tw/api/getpcc?limit=3000&requireGeom=True&matches=2000-2099"
 
-function RiversPage() {
+const RiversPage = () => {
   const mapRef = useRef<HTMLDivElement | null>(null)
   const leafletMapRef = useRef<L.Map | null>(null)
 
@@ -41,33 +41,8 @@ function RiversPage() {
         })
       }
 
-      // fetch PCC GeoJSON
       try {
         const map = leafletMapRef.current!
-        // try direct fetch first (requires remote server to allow CORS)
-        /*
-        let res = await fetch(RIVER_MAP_API, {mode: "cors"})
-        if (!res.ok) {
-          // non-2xx status — throw to trigger fallback
-          throw new Error("non-OK response")
-        }
-        const data = await res.json()
-        const markers = (window as any).L.markerClusterGroup({maxClusterRadius: 30})
-        const geo = L.geoJSON(data, {
-          pointToLayer: (feature: any, latlng: L.LatLngExpression) => {
-            return L.marker(latlng)
-          },
-          onEachFeature: (feature: any, layer: L.Layer) => {
-            const props = feature.properties || {}
-            const title = props.title || props.工程名稱 || props["工程名稱"] || ""
-            layer.bindPopup(
-              `<div style="max-width:320px"><strong>${title}</strong><div>${props.location || ""}</div></div>`
-            )
-          }
-        })
-        markers.addLayer(geo)
-        markers.addTo(map)
-        */
 
         // try to fetch and render local river GeoJSON
         try {
@@ -142,7 +117,6 @@ function RiversPage() {
           minZoom: 7
         })
 
-        L.control.zoom({position: "topright"}).addTo(map)
         L.control
           .layers(
             {
@@ -150,7 +124,7 @@ function RiversPage() {
               街道圖: streets
             },
             null,
-            {position: "bottomright"}
+            {position: "topright"}
           )
           .addTo(map)
 
@@ -176,10 +150,11 @@ function RiversPage() {
     </div>
   )
 }
+
 export default function Rivers() {
   return (
-    <main className="flex flex-col w-full items-center justify-between mt-16 mb-8">
-      <div className="w-4/5 h-screen">
+    <main className="flex flex-col w-full items-center justify-between mt-24 mb-8">
+      <div className="w-full">
         <RiversPage />
       </div>
     </main>
