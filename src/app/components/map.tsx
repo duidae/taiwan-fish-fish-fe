@@ -81,12 +81,12 @@ const Map = () => {
           />
         </BaseLayer>
 
-        <BaseLayer name="OpenStreetMap">
+        <BaseLayer name="地圖">
           <TileLayer attribution={defaultTileAttr} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         </BaseLayer>
 
         {taxonIDs.map(id => (
-          <Overlay key={id} checked name={`Taxon ${id}`}>
+          <Overlay key={id} checked name={taxons.find(t => t.taxon.id === id)?.species_guess || `Taxon ${id}`}>
             <TileLayer
               attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
               url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
