@@ -15,8 +15,10 @@ import "leaflet/dist/leaflet.css"
 
 // place_id=131031 - taiwan
 // iconic_taxa=Actinopterygii - fish
+// https://api.inaturalist.org/v1/taxa?q=Actinopterygii => id: 47178
 const searchURL = "https://api.inaturalist.org/v1/observations?place_id=7887&view=species&iconic_taxa=Actinopterygii"
 const taxanomyURLPrefix = "https://www.inaturalist.org/taxa"
+// const speciesSearchExample = "https://api.inaturalist.org/v1/observations/species_counts?nelat=...&nelng=...&swlat=...&swlng=...&taxon_id=47178"
 
 const DEFAULT_ZOOM = 8
 const TAIPEI_CENTER = [25.038357847174, 121.54770626982]
