@@ -66,7 +66,7 @@ const Map = () => {
 
   const mapComponent = (
     <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom>
-      <LayersControl position="topright">
+      <LayersControl position="topright" collapsed={false}>
         <BaseLayer checked name="街道圖">
           <TileLayer
             attribution={defaultTileAttr}
