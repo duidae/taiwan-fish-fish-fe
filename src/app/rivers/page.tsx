@@ -1,6 +1,7 @@
 "use client"
 import {useEffect, useRef} from "react"
 import "leaflet/dist/leaflet.css"
+import styles from "./page.module.css"
 
 const RIVER_MAP_API = "https://river-watcher.bambooculture.tw/api/getpcc?limit=3000&requireGeom=True&matches=2000-2099"
 
@@ -83,7 +84,7 @@ function RiversPage() {
             const riverLayer = L.geoJSON(rivers, {
               style: riverStyle
             })
-            riverLayer.addTo(map)
+            //riverLayer.addTo(map)
           }
         } catch (err) {
           // ignore missing local file
@@ -124,21 +125,34 @@ function RiversPage() {
       const leafletModule = await import("leaflet")
       L = (window as any).L = leafletModule && (leafletModule.default || leafletModule)
 
+      const mbAttr =
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://www.mapbox.com/">mapbox</a> '
+      const MymbUrl =
+        "https://api.mapbox.com/styles/v1/js00193/{id}/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoianMwMDE5MyIsImEiOiJjazN0dnN2aDkwNmwxM21vM2lvNDB4ZzJkIn0.48gtpsBsdD2vLWDVe1dOlQ"
+      const satellite = L.tileLayer(MymbUrl, {id: "ck0x9ai2j5kgb1co36kagohqm", attribution: mbAttr})
+      const streets = L.tileLayer(MymbUrl, {id: "ck0lupyad8k061dmv7zvbvwgv", attribution: mbAttr})
+
       // create map once
       if (!leafletMapRef.current) {
         const map = L.map(mapRef.current, {
           center: [23.7, 121],
           zoom: 8,
+          layers: [streets],
           maxZoom: 18,
           minZoom: 7
         })
 
-        const mbUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        const mbAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        const streets = L.tileLayer(mbUrl, {attribution: mbAttr})
-        streets.addTo(map)
-
         L.control.zoom({position: "topright"}).addTo(map)
+        L.control
+          .layers(
+            {
+              空照圖: satellite,
+              街道圖: streets
+            },
+            null,
+            {position: "bottomright"}
+          )
+          .addTo(map)
 
         leafletMapRef.current = map
       }
@@ -157,8 +171,8 @@ function RiversPage() {
   }, [])
 
   return (
-    <div style={{height: "100vh", width: "100%"}}>
-      <div id="map" ref={mapRef} style={{height: "100%", width: "100%"}} />
+    <div className={styles.root}>
+      <div className={styles.map} id="map" ref={mapRef} />
     </div>
   )
 }
