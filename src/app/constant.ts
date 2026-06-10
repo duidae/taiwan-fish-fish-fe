@@ -37,7 +37,7 @@ export const ROUTES = [
     path: "/models"
   },
   {
-    title: "大河小溪",
+    title: "溪流地圖",
     path: "/rivers"
   },
   {

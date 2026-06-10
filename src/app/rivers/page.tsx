@@ -154,7 +154,7 @@ const RiversPage = () => {
 export default function Rivers() {
   return (
     <main className="flex flex-col w-full items-center justify-between mt-24 mb-8">
-      <div className="w-full">
+      <div className="w-full h-full">
         <RiversPage />
       </div>
     </main>
