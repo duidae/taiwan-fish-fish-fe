@@ -2,7 +2,8 @@
 import {useEffect, useState} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
-import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
+import {MapContainer, TileLayer, LayersControl, Marker, Popup} from "react-leaflet"
+const {BaseLayer, Overlay} = LayersControl
 
 /*
 import MarkerIcon from "../../node_modules/leaflet/dist/images/marker-icon.png"
@@ -29,6 +30,9 @@ const MAX_SELECTION = 5
   url="https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?style=classic.point&srs=EPSG%3A3857&taxonKey=1"
 />
 */
+
+const g0vToken = "pk.eyJ1IjoianMwMDE5MyIsImEiOiJjazN0dnN2aDkwNmwxM21vM2lvNDB4ZzJkIn0.48gtpsBsdD2vLWDVe1dOlQ"
+const defaultTileAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
 const Map = () => {
   const [coord, setCoord] = useState<LatLngExpression>(TAIWAN_CENTER as LatLngExpression)
@@ -61,18 +65,35 @@ const Map = () => {
   }
 
   const mapComponent = (
-    <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom={true}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {taxonIDs.map((id, index) => (
-        <TileLayer
-          key={`tile-layer-${index}`}
-          attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
-          url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
-        />
-      ))}
+    <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom>
+      <LayersControl position="topright">
+        <BaseLayer checked name="街道圖">
+          <TileLayer
+            attribution={defaultTileAttr}
+            url={`https://api.mapbox.com/styles/v1/js00193/ck0lupyad8k061dmv7zvbvwgv/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
+          />
+        </BaseLayer>
+
+        <BaseLayer name="空照圖">
+          <TileLayer
+            attribution={defaultTileAttr}
+            url={`https://api.mapbox.com/styles/v1/js00193/ck0x9ai2j5kgb1co36kagohqm/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
+          />
+        </BaseLayer>
+
+        <BaseLayer name="OpenStreetMap">
+          <TileLayer attribution={defaultTileAttr} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        </BaseLayer>
+
+        {taxonIDs.map(id => (
+          <Overlay key={id} checked name={`Taxon ${id}`}>
+            <TileLayer
+              attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
+              url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
+            />
+          </Overlay>
+        ))}
+      </LayersControl>
     </MapContainer>
   )
 

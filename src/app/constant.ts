@@ -37,11 +37,7 @@ export const ROUTES = [
     path: "/models"
   },
   {
-    title: "溪流地圖",
-    path: "/rivers"
-  },
-  {
-    title: "魚地圖",
+    title: "溪流與魚",
     path: "/map"
   },
   {
@@ -58,8 +54,8 @@ export const ROUTES = [
         external: true
       }
     ]
-  },
-  ROUTE_ABOUT
+  }
+  // ROUTE_ABOUT
 ]
 
 export const ROUTE_HEADER = ROUTES.slice(0, 4)
