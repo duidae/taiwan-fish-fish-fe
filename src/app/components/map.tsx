@@ -1,5 +1,5 @@
 "use client"
-import {useEffect, useState} from "react"
+import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
 import {MapContainer, TileLayer, LayersControl, Marker, Popup} from "react-leaflet"
@@ -15,7 +15,7 @@ import "leaflet/dist/leaflet.css"
 
 // place_id=131031 - taiwan
 // iconic_taxa=Actinopterygii - fish
-const searchURL = "https://api.inaturalist.org/v1/observations?place_id=131031&iconic_taxa=Actinopterygii"
+const searchURL = "https://api.inaturalist.org/v1/observations?place_id=7887&view=species&iconic_taxa=Actinopterygii"
 const taxanomyURLPrefix = "https://www.inaturalist.org/taxa"
 
 const DEFAULT_ZOOM = 8
@@ -38,26 +38,58 @@ const Map = () => {
   const [coord, setCoord] = useState<LatLngExpression>(TAIWAN_CENTER as LatLngExpression)
   const [taxonIDs, setTaxonIDs] = useState<number[]>([])
   const [taxons, setTaxons] = useState<any[]>([])
+  const [page, setPage] = useState<number>(1)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [hasMore, setHasMore] = useState<boolean>(true)
+  const listRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    // TODO: add infinite load
-    const fetchObs = async () => {
-      const obs = await axios.get(searchURL)
+    fetchObs(1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const PER_PAGE = 30
+
+  const fetchObs = async (p: number) => {
+    if (loading || !hasMore) return
+    try {
+      setLoading(true)
+      const url = `${searchURL}&page=${p}&per_page=${PER_PAGE}`
+      const obs = await axios.get(url)
       if (obs?.data?.results) {
-        let ids: number[] = []
-        let unique: any[] = []
+        const existingIds = new Set(taxons.map(t => t.taxon?.id))
+        const newItems: any[] = []
         obs.data.results.forEach((result: any) => {
-          const currentID = result.taxon.id
-          !ids.includes(currentID) && ids.push(currentID) && unique.push(result)
+          const currentID = result.taxon?.id
+          if (currentID != null && !existingIds.has(currentID)) {
+            existingIds.add(currentID)
+            newItems.push(result)
+          }
         })
-        setTaxons(unique)
+        setTaxons(prev => [...prev, ...newItems])
+        setHasMore(obs.data.results.length === PER_PAGE)
+        setPage(p)
       } else {
         console.warn("Fetch taxons failed!")
+        setHasMore(false)
+      }
+    } catch (e) {
+      console.warn("Fetch taxons error", e)
+      setHasMore(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget
+    const threshold = 200 // px from bottom
+    if (target.scrollHeight - target.scrollTop - target.clientHeight < threshold) {
+      if (!loading && hasMore) {
+        fetchObs(page + 1)
       }
     }
-
-    fetchObs()
-  }, [])
+  }
 
   const handleSelect = (taxonID: number) => {
     const newSelections = taxonIDs.includes(taxonID) ? taxonIDs.filter(id => id !== taxonID) : [...taxonIDs, taxonID]
@@ -124,8 +156,14 @@ const Map = () => {
   return (
     <div className="w-full h-full flex flex-row py-20 gap-4">
       <div className="w-3/4">{mapComponent}</div>
-      <div className="w-1/4 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll">
+      <div
+        ref={listRef}
+        onScroll={handleScroll}
+        className="w-1/4 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll"
+      >
         {taxonItems}
+        {loading && <div className="w-full text-center">載入中…</div>}
+        {!hasMore && <div className="w-full text-center">已載入全部</div>}
       </div>
     </div>
   )
