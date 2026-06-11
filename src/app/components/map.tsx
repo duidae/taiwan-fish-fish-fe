@@ -120,6 +120,16 @@ const Map = () => {
       scrollWheelZoom
       //whenCreated={m => setMapInstance(m)}
     >
+      {/* Dynamic styles for taxon tile colorization */}
+      <style>{`
+        ${taxonIDs
+          .map((id, i) => {
+            const hues = [0, 30, 60, 120, 180, 240, 300]
+            const hue = hues[i % hues.length]
+            return `.taxon-tile-id-${id} { filter: hue-rotate(${hue}deg) saturate(120%) brightness(95%); opacity: 0.9; }`
+          })
+          .join("\n")}
+      `}</style>
       <LayersControl position="topright" collapsed={false}>
         <BaseLayer checked name="溪流圖">
           <TileLayer
@@ -139,7 +149,7 @@ const Map = () => {
           <TileLayer attribution={defaultTileAttr} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         </BaseLayer>
 
-        {taxonIDs.map(id => (
+        {taxonIDs.map((id, idx) => (
           <Overlay
             key={id}
             checked
@@ -148,6 +158,7 @@ const Map = () => {
             <TileLayer
               attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
               url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
+              className={`taxon-tile taxon-tile-id-${id}`}
             />
           </Overlay>
         ))}
