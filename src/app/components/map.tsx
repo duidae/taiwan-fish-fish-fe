@@ -57,6 +57,7 @@ const Map = () => {
   }, [])
 
   const PER_PAGE = 50
+  const HUES = [0, 30, 60, 120, 180, 240, 300]
 
   const fetchObs = async (p: number) => {
     if (loading || !hasMore) return
@@ -124,8 +125,7 @@ const Map = () => {
       <style>{`
         ${taxonIDs
           .map((id, i) => {
-            const hues = [0, 30, 60, 120, 180, 240, 300]
-            const hue = hues[i % hues.length]
+            const hue = HUES[i % HUES.length]
             return `.taxon-tile-id-${id} { filter: hue-rotate(${hue}deg) saturate(120%) brightness(95%); opacity: 0.9; }`
           })
           .join("\n")}
@@ -264,12 +264,19 @@ const Map = () => {
         </form>
 
         <div className="flex flex-wrap gap-2 items-center">
-          {taxonIDs.map(id => {
+          {taxonIDs.map((id, idx) => {
             const item = taxons.find(t => t.taxon?.id === id)
             const name = item?.taxon?.preferred_common_name || item?.taxon?.name || `Taxon ${id}`
             const img = item?.taxon?.default_photo?.square_url || item?.taxon?.default_photo?.medium_url
+            const hue = HUES[idx % HUES.length]
+            const bg = `hsl(${hue}, 90%, 95%)`
+            const fg = `hsl(${hue}, 70%, 30%)`
             return (
-              <div key={`chip-${id}`} className="flex items-center gap-2 bg-slate-100 px-2 py-1 rounded-full">
+              <div
+                key={`chip-${id}`}
+                className="flex items-center gap-2 px-2 py-1 rounded-full"
+                style={{backgroundColor: bg, color: fg}}
+              >
                 {img && <img src={img} alt={name} className="w-6 h-6 rounded-full object-cover" />}
                 <span className="text-sm italic">{name}</span>
                 <button
@@ -287,7 +294,8 @@ const Map = () => {
               key={`chip-clear`}
               onClick={removeAllTaxons}
               role="button"
-              className="flex items-center gap-2 bg-red-100 text-red-700 px-3 py-1 rounded-full cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer"
+              style={{backgroundColor: "hsl(0, 80%, 95%)", color: "hsl(0, 65%, 30%)"}}
               aria-label="remove all selected taxons"
             >
               清除全部
