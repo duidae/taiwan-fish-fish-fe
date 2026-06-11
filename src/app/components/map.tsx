@@ -108,6 +108,10 @@ const Map = () => {
     setTaxonIDs(prev => prev.filter(id => id !== taxonID))
   }
 
+  const removeAllTaxons = () => {
+    setTaxonIDs([])
+  }
+
   const mapComponent = (
     <MapContainer
       className="w-full h-full"
@@ -267,6 +271,17 @@ const Map = () => {
               </div>
             )
           })}
+          {taxonIDs.length > 0 && (
+            <div
+              key={`chip-clear`}
+              onClick={removeAllTaxons}
+              role="button"
+              className="flex items-center gap-2 bg-red-100 text-red-700 px-3 py-1 rounded-full cursor-pointer"
+              aria-label="remove all selected taxons"
+            >
+              清除全部
+            </div>
+          )}
         </div>
 
         <div
