@@ -162,9 +162,10 @@ const Map = () => {
         return (
           <div key={`taxon-item-${index}`} className="flex flex-col items-center gap-2">
             <img
-              className={`w-40 h-40 m-1 cursor-pointer ${taxonIDs.includes(taxonID) ? "outline outline-sky-400" : ""}`}
+              className={`w-40 h-40 m-1 cursor-pointer object-cover ${taxonIDs.includes(taxonID) ? "outline outline-sky-400" : ""}`}
               src={imgURL}
               onClick={() => handleSelect(taxonID)}
+              alt={title ?? "taxon image"}
             />
             <a className="w-40 flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
               {title ?? "Unknown"}
