@@ -157,16 +157,20 @@ const Map = () => {
         const taxaURL = `${taxanomyURLPrefix}/${result.taxon.id}`
         const imgURL = result.taxon.default_photo.medium_url
         const title = result.taxon?.preferred_common_name
+        const taxonName = result.taxon.name
 
         return (
           <div key={`taxon-item-${index}`} className="flex flex-col items-center gap-2">
             <img
-              className={`w-20 h-20 m-1 rounded-full cursor-pointer ${taxonIDs.includes(taxonID) ? "outline outline-sky-400" : ""}`}
+              className={`w-40 h-40 m-1 cursor-pointer ${taxonIDs.includes(taxonID) ? "outline outline-sky-400" : ""}`}
               src={imgURL}
               onClick={() => handleSelect(taxonID)}
             />
-            <a className="w-20 flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
+            <a className="w-40 flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
               {title ?? "Unknown"}
+              <span className="text-xs text-gray-500">
+                <em>{taxonName}</em>
+              </span>
             </a>
           </div>
         )
@@ -224,9 +228,9 @@ const Map = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-row py-20 gap-4">
-      <div className="w-3/4">{mapComponent}</div>
-      <div className="w-1/4 flex flex-col gap-4">
+    <div className="w-full h-full flex flex-row gap-4">
+      <div className="w-2/3">{mapComponent}</div>
+      <div className="w-1/3 flex flex-col gap-4">
         <form /*onSubmit={handleSearchSubmit}*/ className="flex gap-2 items-center">
           <input
             className="flex-1 p-2 border rounded"
