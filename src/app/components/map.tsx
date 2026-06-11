@@ -212,6 +212,7 @@ const Map = () => {
     }
   }
 
+  /*
   const handleSearchSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (!riverQuery || riverQuery.trim().length < 1) return
@@ -236,6 +237,7 @@ const Map = () => {
       setRiverResults(null)
     }
   }
+  */
 
   const handleResultClick = (feature: any) => {
     if (!feature) return
