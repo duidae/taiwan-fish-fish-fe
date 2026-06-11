@@ -110,7 +110,7 @@ const Map = () => {
       center={coord}
       zoom={DEFAULT_ZOOM}
       scrollWheelZoom
-      whenCreated={m => setMapInstance(m)}
+      //whenCreated={m => setMapInstance(m)}
     >
       <LayersControl position="topright" collapsed={false}>
         <BaseLayer checked name="溪流圖">
@@ -153,7 +153,6 @@ const Map = () => {
   const taxonItems = (
     <>
       {taxons?.map((result, index) => {
-        console.log(result)
         const taxonID = result.taxon.id
         const taxaURL = `${taxanomyURLPrefix}/${result.taxon.id}`
         const imgURL = result.taxon.default_photo.medium_url
