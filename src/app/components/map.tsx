@@ -104,6 +104,10 @@ const Map = () => {
     setTaxonIDs(newSelections)
   }
 
+  const removeTaxon = (taxonID: number) => {
+    setTaxonIDs(prev => prev.filter(id => id !== taxonID))
+  }
+
   const mapComponent = (
     <MapContainer
       className="w-full h-full"
@@ -243,6 +247,27 @@ const Map = () => {
             搜尋
           </button>
         </form>
+
+        <div className="flex flex-wrap gap-2 items-center">
+          {taxonIDs.map(id => {
+            const item = taxons.find(t => t.taxon?.id === id)
+            const name = item?.taxon?.preferred_common_name || item?.taxon?.name || `Taxon ${id}`
+            const img = item?.taxon?.default_photo?.square_url || item?.taxon?.default_photo?.medium_url
+            return (
+              <div key={`chip-${id}`} className="flex items-center gap-2 bg-slate-100 px-2 py-1 rounded-full">
+                {img && <img src={img} alt={name} className="w-6 h-6 rounded-full object-cover" />}
+                <span className="text-sm italic">{name}</span>
+                <button
+                  onClick={() => removeTaxon(id)}
+                  className="ml-2 text-xs leading-none"
+                  aria-label={`remove ${name}`}
+                >
+                  ×
+                </button>
+              </div>
+            )
+          })}
+        </div>
 
         <div
           ref={listRef}
