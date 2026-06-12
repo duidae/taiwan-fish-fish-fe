@@ -266,7 +266,7 @@ const Map = () => {
   )
 
   const chipsJSX = (
-    <>
+    <div className="min-h-8 flex flex-wrap gap-2 items-center">
       {taxonIDs.map((id, idx) => {
         const item = taxons.find(t => t.taxon?.id === id)
         const name = item?.taxon?.preferred_common_name || item?.taxon?.name || `Taxon ${id}`
@@ -300,7 +300,31 @@ const Map = () => {
           清除全部
         </div>
       )}
-    </>
+    </div>
+  )
+
+  const taxonItemsJSX = (
+    <div
+      ref={listRef}
+      onScroll={handleScroll}
+      className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll"
+    >
+      {riverResults ? (
+        <div className="w-full">
+          <div className="text-sm font-semibold mb-2">搜尋結果</div>
+          {riverResults.features.map((f: any, i: number) => (
+            <div key={`river-${i}`} className="p-1 cursor-pointer" onClick={() => handleResultClick(f)}>
+              {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        taxonItems
+      )}
+
+      {loading && <div className="w-full text-center">載入中…</div>}
+      {!hasMore && <div className="w-full text-center">已載入全部</div>}
+    </div>
   )
 
   return (
@@ -308,30 +332,8 @@ const Map = () => {
       <div className="w-2/3">{mapComponent}</div>
       <div className="w-1/3 flex flex-col gap-4">
         {searchJSX}
-
-        <div className="min-h-5 flex flex-wrap gap-2 items-center">{chipsJSX}</div>
-
-        <div
-          ref={listRef}
-          onScroll={handleScroll}
-          className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll py-2"
-        >
-          {riverResults ? (
-            <div className="w-full">
-              <div className="text-sm font-semibold mb-2">搜尋結果</div>
-              {riverResults.features.map((f: any, i: number) => (
-                <div key={`river-${i}`} className="p-1 cursor-pointer" onClick={() => handleResultClick(f)}>
-                  {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            taxonItems
-          )}
-
-          {loading && <div className="w-full text-center">載入中…</div>}
-          {!hasMore && <div className="w-full text-center">已載入全部</div>}
-        </div>
+        {chipsJSX}
+        {taxonItemsJSX}
       </div>
     </div>
   )
