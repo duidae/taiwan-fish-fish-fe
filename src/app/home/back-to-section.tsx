@@ -14,8 +14,6 @@ export const BackToSection = (props: {id: string}) => {
           })
         }
       }}
-    >
-      B
-    </div>
+    ></div>
   )
 }

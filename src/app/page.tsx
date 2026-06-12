@@ -19,11 +19,13 @@ export default function Home() {
   const headlineTopic = posts[0]
   const featuredTopics = posts.slice(1)
 
+  const nextSectionIDBelowGallery = "featured-3"
+
   const sections = [
     {
       id: "gallery-section",
       label: "圖鑑",
-      component: <FullscreenGallery items={featuredGalleries as Gallery[]} />
+      component: <FullscreenGallery items={featuredGalleries as Gallery[]} nextSectionID={nextSectionIDBelowGallery} />
     },
     /*
     {
@@ -57,11 +59,11 @@ export default function Home() {
     },
     */
     {
-      id: "featured-3",
+      id: nextSectionIDBelowGallery,
       label: ROUTE_VIDEO.title,
       component: (
         <FeaturedVideos
-          id={"featured-3"}
+          id={nextSectionIDBelowGallery}
           title={ROUTE_VIDEO.title}
           route={ROUTE_VIDEO.path}
           direction={Direction.LEFT}

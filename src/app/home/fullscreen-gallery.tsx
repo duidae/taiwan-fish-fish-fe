@@ -55,8 +55,8 @@ const ControlBtn = (props: {onClick: () => void; icon: React.ReactNode; isActive
   )
 }
 
-export const FullscreenGallery = (props: {items: Gallery[]}) => {
-  const {items} = props
+export const FullscreenGallery = (props: {items: Gallery[]; nextSectionID: string}) => {
+  const {items, nextSectionID} = props
 
   // Note: isClient is to fix hydration error from Next.js
   // ref: https://nextjs.org/docs/messages/react-hydration-error
@@ -230,7 +230,7 @@ export const FullscreenGallery = (props: {items: Gallery[]}) => {
         <ControlBtn onClick={onPrevGallery} icon={ArrowLeft} />
         <ControlBtn onClick={onNextGallery} icon={ArrowRight} />
       </div>
-      <Goto elementID="featured-1" className={`bottom-0 flex flex-row justify-center items-center pb-4`}>
+      <Goto elementID={nextSectionID} className={`bottom-0 flex flex-row justify-center items-center pb-4`}>
         <img src="/angle-down.svg" className="w-14" alt="Next section" />
       </Goto>
     </div>

@@ -13,7 +13,7 @@ import "leaflet/dist/leaflet.css"
 
 // iNaturalist API doc: https://api.inaturalist.org/v1/docs/
 
-// place_id=131031 - taiwan
+// place_id=7887 - taiwan
 // iconic_taxa=Actinopterygii - fish
 // https://api.inaturalist.org/v1/taxa?q=Actinopterygii => id: 47178
 // const searchURL = "https://api.inaturalist.org/v1/observations?place_id=7887&view=species&iconic_taxa=Actinopterygii&locale=zh-TW&verifiable=true&order_by=id&order=desc"
@@ -21,6 +21,8 @@ const iNatURL =
   "https://api.inaturalist.org/v2/observations/species_counts?verifiable=true&spam=false&place_id=7887&iconic_taxa%5B%5D=Actinopterygii&locale=zh-TW&include_ancestors=true&fields=(taxon%3A(ancestor_ids%3A!t%2Cancestors%3A(default_photo%3A(square_url%3A!t)%2Ciconic_taxon_name%3A!t%2Cid%3A!t%2Cis_active%3A!t%2Cname%3A!t%2Cpreferred_common_name%3A!t%2Cpreferred_common_names%3A(name%3A!t)%2Crank%3A!t%2Crank_level%3A!t%2Cuuid%3A!t)%2Cancestry%3A!t%2Cconservation_status%3A(status%3A!t)%2Cdefault_photo%3A(attribution%3A!t%2Clicense_code%3A!t%2Cmedium_url%3A!t%2Csquare_url%3A!t%2Curl%3A!t)%2Cestablishment_means%3A(establishment_means%3A!t)%2Ciconic_taxon_name%3A!t%2Cid%3A!t%2Cis_active%3A!t%2Cname%3A!t%2Cpreferred_common_name%3A!t%2Cpreferred_common_names%3A(name%3A!t)%2Crank%3A!t%2Crank_level%3A!t))"
 const taxanomyURLPrefix = "https://www.inaturalist.org/taxa"
 // const speciesSearchExample = "https://api.inaturalist.org/v1/observations/species_counts?nelat=...&nelng=...&swlat=...&swlng=...&taxon_id=47178"
+
+const taxaOnlyURL = "https://api.inaturalist.org/v1/taxa?place_id=7887&taxon_id=47178&rank=species&per_page=100"
 
 const DEFAULT_ZOOM = 8
 const TAIPEI_CENTER = [25.038357847174, 121.54770626982]
