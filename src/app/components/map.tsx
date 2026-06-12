@@ -251,66 +251,70 @@ const Map = () => {
     }
   }
 
+  const searchJSX = (
+    <form /*onSubmit={handleSearchSubmit}*/ className="flex gap-2 items-center">
+      <input
+        className="flex-1 p-2 border rounded"
+        placeholder="搜尋河川"
+        value={riverQuery}
+        onChange={e => setRiverQuery(e.target.value)}
+      />
+      <button className="btn btn-style1 p-2" type="submit">
+        搜尋
+      </button>
+    </form>
+  )
+
+  const chipsJSX = (
+    <>
+      {taxonIDs.map((id, idx) => {
+        const item = taxons.find(t => t.taxon?.id === id)
+        const name = item?.taxon?.preferred_common_name || item?.taxon?.name || `Taxon ${id}`
+        const img = item?.taxon?.default_photo?.square_url || item?.taxon?.default_photo?.medium_url
+        const hue = HUES[idx % HUES.length]
+        const bg = `hsl(${hue}, 90%, 95%)`
+        const fg = `hsl(${hue}, 70%, 30%)`
+        return (
+          <div
+            key={`chip-${id}`}
+            className="flex items-center gap-2 px-2 py-1 rounded-full"
+            style={{backgroundColor: bg, color: fg}}
+          >
+            {img && <img src={img} alt={name} className="w-6 h-6 rounded-full object-cover" />}
+            <span className="text-sm italic">{name}</span>
+            <button onClick={() => removeTaxon(id)} className="ml-2 text-xs leading-none" aria-label={`remove ${name}`}>
+              ×
+            </button>
+          </div>
+        )
+      })}
+      {taxonIDs.length > 0 && (
+        <div
+          key={`chip-clear`}
+          onClick={removeAllTaxons}
+          role="button"
+          className="flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer"
+          style={{backgroundColor: "hsl(0, 80%, 95%)", color: "hsl(0, 65%, 30%)"}}
+          aria-label="remove all selected taxons"
+        >
+          清除全部
+        </div>
+      )}
+    </>
+  )
+
   return (
     <div className="w-full h-full flex flex-row gap-4">
       <div className="w-2/3">{mapComponent}</div>
       <div className="w-1/3 flex flex-col gap-4">
-        <form /*onSubmit={handleSearchSubmit}*/ className="flex gap-2 items-center">
-          <input
-            className="flex-1 p-2 border rounded"
-            placeholder="搜尋河川"
-            value={riverQuery}
-            onChange={e => setRiverQuery(e.target.value)}
-          />
-          <button className="btn btn-style1 p-2" type="submit">
-            搜尋
-          </button>
-        </form>
+        {searchJSX}
 
-        <div className="flex flex-wrap gap-2 items-center">
-          {taxonIDs.map((id, idx) => {
-            const item = taxons.find(t => t.taxon?.id === id)
-            const name = item?.taxon?.preferred_common_name || item?.taxon?.name || `Taxon ${id}`
-            const img = item?.taxon?.default_photo?.square_url || item?.taxon?.default_photo?.medium_url
-            const hue = HUES[idx % HUES.length]
-            const bg = `hsl(${hue}, 90%, 95%)`
-            const fg = `hsl(${hue}, 70%, 30%)`
-            return (
-              <div
-                key={`chip-${id}`}
-                className="flex items-center gap-2 px-2 py-1 rounded-full"
-                style={{backgroundColor: bg, color: fg}}
-              >
-                {img && <img src={img} alt={name} className="w-6 h-6 rounded-full object-cover" />}
-                <span className="text-sm italic">{name}</span>
-                <button
-                  onClick={() => removeTaxon(id)}
-                  className="ml-2 text-xs leading-none"
-                  aria-label={`remove ${name}`}
-                >
-                  ×
-                </button>
-              </div>
-            )
-          })}
-          {taxonIDs.length > 0 && (
-            <div
-              key={`chip-clear`}
-              onClick={removeAllTaxons}
-              role="button"
-              className="flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer"
-              style={{backgroundColor: "hsl(0, 80%, 95%)", color: "hsl(0, 65%, 30%)"}}
-              aria-label="remove all selected taxons"
-            >
-              清除全部
-            </div>
-          )}
-        </div>
+        <div className="min-h-5 flex flex-wrap gap-2 items-center">{chipsJSX}</div>
 
         <div
           ref={listRef}
           onScroll={handleScroll}
-          className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll p-2"
+          className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll py-2"
         >
           {riverResults ? (
             <div className="w-full">
