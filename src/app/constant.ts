@@ -45,7 +45,7 @@ export const ROUTES = [
     children: [
       {
         title: "張萬傳網路美術館",
-        path: "https://www.wan-chuan-chang.com/",
+        path: "https://ann161778.wixsite.com/chang-wan-chuan", //"https://www.wan-chuan-chang.com/",
         external: true
       },
       {
