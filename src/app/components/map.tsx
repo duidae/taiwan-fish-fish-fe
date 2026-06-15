@@ -3,6 +3,7 @@ import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
 import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON} from "react-leaflet"
+import {Group, Panel, Separator} from "react-resizable-panels"
 const {BaseLayer, Overlay} = LayersControl
 
 /*
@@ -49,6 +50,7 @@ const Map = () => {
   const [hasMore, setHasMore] = useState<boolean>(true)
   const listRef = useRef<HTMLDivElement | null>(null)
   const [mapInstance, setMapInstance] = useState<L.Map | null>(null)
+  const mapWrapperRef = useRef<HTMLDivElement | null>(null)
   const [allRivers, setAllRivers] = useState<any | null>(null)
   const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
@@ -116,15 +118,16 @@ const Map = () => {
   }
 
   const mapComponent = (
-    <MapContainer
-      className="w-full h-full"
-      center={coord}
-      zoom={DEFAULT_ZOOM}
-      scrollWheelZoom
-      //whenCreated={m => setMapInstance(m)}
-    >
-      {/* Dynamic styles for taxon tile colorization */}
-      <style>{`
+    <div ref={mapWrapperRef} className="w-full h-full">
+      <MapContainer
+        className="w-full h-full"
+        center={coord}
+        zoom={DEFAULT_ZOOM}
+        scrollWheelZoom
+        // whenCreated={m => setMapInstance(m)}
+      >
+        {/* Dynamic styles for taxon tile colorization */}
+        <style>{`
         ${taxonIDs
           .map((id, i) => {
             const hue = HUES[i % HUES.length]
@@ -132,43 +135,44 @@ const Map = () => {
           })
           .join("\n")}
       `}</style>
-      <LayersControl position="topright" collapsed={false}>
-        <BaseLayer checked name="溪流圖">
-          <TileLayer
-            attribution={defaultTileAttr}
-            url={`https://api.mapbox.com/styles/v1/js00193/ck0lupyad8k061dmv7zvbvwgv/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
-          />
-        </BaseLayer>
-
-        <BaseLayer name="空照圖">
-          <TileLayer
-            attribution={defaultTileAttr}
-            url={`https://api.mapbox.com/styles/v1/js00193/ck0x9ai2j5kgb1co36kagohqm/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
-          />
-        </BaseLayer>
-
-        <BaseLayer name="地圖">
-          <TileLayer attribution={defaultTileAttr} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        </BaseLayer>
-
-        {taxonIDs.map((id, idx) => (
-          <Overlay
-            key={id}
-            checked
-            name={taxons.find(t => t.taxon.id === id)?.taxon.preferred_common_name || `Taxon ${id}`}
-          >
+        <LayersControl position="topright" collapsed={false}>
+          <BaseLayer checked name="溪流圖">
             <TileLayer
-              attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
-              url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
-              className={`taxon-tile taxon-tile-id-${id}`}
+              attribution={defaultTileAttr}
+              url={`https://api.mapbox.com/styles/v1/js00193/ck0lupyad8k061dmv7zvbvwgv/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
             />
-          </Overlay>
-        ))}
-      </LayersControl>
-      {riverResults && (
-        <GeoJSON data={riverResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
-      )}
-    </MapContainer>
+          </BaseLayer>
+
+          <BaseLayer name="空照圖">
+            <TileLayer
+              attribution={defaultTileAttr}
+              url={`https://api.mapbox.com/styles/v1/js00193/ck0x9ai2j5kgb1co36kagohqm/tiles/256/{z}/{x}/{y}@2x?access_token=${g0vToken}`}
+            />
+          </BaseLayer>
+
+          <BaseLayer name="地圖">
+            <TileLayer attribution={defaultTileAttr} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          </BaseLayer>
+
+          {taxonIDs.map((id, idx) => (
+            <Overlay
+              key={id}
+              checked
+              name={taxons.find(t => t.taxon.id === id)?.taxon.preferred_common_name || `Taxon ${id}`}
+            >
+              <TileLayer
+                attribution='<a href="https://www.inaturalist.org/">iNaturalist</a>'
+                url={`https://api.inaturalist.org/v1/points/{z}/{x}/{y}.png?taxon_id=${id}`}
+                className={`taxon-tile taxon-tile-id-${id}`}
+              />
+            </Overlay>
+          ))}
+        </LayersControl>
+        {riverResults && (
+          <GeoJSON data={riverResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
+        )}
+      </MapContainer>
+    </div>
   )
 
   const taxonItems = (
@@ -327,15 +331,31 @@ const Map = () => {
     </div>
   )
 
+  useEffect(() => {
+    if (!mapInstance || !mapWrapperRef.current) return
+    const ro = new ResizeObserver(() => {
+      try {
+        mapInstance.invalidateSize()
+      } catch (e) {
+        console.warn("invalidateSize failed", e)
+      }
+    })
+    ro.observe(mapWrapperRef.current)
+    return () => ro.disconnect()
+  }, [mapInstance])
+
   return (
-    <div className="w-full h-full flex flex-row gap-4">
-      <div className="w-2/3">{mapComponent}</div>
-      <div className="w-1/3 flex flex-col gap-4">
+    <Group orientation="horizontal" id="map-panel-group">
+      <Panel defaultSize={"66%"} className="h-full">
+        <div className="h-full">{mapComponent}</div>
+      </Panel>
+      <Separator />
+      <Panel defaultSize={"34%"} className="h-full overflow-auto p-4 flex flex-col gap-4">
         {searchJSX}
         {chipsJSX}
         {taxonItemsJSX}
-      </div>
-    </div>
+      </Panel>
+    </Group>
   )
 }
 
