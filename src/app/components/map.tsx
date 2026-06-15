@@ -349,7 +349,7 @@ const Map = () => {
       <Panel defaultSize={"66%"} className="h-full">
         <div className="h-full">{mapComponent}</div>
       </Panel>
-      <Separator />
+      <Separator className="rounded-xs flex items-center justify-center bg-slate-600 [&[data-separator='disabled']]:opacity-50 [&[data-separator='hover']]:bg-slate-500 [&[data-separator='active']]:bg-slate-400 text-slate-900 [&[data-separator='hover']]:text-slate-950 [&[data-separator='active']]:text-slate-950 [&[data-separator='focus']]:bg-sky-400 w-4 sm:w-2" />
       <Panel defaultSize={"34%"} className="h-full overflow-auto p-4 flex flex-col gap-4">
         {searchJSX}
         {chipsJSX}
