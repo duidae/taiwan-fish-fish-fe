@@ -44,13 +44,13 @@ export const ROUTES = [
     title: "相關專案",
     children: [
       {
-        title: "張萬傳網路美術館",
-        path: "https://ann161778.wixsite.com/chang-wan-chuan", //"https://www.wan-chuan-chang.com/",
+        title: "31屆臺大藝術季",
+        path: "https://ntu-art-festival-31-cloudflare.duidae.workers.dev/",
         external: true
       },
       {
-        title: "31屆臺大藝術季",
-        path: "https://ntu-art-festival-31-cloudflare.duidae.workers.dev/",
+        title: "張萬傳網路美術館",
+        path: "https://ann161778.wixsite.com/chang-wan-chuan", //"https://www.wan-chuan-chang.com/",
         external: true
       }
     ]
