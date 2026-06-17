@@ -6,7 +6,7 @@ const DynamicMap = dynamic(() => import("@/app/components/map"), {
 
 export default function Map() {
   return (
-    <main className="flex flex-col w-full items-center justify-between mt-24 mb-8">
+    <main className="w-full flex flex-col items-center justify-between mt-24 mb-8">
       <div className="w-full h-screen">
         <DynamicMap />
       </div>

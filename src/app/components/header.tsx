@@ -142,7 +142,10 @@ export const Header = () => {
 
   return (
     <div
-      style={{backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"}}
+      style={{
+        backgroundColor: "black"
+        //backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"
+      }}
       className={`fixed top-0 w-full flex flex-row justify-between ${Z_INDEX.TOP}`}
     >
       {logo}
