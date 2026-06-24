@@ -7,7 +7,6 @@ import {TopDetector} from "@/app/components/top-detector"
 import {BackToTop} from "@/app/components/back-to-top"
 import {Color, SITE_TITLE, SITE_DESCRIPTION} from "@/app/constant"
 import "./globals.css"
-import GA from "@/app/components/ga"
 
 const inter = Inter({subsets: ["latin"]})
 
@@ -26,14 +25,10 @@ export default function RootLayout({
       <body className={inter.className}>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="gtag-init" strategy="afterInteractive">
+            <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></Script>
+            <Script id="gtag-init">
               {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: window.location.pathname });`}
             </Script>
-            <GA />
           </>
         )}
         <Header />
