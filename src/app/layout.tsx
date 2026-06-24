@@ -25,9 +25,23 @@ export default function RootLayout({
       <body className={inter.className}>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
-            <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></Script>
-            <Script id="gtag-init">
-              {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: window.location.pathname });`}
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+
+                gtag('js', new Date());
+
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                  send_page_view: false
+                });
+              `}
             </Script>
           </>
         )}
