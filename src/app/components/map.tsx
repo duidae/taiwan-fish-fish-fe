@@ -136,7 +136,7 @@ const Map = () => {
       })
 
       map.on("pm:create", e => {
-        console.log(e.layer.toGeoJSON())
+        //console.log(e.layer.toGeoJSON())
       })
     }, [map])
 
