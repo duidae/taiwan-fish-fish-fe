@@ -2,15 +2,17 @@
 import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
-import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON} from "react-leaflet"
+import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON, useMap} from "react-leaflet"
 import {Group, Panel, Separator} from "react-resizable-panels"
 const {BaseLayer, Overlay} = LayersControl
+import "@geoman-io/leaflet-geoman-free"
 
 /*
 import MarkerIcon from "../../node_modules/leaflet/dist/images/marker-icon.png"
 import MarkerShadow from "../../node_modules/leaflet/dist/images/marker-shadow.png"
 */
 import "leaflet/dist/leaflet.css"
+import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css"
 
 // iNaturalist API doc: https://api.inaturalist.org/v1/docs/
 
@@ -117,6 +119,30 @@ const Map = () => {
     setTaxonIDs([])
   }
 
+  const Geoman = () => {
+    const map = useMap()
+
+    useEffect(() => {
+      if (!map) return
+      map.pm.addControls({
+        drawPolygon: true,
+        drawCircle: false,
+        drawMarker: false,
+        drawPolyline: false,
+        drawRectangle: false,
+        drawCircleMarker: false,
+        editMode: true,
+        removalMode: true
+      })
+
+      map.on("pm:create", e => {
+        console.log(e.layer.toGeoJSON())
+      })
+    }, [map])
+
+    return null
+  }
+
   const mapComponent = (
     <div ref={mapWrapperRef} className="w-full h-full">
       <MapContainer
@@ -124,7 +150,7 @@ const Map = () => {
         center={coord}
         zoom={DEFAULT_ZOOM}
         scrollWheelZoom
-        // whenCreated={m => setMapInstance(m)}
+        //whenCreated={m => setMapInstance(m)}
       >
         {/* Dynamic styles for taxon tile colorization */}
         <style>{`
@@ -171,6 +197,7 @@ const Map = () => {
         {riverResults && (
           <GeoJSON data={riverResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
         )}
+        <Geoman />
       </MapContainer>
     </div>
   )
