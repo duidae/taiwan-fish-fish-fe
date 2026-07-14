@@ -54,16 +54,30 @@ const Map = () => {
   const [mapInstance, setMapInstance] = useState<L.Map | null>(null)
   const mapWrapperRef = useRef<HTMLDivElement | null>(null)
   const [allRivers, setAllRivers] = useState<any | null>(null)
-  const [riverResults, setRiverResults] = useState<any | null>(null)
+  const [TBIAResults, setTBIAResults] = useState<any | null>(null)
+  //const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
 
   useEffect(() => {
     fetchObs(1)
+    fetchTBIA()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const PER_PAGE = 50
   const HUES = [0, 30, 60, 120, 180, 240, 300]
+
+  const fetchTBIA = async () => {
+    try {
+      const response = await axios.get("/api/tbia/map?boundedBy=122,23,121,22&grid=1")
+      if (response.data) {
+        setTBIAResults(response.data.data)
+        console.log("TBIA results:", response.data)
+      }
+    } catch (e) {
+      console.warn("Failed to fetch TBIA data", e)
+    }
+  }
 
   const fetchObs = async (p: number) => {
     if (loading || !hasMore) return
@@ -194,8 +208,8 @@ const Map = () => {
             </Overlay>
           ))}
         </LayersControl>
-        {riverResults && (
-          <GeoJSON data={riverResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
+        {TBIAResults && (
+          <GeoJSON data={TBIAResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
         )}
         <Geoman />
       </MapContainer>
