@@ -55,7 +55,7 @@ const Map = () => {
   const mapWrapperRef = useRef<HTMLDivElement | null>(null)
   const [allRivers, setAllRivers] = useState<any | null>(null)
   const [TBIAResults, setTBIAResults] = useState<any | null>(null)
-  //const [riverResults, setRiverResults] = useState<any | null>(null)
+  const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
 
   useEffect(() => {
@@ -68,8 +68,15 @@ const Map = () => {
   const HUES = [0, 30, 60, 120, 180, 240, 300]
 
   const fetchTBIA = async () => {
+    if (!mapInstance) return
     try {
-      const response = await axios.get("/api/tbia/map?boundedBy=122,23,121,22&grid=1")
+      const bounds = mapInstance.getBounds()
+      const ne = bounds.getNorthEast()
+      const sw = bounds.getSouthWest()
+      // Format: boundedBy=maxLng,maxLat,minLng,minLat
+      const boundedBy = `${ne.lng},${ne.lat},${sw.lng},${sw.lat}`
+      const response = await axios.get(`/api/tbia/map?boundedBy=${boundedBy}&grid=1`)
+      console.log(`/api/tbia/map?boundedBy=${boundedBy}&grid=1`)
       if (response.data) {
         setTBIAResults(response.data.data)
         console.log("TBIA results:", response.data)
@@ -164,7 +171,7 @@ const Map = () => {
         center={coord}
         zoom={DEFAULT_ZOOM}
         scrollWheelZoom
-        //whenCreated={m => setMapInstance(m)}
+        whenCreated={m => setMapInstance(m)}
       >
         {/* Dynamic styles for taxon tile colorization */}
         <style>{`
@@ -259,19 +266,21 @@ const Map = () => {
     }
   }
 
-  /*
   const handleSearchSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
-    if (!riverQuery || riverQuery.trim().length < 1) return
+    const q = riverQuery.trim().toLowerCase()
+    if (q.length < 1) {
+      setRiverResults(null)
+      return
+    }
     const data = await fetchAllRivers()
     if (!data) return
-    const q = riverQuery.trim().toLowerCase()
     const matches = data.features.filter((f: any) => {
       const name = (f.properties?.name || "").toString().toLowerCase()
       return name.includes(q)
     })
     if (matches.length > 0) {
-      const fc = {type: "FeatureCollection", features: matches}
+      const fc = {type: "FeatureCollection" as const, features: matches}
       setRiverResults(fc)
       // fit map to results
       try {
@@ -284,7 +293,6 @@ const Map = () => {
       setRiverResults(null)
     }
   }
-  */
 
   const handleResultClick = (feature: any) => {
     if (!feature) return
@@ -297,7 +305,7 @@ const Map = () => {
   }
 
   const searchJSX = (
-    <form /*onSubmit={handleSearchSubmit}*/ className="flex gap-2 items-center">
+    <form onSubmit={handleSearchSubmit} className="flex gap-2 items-center">
       <input
         className="flex-1 p-2 border rounded"
         placeholder="搜尋河川"
