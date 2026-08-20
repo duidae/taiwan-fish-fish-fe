@@ -57,6 +57,15 @@ const Map = () => {
   const [TBIAResults, setTBIAResults] = useState<any | null>(null)
   const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
+  const [selectedRiver, setSelectedRiver] = useState<any | null>(null)
+  const selectedRiverMarkerRef = useRef<L.Marker | null>(null)
+  const [selectedChannel, setSelectedChannel] = useState<any | null>(null)
+
+  useEffect(() => {
+    if (selectedRiver && selectedRiverMarkerRef.current) {
+      selectedRiverMarkerRef.current.openPopup()
+    }
+  }, [selectedRiver])
 
   useEffect(() => {
     fetchObs(1)
@@ -218,6 +227,49 @@ const Map = () => {
         {TBIAResults && (
           <GeoJSON data={TBIAResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
         )}
+        {riverResults && (
+          <GeoJSON
+            key={`river-results-${riverResults.features.length}-${riverQuery}`}
+            data={riverResults}
+            pointToLayer={(_feature, latlng) =>
+              L.circleMarker(latlng, {
+                radius: 6,
+                weight: 2,
+                color: "#1d4ed8",
+                fillColor: "#60a5fa",
+                fillOpacity: 0.8
+              })
+            }
+            onEachFeature={(feature, layer) => {
+              const name = feature.properties?.name
+              const city = feature.properties?.city
+              layer.bindTooltip(city ? `${name}（${city}）` : name)
+              layer.on("click", () => handleResultClick(feature))
+            }}
+          />
+        )}
+        {selectedChannel && (
+          <GeoJSON
+            key={`river-channel-${selectedRiver?.properties?.name}-${selectedChannel.features.length}`}
+            data={selectedChannel}
+            style={{color: "#60a5fa", weight: 6, fillColor: "#93c5fd", fillOpacity: 0.4}}
+          />
+        )}
+        {selectedRiver && !selectedChannel && selectedRiver.geometry?.coordinates && (
+          <Marker
+            ref={selectedRiverMarkerRef}
+            position={
+              [selectedRiver.geometry.coordinates[1], selectedRiver.geometry.coordinates[0]] as LatLngExpression
+            }
+          >
+            <Popup>
+              {selectedRiver.properties?.name}
+              {selectedRiver.properties?.city && (
+                <span className="text-xs text-gray-500">　{selectedRiver.properties.city}</span>
+              )}
+            </Popup>
+          </Marker>
+        )}
         <Geoman />
       </MapContainer>
     </div>
@@ -268,6 +320,8 @@ const Map = () => {
 
   const handleSearchSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
+    setSelectedRiver(null)
+    setSelectedChannel(null)
     const q = riverQuery.trim().toLowerCase()
     if (q.length < 1) {
       setRiverResults(null)
@@ -294,11 +348,33 @@ const Map = () => {
     }
   }
 
-  const handleResultClick = (feature: any) => {
+  const handleResultClick = async (feature: any) => {
     if (!feature) return
     const coords = feature.geometry?.coordinates
+    const name = feature.properties?.name
+    setSelectedRiver(feature)
+    setSelectedChannel(null)
+
+    // Try to show the river's actual channel shape (from WRA's RIVERPOLY dataset)
+    if (name) {
+      try {
+        const res = await fetch(`/api/river-channels?name=${encodeURIComponent(name)}`)
+        const channel = res.ok ? await res.json() : null
+        if (channel?.features?.length > 0) {
+          setSelectedChannel(channel)
+          const bounds = L.geoJSON(channel).getBounds()
+          if (mapInstance && bounds.isValid()) {
+            mapInstance.fitBounds(bounds)
+            return
+          }
+        }
+      } catch (err) {
+        console.warn("failed to load river channel", err)
+      }
+    }
+
+    // Fallback: no channel geometry found, just pan/zoom to the point
     if (coords) {
-      // GeoJSON coordinates are [lng, lat]
       const latlng: LatLngExpression = [coords[1], coords[0]]
       mapInstance && mapInstance.setView(latlng as any, 13)
     }
@@ -366,7 +442,11 @@ const Map = () => {
         <div className="w-full">
           <div className="text-sm font-semibold mb-2">搜尋結果</div>
           {riverResults.features.map((f: any, i: number) => (
-            <div key={`river-${i}`} className="p-1 cursor-pointer" onClick={() => handleResultClick(f)}>
+            <div
+              key={`river-${i}`}
+              className={`p-1 cursor-pointer rounded ${selectedRiver === f ? "bg-sky-100 text-sky-800" : ""}`}
+              onClick={() => handleResultClick(f)}
+            >
               {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
             </div>
           ))}
