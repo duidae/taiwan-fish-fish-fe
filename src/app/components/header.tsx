@@ -16,8 +16,13 @@ export const Header = () => {
   }
 
   const logo = (
-    <Link href="/">
-      <img className="h-10" src="/logo-horizontal.svg" />
+    <Link href="/" className="group flex items-center gap-2.5">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 via-cyan-500 to-teal-500 text-lg shadow-md shadow-sky-500/40 ring-1 ring-white/20 transition-transform duration-300 ease-out group-hover:-rotate-12 group-hover:scale-110">
+        🐟
+      </span>
+      <span className="font-mono text-lg md:text-xl font-bold tracking-wide bg-gradient-to-r from-sky-300 via-cyan-200 to-white bg-clip-text text-transparent">
+        台灣阿魚
+      </span>
     </Link>
   )
 
@@ -25,17 +30,21 @@ export const Header = () => {
     if (route.children && Array.isArray(route.children)) {
       return (
         <div className="relative group" key={`header-router-${route.title}`}>
-          <button type="button" className="flex items-center gap-1" aria-haspopup="true">
+          <button
+            type="button"
+            className="flex items-center gap-1 transition-colors hover:text-sky-300"
+            aria-haspopup="true"
+          >
             <span>{route.title}</span>
-            <span className="ml-2">▾</span>
+            <span className="ml-2 transition-transform group-hover:rotate-180">▾</span>
           </button>
-          <div className="absolute right-0 w-48 bg-slate-800 text-white rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+          <div className="absolute right-0 w-48 bg-slate-800/95 backdrop-blur-md text-white rounded-lg shadow-xl shadow-black/40 ring-1 ring-sky-400/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
             <nav className="flex flex-col p-2">
               {route.children.map((child: any) =>
                 child.external ? (
                   <a
                     key={`child-${child.title}`}
-                    className="px-3 py-2 hover:bg-slate-700 rounded underline"
+                    className="px-3 py-2 hover:bg-sky-500/20 hover:text-sky-300 rounded underline"
                     href={child.path}
                     target="_blank"
                     rel="noreferrer"
@@ -43,7 +52,11 @@ export const Header = () => {
                     {child.title}
                   </a>
                 ) : (
-                  <Link key={`child-${child.title}`} className="px-3 py-2 hover:bg-slate-700 rounded" href={child.path}>
+                  <Link
+                    key={`child-${child.title}`}
+                    className="px-3 py-2 hover:bg-sky-500/20 hover:text-sky-300 rounded"
+                    href={child.path}
+                  >
                     {child.title}
                   </Link>
                 )
@@ -55,9 +68,13 @@ export const Header = () => {
     }
 
     return (
-      <Link className="relative group" key={`header-router-${route.title}`} href={route.path}>
+      <Link
+        className="relative group transition-colors hover:text-sky-300"
+        key={`header-router-${route.title}`}
+        href={route.path}
+      >
         <span>{route.title}</span>
-        <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-0.5 bg-white transition-all"></span>
+        <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-0.5 bg-sky-400 transition-all"></span>
       </Link>
     )
   })
@@ -76,7 +93,7 @@ export const Header = () => {
         </button>
       )}
       {isHamburgerOpen && (
-        <div className="absolute right-0 top-0 md:hidden flex flex-col p-4 bg-slate-700">
+        <div className="absolute right-0 top-0 md:hidden flex flex-col p-4 bg-slate-800/95 backdrop-blur-md ring-1 ring-sky-400/20 shadow-xl shadow-black/40">
           <div className="flex flex-row justify-end">
             <button aria-label="Close menu" type="button" className="" onClick={onHamburgerClose}>
               {CrossIcon}
@@ -109,7 +126,7 @@ export const Header = () => {
                           child.external ? (
                             <a
                               key={`m-child-${child.title}`}
-                              className="px-3 py-2 hover:bg-slate-600 rounded"
+                              className="px-3 py-2 hover:bg-sky-500/20 hover:text-sky-300 rounded"
                               href={child.path}
                               target="_blank"
                               rel="noreferrer"
@@ -119,7 +136,7 @@ export const Header = () => {
                           ) : (
                             <Link
                               key={`m-child-${child.title}`}
-                              className="px-3 py-2 hover:bg-slate-600 rounded"
+                              className="px-3 py-2 hover:bg-sky-500/20 hover:text-sky-300 rounded"
                               href={child.path}
                             >
                               {child.title}
@@ -142,11 +159,7 @@ export const Header = () => {
 
   return (
     <div
-      style={{
-        backgroundColor: "black"
-        //backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"
-      }}
-      className={`fixed top-0 w-full h-16 flex flex-row justify-between items-center px-6 md:px-10 ${Z_INDEX.TOP}`}
+      className={`fixed top-0 w-full h-16 flex flex-row justify-between items-center px-6 md:px-10 bg-gradient-to-r from-black via-slate-900 to-black backdrop-blur-md border-b border-sky-400/20 shadow-lg shadow-black/40 ${Z_INDEX.TOP}`}
     >
       {logo}
       {menu}
