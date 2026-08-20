@@ -62,6 +62,9 @@ const Map = () => {
   const [selectedChannel, setSelectedChannel] = useState<any | null>(null)
   const [searchResultsCollapsed, setSearchResultsCollapsed] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [fishQuery, setFishQuery] = useState<string>("")
+  const [fishSearchResults, setFishSearchResults] = useState<any[] | null>(null)
+  const [fishSearchLoading, setFishSearchLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)")
@@ -141,6 +144,7 @@ const Map = () => {
   }
 
   const handleHorizontalScroll = (e: UIEvent<HTMLDivElement>) => {
+    if (fishSearchResults) return // search results aren't paginated
     const target = e.currentTarget
     const threshold = 300 // px from the trailing edge
     if (target.scrollWidth - target.scrollLeft - target.clientWidth < threshold) {
@@ -322,40 +326,42 @@ const Map = () => {
     </div>
   )
 
-  const taxonItems = (
-    <>
-      {taxons?.map((result, index) => {
-        const taxonID = result.taxon.id
-        const taxaURL = `${taxanomyURLPrefix}/${result.taxon.id}`
-        const imgURL = result.taxon.default_photo.medium_url
-        const title = result.taxon?.preferred_common_name
-        const taxonName = result.taxon.name
+  const renderTaxonCard = (result: any, index: number) => {
+    const taxonID = result.taxon.id
+    const taxaURL = `${taxanomyURLPrefix}/${result.taxon.id}`
+    const imgURL = result.taxon.default_photo.medium_url
+    const title = result.taxon?.preferred_common_name
+    const taxonName = result.taxon.name
 
-        return (
-          <div key={`taxon-item-${index}`} className="flex flex-shrink-0 w-24 sm:w-28 flex-col items-center gap-1.5">
-            <img
-              className={`w-full aspect-square rounded-lg cursor-pointer object-cover transition hover:opacity-90 ${
-                taxonIDs.includes(taxonID) ? "ring-4 ring-sky-400" : ""
-              }`}
-              src={imgURL}
-              onClick={() => handleSelect(taxonID)}
-              alt={title ?? "taxon image"}
-            />
-            <a
-              className="w-full flex flex-col items-center text-center text-xs hover:text-blue-600"
-              href={taxaURL}
-              target="_blank"
-            >
-              <span className="truncate w-full">{title ?? "Unknown"}</span>
-              <span className="text-[10px] text-gray-500 truncate w-full">
-                <em>{taxonName}</em>
-              </span>
-            </a>
-          </div>
-        )
-      })}
-    </>
-  )
+    return (
+      <div
+        key={`taxon-item-${taxonID}-${index}`}
+        className="flex flex-shrink-0 w-24 sm:w-28 flex-col items-center gap-1.5"
+      >
+        <img
+          className={`w-full aspect-square rounded-lg cursor-pointer object-cover transition hover:opacity-90 ${
+            taxonIDs.includes(taxonID) ? "ring-4 ring-sky-400" : ""
+          }`}
+          src={imgURL}
+          onClick={() => handleSelect(taxonID)}
+          alt={title ?? "taxon image"}
+        />
+        <a
+          className="w-full flex flex-col items-center text-center text-xs hover:text-blue-600"
+          href={taxaURL}
+          target="_blank"
+        >
+          <span className="truncate w-full">{title ?? "Unknown"}</span>
+          <span className="text-[10px] text-gray-500 truncate w-full">
+            <em>{taxonName}</em>
+          </span>
+        </a>
+      </div>
+    )
+  }
+
+  const displayedTaxons = fishSearchResults ?? taxons
+  const taxonItems = <>{displayedTaxons?.map(renderTaxonCard)}</>
 
   const fetchAllRivers = async () => {
     if (allRivers) return allRivers
@@ -400,6 +406,38 @@ const Map = () => {
     } else {
       setRiverResults(null)
     }
+  }
+
+  const handleFishSearchSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault()
+    const q = fishQuery.trim()
+    if (q.length < 1) {
+      setFishSearchResults(null)
+      return
+    }
+    setFishSearchLoading(true)
+    try {
+      const res = await axios.get(`${iNatURL}&q=${encodeURIComponent(q)}&per_page=30`)
+      const results = res?.data?.results ?? []
+      setFishSearchResults(results)
+      // merge into `taxons` so chips/observations can still resolve name+photo
+      // after the user clears the search box
+      setTaxons(prev => {
+        const existingIds = new Set(prev.map((t: any) => t.taxon?.id))
+        const fresh = results.filter((r: any) => !existingIds.has(r.taxon?.id))
+        return [...prev, ...fresh]
+      })
+    } catch (err) {
+      console.warn("fish search failed", err)
+      setFishSearchResults([])
+    } finally {
+      setFishSearchLoading(false)
+    }
+  }
+
+  const clearFishSearch = () => {
+    setFishQuery("")
+    setFishSearchResults(null)
   }
 
   const handleResultClick = async (feature: any) => {
@@ -523,13 +561,42 @@ const Map = () => {
 
   const speciesSliderJSX = (
     <div className="w-full rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3 flex flex-col gap-2">
+      <form onSubmit={handleFishSearchSubmit} className="flex items-center gap-2">
+        <input
+          className="flex-1 min-w-0 px-3 py-1.5 border border-slate-300 rounded-lg text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+          placeholder="搜尋魚類名稱"
+          value={fishQuery}
+          onChange={e => setFishQuery(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="px-3 py-1.5 rounded-lg bg-sky-600 text-white text-sm font-medium transition hover:bg-sky-700 active:bg-sky-800"
+        >
+          搜尋
+        </button>
+        {fishSearchResults && (
+          <button
+            type="button"
+            onClick={clearFishSearch}
+            className="px-3 py-1.5 rounded-lg border border-slate-300 text-sm text-slate-600 transition hover:bg-slate-100"
+          >
+            清除
+          </button>
+        )}
+      </form>
       <div className="flex flex-row items-center">
-        <span className="text-sm font-semibold text-slate-700 mr-2">魚類物種：</span>
+        <span className="text-sm font-semibold text-slate-700 mr-2">
+          {fishSearchResults ? `搜尋結果（${fishSearchResults.length}）：` : "魚類物種："}
+        </span>
         {chipsJSX}
       </div>
       <div className="flex items-center justify-between">
-        {loading && <span className="text-xs text-slate-400">載入中…</span>}
-        {!loading && !hasMore && <span className="text-xs text-slate-400">已載入全部</span>}
+        {fishSearchLoading && <span className="text-xs text-slate-400">搜尋中…</span>}
+        {!fishSearchLoading && fishSearchResults?.length === 0 && (
+          <span className="text-xs text-slate-400">找不到符合的魚類</span>
+        )}
+        {!fishSearchResults && loading && <span className="text-xs text-slate-400">載入中…</span>}
+        {!fishSearchResults && !loading && !hasMore && <span className="text-xs text-slate-400">已載入全部</span>}
         {loadingTaxonIds.size > 0 && <span className="text-xs text-slate-400">載入觀察紀錄中…</span>}
       </div>
       <div ref={listRef} onScroll={handleHorizontalScroll} className="flex gap-3 overflow-x-auto pb-1">
