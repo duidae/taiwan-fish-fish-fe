@@ -60,6 +60,7 @@ const Map = () => {
   const [selectedRiver, setSelectedRiver] = useState<any | null>(null)
   const selectedRiverMarkerRef = useRef<L.Marker | null>(null)
   const [selectedChannel, setSelectedChannel] = useState<any | null>(null)
+  const [searchResultsCollapsed, setSearchResultsCollapsed] = useState<boolean>(false)
 
   useEffect(() => {
     if (selectedRiver && selectedRiverMarkerRef.current) {
@@ -322,6 +323,7 @@ const Map = () => {
     e?.preventDefault()
     setSelectedRiver(null)
     setSelectedChannel(null)
+    setSearchResultsCollapsed(false)
     const q = riverQuery.trim().toLowerCase()
     if (q.length < 1) {
       setRiverResults(null)
@@ -391,6 +393,11 @@ const Map = () => {
       <button className="btn btn-style1 p-2" type="submit">
         搜尋
       </button>
+      {riverResults && (
+        <button type="button" className="btn btn-style1 p-2" onClick={() => setSearchResultsCollapsed(prev => !prev)}>
+          {searchResultsCollapsed ? "顯示結果" : "隱藏結果"}
+        </button>
+      )}
     </form>
   )
 
@@ -438,9 +445,9 @@ const Map = () => {
       onScroll={handleScroll}
       className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll"
     >
-      {riverResults ? (
+      {riverResults && !searchResultsCollapsed && (
         <div className="w-full">
-          <div className="text-sm font-semibold mb-2">搜尋結果</div>
+          <div className="text-sm font-semibold mb-2">搜尋結果（{riverResults.features.length}）</div>
           {riverResults.features.map((f: any, i: number) => (
             <div
               key={`river-${i}`}
@@ -451,9 +458,8 @@ const Map = () => {
             </div>
           ))}
         </div>
-      ) : (
-        taxonItems
       )}
+      {taxonItems}
 
       {loading && <div className="w-full text-center">載入中…</div>}
       {!hasMore && <div className="w-full text-center">已載入全部</div>}
