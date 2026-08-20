@@ -16,8 +16,8 @@ export const Header = () => {
   }
 
   const logo = (
-    <Link className="mt-4 ml-10" href="/">
-      <img className="h-20" src="/logo-horizontal.svg" />
+    <Link href="/">
+      <img className="h-10" src="/logo-horizontal.svg" />
     </Link>
   )
 
@@ -63,7 +63,7 @@ export const Header = () => {
   })
 
   const menu = (
-    <nav className="hidden w-full max-w-4xl md:flex flex-row justify-end items-start font-mono text-md md:text-lg text-white mt-4 mr-8 pt-2 gap-4 md:gap-8 lg:gap-16">
+    <nav className="hidden w-full max-w-4xl md:flex flex-row justify-end items-center font-mono text-md md:text-lg text-white gap-4 md:gap-8 lg:gap-16">
       {routes}
     </nav>
   )
@@ -71,7 +71,7 @@ export const Header = () => {
   const mobileMenu = (
     <>
       {!isHamburgerOpen && (
-        <button aria-label="Open menu" type="button" className="block md:hidden mt-8 mr-8" onClick={onHamburgerOpen}>
+        <button aria-label="Open menu" type="button" className="block md:hidden" onClick={onHamburgerOpen}>
           {HamburgerIcon}
         </button>
       )}
@@ -146,7 +146,7 @@ export const Header = () => {
         backgroundColor: "black"
         //backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"
       }}
-      className={`fixed top-0 w-full flex flex-row justify-between ${Z_INDEX.TOP}`}
+      className={`fixed top-0 w-full h-16 flex flex-row justify-between items-center px-6 md:px-10 ${Z_INDEX.TOP}`}
     >
       {logo}
       {menu}
