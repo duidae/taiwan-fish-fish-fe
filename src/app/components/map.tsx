@@ -54,6 +54,8 @@ const Map = () => {
   const mapWrapperRef = useRef<HTMLDivElement | null>(null)
   const [allRivers, setAllRivers] = useState<any | null>(null)
   const [observationsByTaxon, setObservationsByTaxon] = useState<Record<number, any[]>>({})
+  const [observationsByTaxonTBIA, setObservationsByTaxonTBIA] = useState<Record<number, any[]>>({})
+  const [observationSource, setObservationSource] = useState<"inaturalist" | "tbia">("inaturalist")
   const [loadingTaxonIds, setLoadingTaxonIds] = useState<Set<number>>(new Set())
   const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
@@ -85,9 +87,16 @@ const Map = () => {
   }, [])
 
   useEffect(() => {
-    taxonIDs.forEach(id => fetchObservations(id))
+    taxonIDs.forEach(id => {
+      if (observationSource === "inaturalist") {
+        fetchObservations(id)
+      } else {
+        const commonName = taxons.find(t => t.taxon?.id === id)?.taxon?.preferred_common_name
+        if (commonName) fetchTbiaObservations(id, commonName)
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taxonIDs])
+  }, [taxonIDs, observationSource])
 
   const PER_PAGE = 50
   const OBSERVATIONS_PER_PAGE = 100
@@ -103,6 +112,28 @@ const Map = () => {
     } catch (e) {
       console.warn("Failed to fetch observations for taxon", taxonId, e)
       setObservationsByTaxon(prev => ({...prev, [taxonId]: []}))
+    } finally {
+      setLoadingTaxonIds(prev => {
+        const next = new Set(prev)
+        next.delete(taxonId)
+        return next
+      })
+    }
+  }
+
+  const fetchTbiaObservations = async (taxonId: number, commonName: string) => {
+    if (observationsByTaxonTBIA[taxonId] || loadingTaxonIds.has(taxonId)) return
+    setLoadingTaxonIds(prev => new Set(prev).add(taxonId))
+    try {
+      const res = await axios.get(
+        `/api/tbia/occurrence?name=${encodeURIComponent(commonName)}&limit=${OBSERVATIONS_PER_PAGE}`
+      )
+      // TBIA's `name` filter is fuzzy, not exact — it mixes in loosely related species, so filter to exact matches
+      const results = (res?.data?.data ?? []).filter((o: any) => o.common_name_c === commonName)
+      setObservationsByTaxonTBIA(prev => ({...prev, [taxonId]: results}))
+    } catch (e) {
+      console.warn("Failed to fetch TBIA observations for taxon", taxonId, e)
+      setObservationsByTaxonTBIA(prev => ({...prev, [taxonId]: []}))
     } finally {
       setLoadingTaxonIds(prev => {
         const next = new Set(prev)
@@ -191,6 +222,62 @@ const Map = () => {
     return null
   }
 
+  const renderINatMarker = (o: any, id: number, color: string) => (
+    <CircleMarker
+      key={`inat-obs-${id}-${o.id}`}
+      center={[o.geojson.coordinates[1], o.geojson.coordinates[0]] as LatLngExpression}
+      radius={5}
+      weight={1}
+      color="white"
+      fillColor={color}
+      fillOpacity={0.9}
+    >
+      <Popup>
+        <div className="flex flex-col gap-1 w-40">
+          {o.photos?.[0]?.url && (
+            <img
+              src={o.photos[0].url.replace("square", "medium")}
+              alt={o.taxon?.preferred_common_name ?? o.taxon?.name}
+              className="w-full rounded object-cover"
+            />
+          )}
+          <span className="font-semibold text-sm">{o.taxon?.preferred_common_name || o.taxon?.name}</span>
+          <span className="text-xs text-gray-500">{o.observed_on_string || o.observed_on}</span>
+          {o.place_guess && <span className="text-xs text-gray-500">{o.place_guess}</span>}
+          <a href={o.uri} target="_blank" rel="noreferrer" className="text-xs text-sky-600 underline">
+            在 iNaturalist 上查看
+          </a>
+        </div>
+      </Popup>
+    </CircleMarker>
+  )
+
+  const renderTbiaMarker = (o: any, id: number, color: string) => (
+    <CircleMarker
+      key={`tbia-obs-${id}-${o.id}`}
+      center={[o.standardLatitude, o.standardLongitude] as LatLngExpression}
+      radius={5}
+      weight={1}
+      color="white"
+      fillColor={color}
+      fillOpacity={0.9}
+    >
+      <Popup>
+        <div className="flex flex-col gap-1 w-44">
+          <span className="font-semibold text-sm">{o.common_name_c || o.scientificName}</span>
+          <span className="text-xs text-gray-500">{o.standardDate || o.eventDate}</span>
+          <span className="text-xs text-gray-500">
+            {[o.county, o.municipality, o.locality].filter(Boolean).join(" ")}
+          </span>
+          {o.datasetName && <span className="text-[10px] text-gray-400">{o.datasetName}</span>}
+          <a href={o.references} target="_blank" rel="noreferrer" className="text-xs text-sky-600 underline">
+            在 TBIA 上查看
+          </a>
+        </div>
+      </Popup>
+    </CircleMarker>
+  )
+
   const mapComponent = (
     <div ref={mapWrapperRef} className="w-full h-full">
       <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom ref={setMapInstance}>
@@ -237,40 +324,17 @@ const Map = () => {
           ))}
         </LayersControl>
         {taxonIDs.flatMap((id, idx) => {
-          const hue = HUES[idx % HUES.length]
-          const color = `hsl(${hue}, 70%, 45%)`
-          const observations = observationsByTaxon[id] || []
+          const color = `hsl(${HUES[idx % HUES.length]}, 70%, 45%)`
+          if (observationSource === "inaturalist") {
+            const observations = observationsByTaxon[id] || []
+            return observations
+              .filter((o: any) => o.geojson?.coordinates)
+              .map((o: any) => renderINatMarker(o, id, color))
+          }
+          const observations = observationsByTaxonTBIA[id] || []
           return observations
-            .filter((o: any) => o.geojson?.coordinates)
-            .map((o: any) => (
-              <CircleMarker
-                key={`obs-${id}-${o.id}`}
-                center={[o.geojson.coordinates[1], o.geojson.coordinates[0]] as LatLngExpression}
-                radius={5}
-                weight={1}
-                color="white"
-                fillColor={color}
-                fillOpacity={0.9}
-              >
-                <Popup>
-                  <div className="flex flex-col gap-1 w-40">
-                    {o.photos?.[0]?.url && (
-                      <img
-                        src={o.photos[0].url.replace("square", "medium")}
-                        alt={o.taxon?.preferred_common_name ?? o.taxon?.name}
-                        className="w-full rounded object-cover"
-                      />
-                    )}
-                    <span className="font-semibold text-sm">{o.taxon?.preferred_common_name || o.taxon?.name}</span>
-                    <span className="text-xs text-gray-500">{o.observed_on_string || o.observed_on}</span>
-                    {o.place_guess && <span className="text-xs text-gray-500">{o.place_guess}</span>}
-                    <a href={o.uri} target="_blank" rel="noreferrer" className="text-xs text-sky-600 underline">
-                      在 iNaturalist 上查看
-                    </a>
-                  </div>
-                </Popup>
-              </CircleMarker>
-            ))
+            .filter((o: any) => o.standardLatitude != null && o.standardLongitude != null)
+            .map((o: any) => renderTbiaMarker(o, id, color))
         })}
         {riverResults && (
           <GeoJSON
@@ -578,6 +642,23 @@ const Map = () => {
           </button>
         )}
       </form>
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-slate-500">觀察紀錄來源：</span>
+        <div className="flex rounded-lg overflow-hidden border border-slate-300">
+          {(["inaturalist", "tbia"] as const).map(source => (
+            <button
+              key={source}
+              type="button"
+              onClick={() => setObservationSource(source)}
+              className={`px-2.5 py-1 text-xs font-medium transition ${
+                observationSource === source ? "bg-sky-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
+              }`}
+            >
+              {source === "inaturalist" ? "iNaturalist" : "TBIA"}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="flex flex-row items-center">
         <span className="text-sm font-semibold text-slate-700 mr-2">
           {fishSearchResults ? `搜尋結果（${fishSearchResults.length}）：` : "魚類物種："}
