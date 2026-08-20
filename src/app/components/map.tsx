@@ -2,7 +2,17 @@
 import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
-import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON, CircleMarker, useMap} from "react-leaflet"
+import {
+  MapContainer,
+  TileLayer,
+  LayersControl,
+  Marker,
+  Popup,
+  GeoJSON,
+  CircleMarker,
+  useMap,
+  useMapEvents
+} from "react-leaflet"
 const {BaseLayer, Overlay} = LayersControl
 import "@geoman-io/leaflet-geoman-free"
 
@@ -234,6 +244,32 @@ const Map = () => {
     return null
   }
 
+  const NearestRiverOnClick = () => {
+    useMapEvents({
+      click: async e => {
+        const map = e.target
+        if (map.pm?.globalDrawModeEnabled?.()) return // don't hijack geoman's draw clicks
+
+        const data = await fetchAllRivers()
+        if (!data) return
+
+        let nearest: any = null
+        let minDist = Infinity
+        for (const f of data.features) {
+          const coords = f.geometry?.coordinates
+          if (!coords) continue
+          const dist = e.latlng.distanceTo(L.latLng(coords[1], coords[0]))
+          if (dist < minDist) {
+            minDist = dist
+            nearest = f
+          }
+        }
+        if (nearest) handleResultClick(nearest)
+      }
+    })
+    return null
+  }
+
   const renderINatMarker = (o: any, id: number, color: string) => (
     <CircleMarker
       key={`inat-obs-${id}-${o.id}`}
@@ -402,6 +438,7 @@ const Map = () => {
           </Marker>
         )}
         <Geoman />
+        <NearestRiverOnClick />
       </MapContainer>
     </div>
   )
