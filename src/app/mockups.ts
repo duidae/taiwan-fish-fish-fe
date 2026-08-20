@@ -28,15 +28,15 @@ export const featuredGalleries = [
   },
   {
     type: "model",
-    url: "/japanese_freshwater_crab.glb",
+    url: "/spotted_snakehead_channa_argus.glb",
     cover: "/japanese_freshwater_crab.png",
-    desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
+    desc: "鱧魚(Channa maculata)又稱斑鱧、鱧、台灣鱧魚、臺灣鱧魚，俗稱雷魚、鮦魚、烏魚、蛇頭魚、南方蛇頭魚、鮕鮘、花鱧、南鱧、台雷188。廣東及香港人又稱為生魚。其種加詞「maculata」意為「有斑點的」。"
   },
   {
     type: "model",
-    url: "/spotted_snakehead_channa_argus.glb",
+    url: "/japanese_freshwater_crab.glb",
     cover: "/japanese_freshwater_crab.png",
-    desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
+    desc: "俗稱日本淡水蟹(Geothelphusa dehaani)，是日本特有的一種淡水蟹科淡水蟹。它棲息於清澈的山間溪流中，以體型小、夜間活動以及作為健康淡水生態系統指標的作用而聞名。"
   },
   {
     type: "model",
