@@ -193,13 +193,7 @@ const Map = () => {
 
   const mapComponent = (
     <div ref={mapWrapperRef} className="w-full h-full">
-      <MapContainer
-        className="w-full h-full"
-        center={coord}
-        zoom={DEFAULT_ZOOM}
-        scrollWheelZoom
-        whenCreated={m => setMapInstance(m)}
-      >
+      <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom ref={setMapInstance}>
         {/* Dynamic styles for taxon tile colorization */}
         <style>{`
         ${taxonIDs
