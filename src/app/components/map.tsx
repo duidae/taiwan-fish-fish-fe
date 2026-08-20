@@ -485,9 +485,11 @@ const Map = () => {
 
   const speciesSliderJSX = (
     <div className="w-full rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3 flex flex-col gap-2">
-      {chipsJSX}
+      <div className="flex flex-row items-center">
+        <span className="text-sm font-semibold text-slate-700 mr-2">魚類物種：</span>
+        {chipsJSX}
+      </div>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-slate-700">魚類物種</span>
         {loading && <span className="text-xs text-slate-400">載入中…</span>}
         {!loading && !hasMore && <span className="text-xs text-slate-400">已載入全部</span>}
       </div>
@@ -513,17 +515,15 @@ const Map = () => {
   return (
     <div className="relative w-full h-full">
       {mapComponent}
-
       <div
         className={`absolute top-4 z-[1000] flex flex-col gap-2 ${
-          isMobile ? "left-16 right-4" : "left-1/2 -translate-x-1/2 w-[92%] max-w-sm"
+          isMobile ? "left-16 right-4" : "left-1/2 -translate-x-1/2 w-full max-w-md"
         }`}
       >
         <div className="rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3">{searchJSX}</div>
         {riverResultsJSX}
       </div>
-
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] w-[95%] max-w-3xl">{speciesSliderJSX}</div>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-[1000] w-[75%] min-w-8xl">{speciesSliderJSX}</div>
     </div>
   )
 }
