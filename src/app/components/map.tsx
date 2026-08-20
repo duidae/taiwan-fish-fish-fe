@@ -2,7 +2,7 @@
 import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
-import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON, useMap} from "react-leaflet"
+import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON, CircleMarker, useMap} from "react-leaflet"
 const {BaseLayer, Overlay} = LayersControl
 import "@geoman-io/leaflet-geoman-free"
 
@@ -53,7 +53,8 @@ const Map = () => {
   const [mapInstance, setMapInstance] = useState<L.Map | null>(null)
   const mapWrapperRef = useRef<HTMLDivElement | null>(null)
   const [allRivers, setAllRivers] = useState<any | null>(null)
-  const [TBIAResults, setTBIAResults] = useState<any | null>(null)
+  const [observationsByTaxon, setObservationsByTaxon] = useState<Record<number, any[]>>({})
+  const [loadingTaxonIds, setLoadingTaxonIds] = useState<Set<number>>(new Set())
   const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
   const [selectedRiver, setSelectedRiver] = useState<any | null>(null)
@@ -78,29 +79,33 @@ const Map = () => {
 
   useEffect(() => {
     fetchObs(1)
-    fetchTBIA()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    taxonIDs.forEach(id => fetchObservations(id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taxonIDs])
+
   const PER_PAGE = 50
+  const OBSERVATIONS_PER_PAGE = 100
   const HUES = [0, 30, 60, 120, 180, 240, 300]
 
-  const fetchTBIA = async () => {
-    if (!mapInstance) return
+  const fetchObservations = async (taxonId: number) => {
+    if (observationsByTaxon[taxonId] || loadingTaxonIds.has(taxonId)) return
+    setLoadingTaxonIds(prev => new Set(prev).add(taxonId))
     try {
-      const bounds = mapInstance.getBounds()
-      const ne = bounds.getNorthEast()
-      const sw = bounds.getSouthWest()
-      // Format: boundedBy=maxLng,maxLat,minLng,minLat
-      const boundedBy = `${ne.lng},${ne.lat},${sw.lng},${sw.lat}`
-      const response = await axios.get(`/api/tbia/map?boundedBy=${boundedBy}&grid=1`)
-      console.log(`/api/tbia/map?boundedBy=${boundedBy}&grid=1`)
-      if (response.data) {
-        setTBIAResults(response.data.data)
-        console.log("TBIA results:", response.data)
-      }
+      const url = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&place_id=7887&photos=true&geo=true&per_page=${OBSERVATIONS_PER_PAGE}&order_by=observed_on&order=desc`
+      const res = await axios.get(url)
+      setObservationsByTaxon(prev => ({...prev, [taxonId]: res?.data?.results ?? []}))
     } catch (e) {
-      console.warn("Failed to fetch TBIA data", e)
+      console.warn("Failed to fetch observations for taxon", taxonId, e)
+      setObservationsByTaxon(prev => ({...prev, [taxonId]: []}))
+    } finally {
+      setLoadingTaxonIds(prev => {
+        const next = new Set(prev)
+        next.delete(taxonId)
+        return next
+      })
     }
   }
 
@@ -233,9 +238,42 @@ const Map = () => {
             </Overlay>
           ))}
         </LayersControl>
-        {TBIAResults && (
-          <GeoJSON data={TBIAResults} style={{color: "#0FC9DC", weight: 3, opacity: 0.7, fillOpacity: 0.7}} />
-        )}
+        {taxonIDs.flatMap((id, idx) => {
+          const hue = HUES[idx % HUES.length]
+          const color = `hsl(${hue}, 70%, 45%)`
+          const observations = observationsByTaxon[id] || []
+          return observations
+            .filter((o: any) => o.geojson?.coordinates)
+            .map((o: any) => (
+              <CircleMarker
+                key={`obs-${id}-${o.id}`}
+                center={[o.geojson.coordinates[1], o.geojson.coordinates[0]] as LatLngExpression}
+                radius={5}
+                weight={1}
+                color="white"
+                fillColor={color}
+                fillOpacity={0.9}
+              >
+                <Popup>
+                  <div className="flex flex-col gap-1 w-40">
+                    {o.photos?.[0]?.url && (
+                      <img
+                        src={o.photos[0].url.replace("square", "medium")}
+                        alt={o.taxon?.preferred_common_name ?? o.taxon?.name}
+                        className="w-full rounded object-cover"
+                      />
+                    )}
+                    <span className="font-semibold text-sm">{o.taxon?.preferred_common_name || o.taxon?.name}</span>
+                    <span className="text-xs text-gray-500">{o.observed_on_string || o.observed_on}</span>
+                    {o.place_guess && <span className="text-xs text-gray-500">{o.place_guess}</span>}
+                    <a href={o.uri} target="_blank" rel="noreferrer" className="text-xs text-sky-600 underline">
+                      在 iNaturalist 上查看
+                    </a>
+                  </div>
+                </Popup>
+              </CircleMarker>
+            ))
+        })}
         {riverResults && (
           <GeoJSON
             key={`river-results-${riverResults.features.length}-${riverQuery}`}
@@ -492,6 +530,7 @@ const Map = () => {
       <div className="flex items-center justify-between">
         {loading && <span className="text-xs text-slate-400">載入中…</span>}
         {!loading && !hasMore && <span className="text-xs text-slate-400">已載入全部</span>}
+        {loadingTaxonIds.size > 0 && <span className="text-xs text-slate-400">載入觀察紀錄中…</span>}
       </div>
       <div ref={listRef} onScroll={handleHorizontalScroll} className="flex gap-3 overflow-x-auto pb-1">
         {taxonItems}
