@@ -55,7 +55,9 @@ const Map = () => {
   const [allRivers, setAllRivers] = useState<any | null>(null)
   const [observationsByTaxon, setObservationsByTaxon] = useState<Record<number, any[]>>({})
   const [observationsByTaxonTBIA, setObservationsByTaxonTBIA] = useState<Record<number, any[]>>({})
-  const [observationSource, setObservationSource] = useState<"inaturalist" | "tbia">("inaturalist")
+  const [observationSources, setObservationSources] = useState<Set<"inaturalist" | "tbia">>(
+    new Set<"inaturalist" | "tbia">(["inaturalist"])
+  )
   const [loadingTaxonIds, setLoadingTaxonIds] = useState<Set<number>>(new Set())
   const [riverResults, setRiverResults] = useState<any | null>(null)
   const [riverQuery, setRiverQuery] = useState<string>("")
@@ -88,15 +90,25 @@ const Map = () => {
 
   useEffect(() => {
     taxonIDs.forEach(id => {
-      if (observationSource === "inaturalist") {
+      if (observationSources.has("inaturalist")) {
         fetchObservations(id)
-      } else {
+      }
+      if (observationSources.has("tbia")) {
         const commonName = taxons.find(t => t.taxon?.id === id)?.taxon?.preferred_common_name
         if (commonName) fetchTbiaObservations(id, commonName)
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taxonIDs, observationSource])
+  }, [taxonIDs, observationSources])
+
+  const toggleObservationSource = (source: "inaturalist" | "tbia") => {
+    setObservationSources(prev => {
+      if (prev.has(source) && prev.size === 1) return prev // keep at least one source active
+      const next = new Set(prev)
+      next.has(source) ? next.delete(source) : next.add(source)
+      return next
+    })
+  }
 
   const PER_PAGE = 50
   const OBSERVATIONS_PER_PAGE = 100
@@ -324,17 +336,27 @@ const Map = () => {
           ))}
         </LayersControl>
         {taxonIDs.flatMap((id, idx) => {
-          const color = `hsl(${HUES[idx % HUES.length]}, 70%, 45%)`
-          if (observationSource === "inaturalist") {
+          const hue = HUES[idx % HUES.length]
+          const inatColor = `hsl(${hue}, 70%, 55%)`
+          const tbiaColor = `hsl(${hue}, 70%, 30%)`
+          const markers: React.ReactNode[] = []
+          if (observationSources.has("inaturalist")) {
             const observations = observationsByTaxon[id] || []
-            return observations
-              .filter((o: any) => o.geojson?.coordinates)
-              .map((o: any) => renderINatMarker(o, id, color))
+            markers.push(
+              ...observations
+                .filter((o: any) => o.geojson?.coordinates)
+                .map((o: any) => renderINatMarker(o, id, inatColor))
+            )
           }
-          const observations = observationsByTaxonTBIA[id] || []
-          return observations
-            .filter((o: any) => o.standardLatitude != null && o.standardLongitude != null)
-            .map((o: any) => renderTbiaMarker(o, id, color))
+          if (observationSources.has("tbia")) {
+            const observations = observationsByTaxonTBIA[id] || []
+            markers.push(
+              ...observations
+                .filter((o: any) => o.standardLatitude != null && o.standardLongitude != null)
+                .map((o: any) => renderTbiaMarker(o, id, tbiaColor))
+            )
+          }
+          return markers
         })}
         {riverResults && (
           <GeoJSON
@@ -649,9 +671,10 @@ const Map = () => {
             <button
               key={source}
               type="button"
-              onClick={() => setObservationSource(source)}
+              aria-pressed={observationSources.has(source)}
+              onClick={() => toggleObservationSource(source)}
               className={`px-2.5 py-1 text-xs font-medium transition ${
-                observationSource === source ? "bg-sky-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
+                observationSources.has(source) ? "bg-sky-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
               }`}
             >
               {source === "inaturalist" ? "iNaturalist" : "TBIA"}
