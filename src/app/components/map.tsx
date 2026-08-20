@@ -61,6 +61,15 @@ const Map = () => {
   const selectedRiverMarkerRef = useRef<L.Marker | null>(null)
   const [selectedChannel, setSelectedChannel] = useState<any | null>(null)
   const [searchResultsCollapsed, setSearchResultsCollapsed] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)")
+    const update = () => setIsMobile(mq.matches)
+    update()
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
 
   useEffect(() => {
     if (selectedRiver && selectedRiverMarkerRef.current) {
@@ -192,7 +201,7 @@ const Map = () => {
           })
           .join("\n")}
       `}</style>
-        <LayersControl position="topright" collapsed={false}>
+        <LayersControl position="topright" collapsed={isMobile}>
           <BaseLayer checked name="溪流圖">
             <TileLayer
               attribution={defaultTileAttr}
@@ -288,12 +297,18 @@ const Map = () => {
         return (
           <div key={`taxon-item-${index}`} className="flex flex-col items-center gap-2">
             <img
-              className={`w-40 h-40 m-1 cursor-pointer object-cover ${taxonIDs.includes(taxonID) ? "outline outline-sky-400" : ""}`}
+              className={`w-full aspect-square rounded-lg cursor-pointer object-cover transition hover:opacity-90 ${
+                taxonIDs.includes(taxonID) ? "ring-4 ring-sky-400" : ""
+              }`}
               src={imgURL}
               onClick={() => handleSelect(taxonID)}
               alt={title ?? "taxon image"}
             />
-            <a className="w-40 flex flex-col items-center text-sm hover:text-blue-600" href={taxaURL} target="_blank">
+            <a
+              className="w-full flex flex-col items-center text-center text-sm hover:text-blue-600"
+              href={taxaURL}
+              target="_blank"
+            >
               {title ?? "Unknown"}
               <span className="text-xs text-gray-500">
                 <em>{taxonName}</em>
@@ -383,18 +398,25 @@ const Map = () => {
   }
 
   const searchJSX = (
-    <form onSubmit={handleSearchSubmit} className="flex gap-2 items-center">
+    <form onSubmit={handleSearchSubmit} className="flex flex-wrap gap-2 items-center">
       <input
-        className="flex-1 p-2 border rounded"
+        className="flex-1 min-w-[140px] px-3 py-2 border border-slate-300 rounded-lg text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
         placeholder="搜尋河川"
         value={riverQuery}
         onChange={e => setRiverQuery(e.target.value)}
       />
-      <button className="btn btn-style1 p-2" type="submit">
+      <button
+        className="px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium transition hover:bg-sky-700 active:bg-sky-800"
+        type="submit"
+      >
         搜尋
       </button>
       {riverResults && (
-        <button type="button" className="btn btn-style1 p-2" onClick={() => setSearchResultsCollapsed(prev => !prev)}>
+        <button
+          type="button"
+          className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
+          onClick={() => setSearchResultsCollapsed(prev => !prev)}
+        >
           {searchResultsCollapsed ? "顯示結果" : "隱藏結果"}
         </button>
       )}
@@ -413,12 +435,16 @@ const Map = () => {
         return (
           <div
             key={`chip-${id}`}
-            className="flex items-center gap-2 px-2 py-1 rounded-full"
+            className="flex items-center gap-2 px-2 py-1 rounded-full shadow-sm transition hover:shadow"
             style={{backgroundColor: bg, color: fg}}
           >
             {img && <img src={img} alt={name} className="w-6 h-6 rounded-full object-cover" />}
             <span className="text-sm italic">{name}</span>
-            <button onClick={() => removeTaxon(id)} className="ml-2 text-xs leading-none" aria-label={`remove ${name}`}>
+            <button
+              onClick={() => removeTaxon(id)}
+              className="ml-1 w-4 h-4 flex items-center justify-center rounded-full text-xs leading-none transition hover:bg-black/10"
+              aria-label={`remove ${name}`}
+            >
               ×
             </button>
           </div>
@@ -429,7 +455,7 @@ const Map = () => {
           key={`chip-clear`}
           onClick={removeAllTaxons}
           role="button"
-          className="flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer"
+          className="flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer shadow-sm transition hover:shadow"
           style={{backgroundColor: "hsl(0, 80%, 95%)", color: "hsl(0, 65%, 30%)"}}
           aria-label="remove all selected taxons"
         >
@@ -440,29 +466,31 @@ const Map = () => {
   )
 
   const taxonItemsJSX = (
-    <div
-      ref={listRef}
-      onScroll={handleScroll}
-      className="flex-1 flex flex-row justify-start items-start flex-wrap gap-4 overflow-y-scroll"
-    >
+    <div ref={listRef} onScroll={handleScroll} className="flex-1 overflow-y-auto pr-1">
       {riverResults && !searchResultsCollapsed && (
-        <div className="w-full">
-          <div className="text-sm font-semibold mb-2">搜尋結果（{riverResults.features.length}）</div>
-          {riverResults.features.map((f: any, i: number) => (
-            <div
-              key={`river-${i}`}
-              className={`p-1 cursor-pointer rounded ${selectedRiver === f ? "bg-sky-100 text-sky-800" : ""}`}
-              onClick={() => handleResultClick(f)}
-            >
-              {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
-            </div>
-          ))}
+        <div className="w-full mb-4">
+          <div className="text-sm font-semibold mb-2 text-slate-700">搜尋結果（{riverResults.features.length}）</div>
+          <div className="flex flex-col gap-1">
+            {riverResults.features.map((f: any, i: number) => (
+              <div
+                key={`river-${i}`}
+                className={`px-3 py-2 cursor-pointer rounded-lg text-sm transition ${
+                  selectedRiver === f ? "bg-sky-100 text-sky-800" : "hover:bg-slate-100"
+                }`}
+                onClick={() => handleResultClick(f)}
+              >
+                {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
-      {taxonItems}
 
-      {loading && <div className="w-full text-center">載入中…</div>}
-      {!hasMore && <div className="w-full text-center">已載入全部</div>}
+      <div className="text-sm font-semibold mb-2 text-slate-700">魚類物種</div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">{taxonItems}</div>
+
+      {loading && <div className="w-full text-center py-3 text-sm text-slate-500">載入中…</div>}
+      {!hasMore && <div className="w-full text-center py-3 text-sm text-slate-400">已載入全部</div>}
     </div>
   )
 
@@ -480,12 +508,20 @@ const Map = () => {
   }, [mapInstance])
 
   return (
-    <Group orientation="horizontal" id="map-panel-group">
-      <Panel defaultSize={"66%"} className="h-full">
+    <Group orientation={isMobile ? "vertical" : "horizontal"} id="map-panel-group" className="h-full w-full">
+      <Panel defaultSize={isMobile ? "50%" : "66%"} minSize={isMobile ? "25%" : "30%"} className="h-full">
         <div className="h-full">{mapComponent}</div>
       </Panel>
-      <Separator className="rounded-xs flex items-center justify-center bg-slate-600 [&[data-separator='disabled']]:opacity-50 [&[data-separator='hover']]:bg-slate-500 [&[data-separator='active']]:bg-slate-400 text-slate-900 [&[data-separator='hover']]:text-slate-950 [&[data-separator='active']]:text-slate-950 [&[data-separator='focus']]:bg-sky-400 w-4 sm:w-2" />
-      <Panel defaultSize={"34%"} className="h-full overflow-auto p-4 flex flex-col gap-4">
+      <Separator
+        className={`flex items-center justify-center rounded-xs bg-slate-600 text-slate-900 transition-colors [&[data-separator='disabled']]:opacity-50 [&[data-separator='hover']]:bg-slate-500 [&[data-separator='hover']]:text-slate-950 [&[data-separator='active']]:bg-slate-400 [&[data-separator='active']]:text-slate-950 [&[data-separator='focus']]:bg-sky-400 ${
+          isMobile ? "h-3 w-full cursor-row-resize" : "w-3 cursor-col-resize"
+        }`}
+      />
+      <Panel
+        defaultSize={isMobile ? "50%" : "34%"}
+        minSize={isMobile ? "25%" : "25%"}
+        className="h-full overflow-auto bg-white p-3 flex flex-col gap-4 sm:p-4"
+      >
         {searchJSX}
         {chipsJSX}
         {taxonItemsJSX}
