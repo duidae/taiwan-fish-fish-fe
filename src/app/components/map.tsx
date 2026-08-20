@@ -3,7 +3,6 @@ import {useEffect, useState, useRef, UIEvent} from "react"
 import axios from "axios"
 import L, {LatLngExpression} from "leaflet"
 import {MapContainer, TileLayer, LayersControl, Marker, Popup, GeoJSON, useMap} from "react-leaflet"
-import {Group, Panel, Separator} from "react-resizable-panels"
 const {BaseLayer, Overlay} = LayersControl
 import "@geoman-io/leaflet-geoman-free"
 
@@ -136,10 +135,10 @@ const Map = () => {
     }
   }
 
-  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+  const handleHorizontalScroll = (e: UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget
-    const threshold = 200 // px from bottom
-    if (target.scrollHeight - target.scrollTop - target.clientHeight < threshold) {
+    const threshold = 300 // px from the trailing edge
+    if (target.scrollWidth - target.scrollLeft - target.clientWidth < threshold) {
       if (!loading && hasMore) {
         fetchObs(page + 1)
       }
@@ -295,7 +294,7 @@ const Map = () => {
         const taxonName = result.taxon.name
 
         return (
-          <div key={`taxon-item-${index}`} className="flex flex-col items-center gap-2">
+          <div key={`taxon-item-${index}`} className="flex flex-shrink-0 w-24 sm:w-28 flex-col items-center gap-1.5">
             <img
               className={`w-full aspect-square rounded-lg cursor-pointer object-cover transition hover:opacity-90 ${
                 taxonIDs.includes(taxonID) ? "ring-4 ring-sky-400" : ""
@@ -305,12 +304,12 @@ const Map = () => {
               alt={title ?? "taxon image"}
             />
             <a
-              className="w-full flex flex-col items-center text-center text-sm hover:text-blue-600"
+              className="w-full flex flex-col items-center text-center text-xs hover:text-blue-600"
               href={taxaURL}
               target="_blank"
             >
-              {title ?? "Unknown"}
-              <span className="text-xs text-gray-500">
+              <span className="truncate w-full">{title ?? "Unknown"}</span>
+              <span className="text-[10px] text-gray-500 truncate w-full">
                 <em>{taxonName}</em>
               </span>
             </a>
@@ -465,32 +464,36 @@ const Map = () => {
     </div>
   )
 
-  const taxonItemsJSX = (
-    <div ref={listRef} onScroll={handleScroll} className="flex-1 overflow-y-auto pr-1">
-      {riverResults && !searchResultsCollapsed && (
-        <div className="w-full mb-4">
-          <div className="text-sm font-semibold mb-2 text-slate-700">搜尋結果（{riverResults.features.length}）</div>
-          <div className="flex flex-col gap-1">
-            {riverResults.features.map((f: any, i: number) => (
-              <div
-                key={`river-${i}`}
-                className={`px-3 py-2 cursor-pointer rounded-lg text-sm transition ${
-                  selectedRiver === f ? "bg-sky-100 text-sky-800" : "hover:bg-slate-100"
-                }`}
-                onClick={() => handleResultClick(f)}
-              >
-                {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
-              </div>
-            ))}
+  const riverResultsJSX = riverResults && !searchResultsCollapsed && (
+    <div className="w-full max-h-72 overflow-y-auto rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3">
+      <div className="text-sm font-semibold mb-2 text-slate-700">搜尋結果（{riverResults.features.length}）</div>
+      <div className="flex flex-col gap-1">
+        {riverResults.features.map((f: any, i: number) => (
+          <div
+            key={`river-${i}`}
+            className={`px-3 py-2 cursor-pointer rounded-lg text-sm transition ${
+              selectedRiver === f ? "bg-sky-100 text-sky-800" : "hover:bg-slate-100"
+            }`}
+            onClick={() => handleResultClick(f)}
+          >
+            {f.properties?.name} <span className="text-xs text-gray-500">{f.properties?.city}</span>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+    </div>
+  )
 
-      <div className="text-sm font-semibold mb-2 text-slate-700">魚類物種</div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">{taxonItems}</div>
-
-      {loading && <div className="w-full text-center py-3 text-sm text-slate-500">載入中…</div>}
-      {!hasMore && <div className="w-full text-center py-3 text-sm text-slate-400">已載入全部</div>}
+  const speciesSliderJSX = (
+    <div className="w-full rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3 flex flex-col gap-2">
+      {chipsJSX}
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-semibold text-slate-700">魚類物種</span>
+        {loading && <span className="text-xs text-slate-400">載入中…</span>}
+        {!loading && !hasMore && <span className="text-xs text-slate-400">已載入全部</span>}
+      </div>
+      <div ref={listRef} onScroll={handleHorizontalScroll} className="flex gap-3 overflow-x-auto pb-1">
+        {taxonItems}
+      </div>
     </div>
   )
 
@@ -508,25 +511,20 @@ const Map = () => {
   }, [mapInstance])
 
   return (
-    <Group orientation={isMobile ? "vertical" : "horizontal"} id="map-panel-group" className="h-full w-full">
-      <Panel defaultSize={isMobile ? "50%" : "66%"} minSize={isMobile ? "25%" : "30%"} className="h-full">
-        <div className="h-full">{mapComponent}</div>
-      </Panel>
-      <Separator
-        className={`flex items-center justify-center rounded-xs bg-slate-600 text-slate-900 transition-colors [&[data-separator='disabled']]:opacity-50 [&[data-separator='hover']]:bg-slate-500 [&[data-separator='hover']]:text-slate-950 [&[data-separator='active']]:bg-slate-400 [&[data-separator='active']]:text-slate-950 [&[data-separator='focus']]:bg-sky-400 ${
-          isMobile ? "h-3 w-full cursor-row-resize" : "w-3 cursor-col-resize"
+    <div className="relative w-full h-full">
+      {mapComponent}
+
+      <div
+        className={`absolute top-4 z-[1000] flex flex-col gap-2 ${
+          isMobile ? "left-16 right-4" : "left-1/2 -translate-x-1/2 w-[92%] max-w-sm"
         }`}
-      />
-      <Panel
-        defaultSize={isMobile ? "50%" : "34%"}
-        minSize={isMobile ? "25%" : "25%"}
-        className="h-full overflow-auto bg-white p-3 flex flex-col gap-4 sm:p-4"
       >
-        {searchJSX}
-        {chipsJSX}
-        {taxonItemsJSX}
-      </Panel>
-    </Group>
+        <div className="rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3">{searchJSX}</div>
+        {riverResultsJSX}
+      </div>
+
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] w-[95%] max-w-3xl">{speciesSliderJSX}</div>
+    </div>
   )
 }
 
