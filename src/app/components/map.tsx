@@ -673,10 +673,14 @@ const Map = () => {
               type="button"
               aria-pressed={observationSources.has(source)}
               onClick={() => toggleObservationSource(source)}
-              className={`px-2.5 py-1 text-xs font-medium transition ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium transition ${
                 observationSources.has(source) ? "bg-sky-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
               }`}
             >
+              <span
+                className="w-2.5 h-2.5 rounded-full ring-1 ring-black/20 shrink-0"
+                style={{backgroundColor: `hsl(0, 0%, ${source === "inaturalist" ? 55 : 30}%)`}}
+              />
               {source === "inaturalist" ? "iNaturalist" : "TBIA"}
             </button>
           ))}
