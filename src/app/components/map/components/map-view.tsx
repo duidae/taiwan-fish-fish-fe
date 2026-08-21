@@ -49,7 +49,14 @@ export const MapView = ({
   handleResultClick
 }: Props) => (
   <div ref={mapWrapperRef} className="w-full h-full">
-    <MapContainer className="w-full h-full" center={coord} zoom={DEFAULT_ZOOM} scrollWheelZoom ref={setMapInstance}>
+    <MapContainer
+      className="w-full h-full"
+      center={coord}
+      zoom={DEFAULT_ZOOM}
+      scrollWheelZoom
+      zoomControl={false}
+      ref={setMapInstance}
+    >
       {/* Dynamic styles for taxon tile colorization */}
       <style>{`
         ${taxonIDs

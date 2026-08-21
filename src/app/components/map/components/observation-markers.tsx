@@ -3,11 +3,13 @@ import {CircleMarker, Popup} from "react-leaflet"
 import {LatLngExpression} from "leaflet"
 import {HUES} from "../constants"
 
+const radius = 10
+
 const renderINatMarker = (o: any, id: number, color: string) => (
   <CircleMarker
     key={`inat-obs-${id}-${o.id}`}
     center={[o.geojson.coordinates[1], o.geojson.coordinates[0]] as LatLngExpression}
-    radius={5}
+    radius={radius}
     weight={1}
     color="white"
     fillColor={color}
@@ -37,7 +39,7 @@ const renderTbiaMarker = (o: any, id: number, color: string) => (
   <CircleMarker
     key={`tbia-obs-${id}-${o.id}`}
     center={[o.standardLatitude, o.standardLongitude] as LatLngExpression}
-    radius={5}
+    radius={radius}
     weight={1}
     color="white"
     fillColor={color}
@@ -75,8 +77,8 @@ export const ObservationMarkers = ({
   <>
     {taxonIDs.flatMap((id, idx) => {
       const hue = HUES[idx % HUES.length]
-      const inatColor = `hsl(${hue}, 70%, 55%)`
-      const tbiaColor = `hsl(${hue}, 70%, 30%)`
+      const inatColor = `hsl(${hue}, 70%, 75%)`
+      const tbiaColor = `hsl(${hue}, 70%, 20%)`
       const markers: React.ReactNode[] = []
       if (observationSources.has("inaturalist")) {
         const observations = observationsByTaxon[id] || []
