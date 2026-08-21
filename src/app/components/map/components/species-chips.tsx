@@ -13,7 +13,6 @@ export const SpeciesChips = ({taxonIDs, taxons, removeTaxon, removeAllTaxons}: P
     {taxonIDs.map((id, idx) => {
       const item = taxons.find(t => t.taxon?.id === id)
       const name = item?.taxon?.preferred_common_name || item?.taxon?.name || `Taxon ${id}`
-      const img = item?.taxon?.default_photo?.square_url || item?.taxon?.default_photo?.medium_url
       const hue = HUES[idx % HUES.length]
       const bg = `hsl(${hue}, 90%, 95%)`
       const fg = `hsl(${hue}, 70%, 30%)`
@@ -23,7 +22,6 @@ export const SpeciesChips = ({taxonIDs, taxons, removeTaxon, removeAllTaxons}: P
           className="flex items-center gap-2 px-2 py-1 rounded-full shadow-sm transition hover:shadow"
           style={{backgroundColor: bg, color: fg}}
         >
-          {img && <img src={img} alt={name} className="w-6 h-6 rounded-full object-cover" />}
           <span className="text-sm italic">{name}</span>
           <button
             onClick={() => removeTaxon(id)}

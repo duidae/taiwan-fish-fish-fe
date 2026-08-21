@@ -14,19 +14,19 @@ const renderTaxonRow = (result: any, index: number, taxonIDs: number[], handleSe
   return (
     <div
       key={`taxon-item-${taxonID}-${index}`}
-      className={`flex items-center gap-2 w-full p-1.5 rounded-lg transition ${selected ? "bg-sky-50" : "hover:bg-slate-100"}`}
+      className={`flex items-center gap-3 w-full p-2 rounded-xl transition ${selected ? "bg-sky-50" : "hover:bg-slate-100"}`}
     >
       <img
-        className={`w-12 h-12 flex-shrink-0 rounded-lg cursor-pointer object-cover transition hover:opacity-90 ${
+        className={`w-16 h-16 flex-shrink-0 rounded-xl cursor-pointer object-cover transition hover:opacity-90 ${
           selected ? "ring-4 ring-sky-400" : ""
         }`}
         src={imgURL}
         onClick={() => handleSelect(taxonID)}
         alt={title ?? "taxon image"}
       />
-      <a className="flex-1 min-w-0 flex flex-col text-xs hover:text-blue-600" href={taxaURL} target="_blank">
-        <span className="truncate w-full">{title ?? "Unknown"}</span>
-        <span className="text-[10px] text-gray-500 truncate w-full">
+      <a className="flex-1 min-w-0 flex flex-col gap-0.5 hover:text-blue-600" href={taxaURL} target="_blank">
+        <span className="text-base font-medium truncate w-full">{title ?? "Unknown"}</span>
+        <span className="text-sm text-gray-500 truncate w-full">
           <em>{taxonName}</em>
         </span>
       </a>
@@ -144,7 +144,7 @@ export const SpeciesSlider = ({
       <div
         ref={listRef}
         onScroll={handleListScroll}
-        className="flex-1 min-h-0 flex flex-col gap-1 overflow-y-auto pr-1"
+        className="flex-1 min-h-0 flex flex-col gap-1 divide-y divide-slate-100 overflow-y-auto pr-1"
       >
         {taxonItems}
       </div>
