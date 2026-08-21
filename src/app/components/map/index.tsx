@@ -106,6 +106,8 @@ const Map = () => {
             clearFishSearch={species.clearFishSearch}
             observationSources={observations.observationSources}
             toggleObservationSource={observations.toggleObservationSource}
+            observationsByTaxon={observations.observationsByTaxon}
+            observationsByTaxonTBIA={observations.observationsByTaxonTBIA}
             taxons={species.taxons}
             taxonIDs={selection.taxonIDs}
             handleSelect={selection.handleSelect}

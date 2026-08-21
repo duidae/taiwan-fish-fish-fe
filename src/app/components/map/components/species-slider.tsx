@@ -3,13 +3,27 @@ import {FormEvent, UIEvent, useRef} from "react"
 import {taxanomyURLPrefix} from "../constants"
 import {SpeciesChips} from "./species-chips"
 
-const renderTaxonRow = (result: any, index: number, taxonIDs: number[], handleSelect: (taxonID: number) => void) => {
+type RenderTaxonRowContext = {
+  taxonIDs: number[]
+  handleSelect: (taxonID: number) => void
+  observationsByTaxon: Record<number, any[]>
+  observationsByTaxonTBIA: Record<number, any[]>
+  observationSources: Set<"inaturalist" | "tbia">
+  loadingTaxonIds: Set<number>
+}
+
+const renderTaxonRow = (result: any, index: number, ctx: RenderTaxonRowContext) => {
+  const {taxonIDs, handleSelect, observationsByTaxon, observationsByTaxonTBIA, observationSources, loadingTaxonIds} =
+    ctx
   const taxonID = result.taxon.id
   const taxaURL = `${taxanomyURLPrefix}/${result.taxon.id}`
   const imgURL = result.taxon.default_photo.medium_url
   const title = result.taxon?.preferred_common_name
   const taxonName = result.taxon.name
   const selected = taxonIDs.includes(taxonID)
+  const observationCount =
+    (observationSources.has("inaturalist") ? observationsByTaxon[taxonID]?.length ?? 0 : 0) +
+    (observationSources.has("tbia") ? observationsByTaxonTBIA[taxonID]?.length ?? 0 : 0)
 
   return (
     <div
@@ -30,6 +44,11 @@ const renderTaxonRow = (result: any, index: number, taxonIDs: number[], handleSe
           <em>{taxonName}</em>
         </span>
       </a>
+      {selected && (
+        <span className="text-xs font-semibold text-sky-600 flex-shrink-0">
+          {loadingTaxonIds.has(taxonID) ? "…" : `${observationCount} 筆觀察`}
+        </span>
+      )}
     </div>
   )
 }
@@ -43,6 +62,8 @@ type Props = {
   clearFishSearch: () => void
   observationSources: Set<"inaturalist" | "tbia">
   toggleObservationSource: (source: "inaturalist" | "tbia") => void
+  observationsByTaxon: Record<number, any[]>
+  observationsByTaxonTBIA: Record<number, any[]>
   taxons: any[]
   taxonIDs: number[]
   handleSelect: (taxonID: number) => void
@@ -66,6 +87,8 @@ export const SpeciesSlider = ({
   clearFishSearch,
   observationSources,
   toggleObservationSource,
+  observationsByTaxon,
+  observationsByTaxonTBIA,
   taxons,
   taxonIDs,
   handleSelect,
@@ -82,7 +105,14 @@ export const SpeciesSlider = ({
   const listRef = useRef<HTMLDivElement | null>(null)
   const displayedTaxons = areaResults ?? fishSearchResults ?? taxons
   const taxonItems = displayedTaxons?.map((result: any, index: number) =>
-    renderTaxonRow(result, index, taxonIDs, handleSelect)
+    renderTaxonRow(result, index, {
+      taxonIDs,
+      handleSelect,
+      observationsByTaxon,
+      observationsByTaxonTBIA,
+      observationSources,
+      loadingTaxonIds
+    })
   )
   const listLabel = areaResults
     ? `範圍內物種（${areaResults.length}）：`
