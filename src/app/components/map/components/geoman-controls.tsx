@@ -20,7 +20,11 @@ export const GeomanControls = ({onShapeDrawn}: Props) => {
       drawPolyline: false,
       drawRectangle: false,
       drawCircleMarker: false,
+      drawText: false,
       editMode: false,
+      dragMode: false,
+      cutPolygon: false,
+      rotateMode: false,
       removalMode: true
     })
   }, [map])
