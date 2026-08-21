@@ -28,6 +28,7 @@ type Props = {
   selectedRiverMarkerRef: RefObject<L.Marker>
   fetchAllRivers: () => Promise<any | null>
   handleResultClick: (feature: any) => void | Promise<void>
+  onShapeDrawn: (layer: L.Layer) => void
 }
 
 export const MapView = ({
@@ -46,7 +47,8 @@ export const MapView = ({
   selectedRiver,
   selectedRiverMarkerRef,
   fetchAllRivers,
-  handleResultClick
+  handleResultClick,
+  onShapeDrawn
 }: Props) => (
   <div ref={mapWrapperRef} className="w-full h-full">
     <MapContainer
@@ -146,7 +148,7 @@ export const MapView = ({
           </Popup>
         </Marker>
       )}
-      <GeomanControls />
+      <GeomanControls onShapeDrawn={onShapeDrawn} />
       <NearestRiverOnClick fetchAllRivers={fetchAllRivers} handleResultClick={handleResultClick} />
     </MapContainer>
   </div>

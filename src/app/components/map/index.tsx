@@ -7,6 +7,7 @@ import {useSpeciesSearch} from "./hooks/use-species-search"
 import {useTaxonSelection} from "./hooks/use-taxon-selection"
 import {useObservations} from "./hooks/use-observations"
 import {useRiverSearch} from "./hooks/use-river-search"
+import {useAreaSearch} from "./hooks/use-area-search"
 import {MapView} from "./components/map-view"
 import {RiverSearchPanel} from "./components/river-search-panel"
 import {RiverResultsList} from "./components/river-results-list"
@@ -22,6 +23,12 @@ const Map = () => {
   const species = useSpeciesSearch()
   const observations = useObservations(selection.taxonIDs, species.taxons)
   const river = useRiverSearch(mapInstance)
+  const area = useAreaSearch()
+
+  const handleShapeDrawn = async (layer: L.Layer) => {
+    const results = await area.searchArea(layer)
+    if (results) species.mergeTaxons(results)
+  }
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)")
@@ -71,6 +78,7 @@ const Map = () => {
         selectedRiverMarkerRef={river.selectedRiverMarkerRef}
         fetchAllRivers={river.fetchAllRivers}
         handleResultClick={river.handleResultClick}
+        onShapeDrawn={handleShapeDrawn}
       />
       <div
         className={`absolute z-[1000] flex flex-col gap-2 ${
@@ -107,6 +115,9 @@ const Map = () => {
             hasMore={species.hasMore}
             loadingTaxonIds={observations.loadingTaxonIds}
             handleListScroll={species.handleListScroll}
+            areaResults={area.areaResults}
+            areaLoading={area.areaLoading}
+            clearAreaSearch={area.clearAreaSearch}
           />
         </div>
       </div>

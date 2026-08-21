@@ -52,6 +52,9 @@ type Props = {
   hasMore: boolean
   loadingTaxonIds: Set<number>
   handleListScroll: (e: UIEvent<HTMLDivElement>) => void
+  areaResults: any[] | null
+  areaLoading: boolean
+  clearAreaSearch: () => void
 }
 
 export const SpeciesSlider = ({
@@ -71,13 +74,21 @@ export const SpeciesSlider = ({
   loading,
   hasMore,
   loadingTaxonIds,
-  handleListScroll
+  handleListScroll,
+  areaResults,
+  areaLoading,
+  clearAreaSearch
 }: Props) => {
   const listRef = useRef<HTMLDivElement | null>(null)
-  const displayedTaxons = fishSearchResults ?? taxons
+  const displayedTaxons = areaResults ?? fishSearchResults ?? taxons
   const taxonItems = displayedTaxons?.map((result: any, index: number) =>
     renderTaxonRow(result, index, taxonIDs, handleSelect)
   )
+  const listLabel = areaResults
+    ? `範圍內物種（${areaResults.length}）：`
+    : fishSearchResults
+      ? `搜尋結果（${fishSearchResults.length}）：`
+      : "魚類物種："
 
   return (
     <div className="w-full h-full min-h-0 flex flex-col gap-2">
@@ -127,18 +138,33 @@ export const SpeciesSlider = ({
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <span className="text-sm font-semibold text-slate-700">
-          {fishSearchResults ? `搜尋結果（${fishSearchResults.length}）：` : "魚類物種："}
-        </span>
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-semibold text-slate-700">{listLabel}</span>
+          {areaResults && (
+            <button
+              type="button"
+              onClick={clearAreaSearch}
+              className="text-xs text-slate-500 underline transition hover:text-slate-700"
+            >
+              清除範圍
+            </button>
+          )}
+        </div>
         <SpeciesChips taxonIDs={taxonIDs} taxons={taxons} removeTaxon={removeTaxon} removeAllTaxons={removeAllTaxons} />
       </div>
       <div className="flex items-center justify-between">
-        {fishSearchLoading && <span className="text-xs text-slate-400">搜尋中…</span>}
-        {!fishSearchLoading && fishSearchResults?.length === 0 && (
+        {areaLoading && <span className="text-xs text-slate-400">搜尋範圍中…</span>}
+        {!areaLoading && areaResults?.length === 0 && (
+          <span className="text-xs text-slate-400">此範圍內找不到魚類</span>
+        )}
+        {!areaResults && fishSearchLoading && <span className="text-xs text-slate-400">搜尋中…</span>}
+        {!areaResults && !fishSearchLoading && fishSearchResults?.length === 0 && (
           <span className="text-xs text-slate-400">找不到符合的魚類</span>
         )}
-        {!fishSearchResults && loading && <span className="text-xs text-slate-400">載入中…</span>}
-        {!fishSearchResults && !loading && !hasMore && <span className="text-xs text-slate-400">已載入全部</span>}
+        {!areaResults && !fishSearchResults && loading && <span className="text-xs text-slate-400">載入中…</span>}
+        {!areaResults && !fishSearchResults && !loading && !hasMore && (
+          <span className="text-xs text-slate-400">已載入全部</span>
+        )}
         {loadingTaxonIds.size > 0 && <span className="text-xs text-slate-400">載入觀察紀錄中…</span>}
       </div>
       <div

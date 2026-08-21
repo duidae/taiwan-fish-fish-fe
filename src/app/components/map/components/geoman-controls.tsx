@@ -1,28 +1,38 @@
 "use client"
 import {useEffect} from "react"
 import {useMap} from "react-leaflet"
+import L from "leaflet"
 import "@geoman-io/leaflet-geoman-free"
 
-export const GeomanControls = () => {
+type Props = {
+  onShapeDrawn: (layer: L.Layer) => void
+}
+
+export const GeomanControls = ({onShapeDrawn}: Props) => {
   const map = useMap()
 
   useEffect(() => {
     if (!map) return
     map.pm.addControls({
       drawPolygon: true,
-      drawCircle: false,
+      drawCircle: true,
       drawMarker: false,
       drawPolyline: false,
       drawRectangle: false,
       drawCircleMarker: false,
-      editMode: true,
+      editMode: false,
       removalMode: true
     })
-
-    map.on("pm:create", e => {
-      //console.log(e.layer.toGeoJSON())
-    })
   }, [map])
+
+  useEffect(() => {
+    if (!map) return
+    const handleCreate = (e: any) => onShapeDrawn(e.layer)
+    map.on("pm:create", handleCreate)
+    return () => {
+      map.off("pm:create", handleCreate)
+    }
+  }, [map, onShapeDrawn])
 
   return null
 }

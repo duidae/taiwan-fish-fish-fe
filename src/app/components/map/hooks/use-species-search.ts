@@ -58,6 +58,16 @@ export function useSpeciesSearch() {
     }
   }
 
+  // merge into `taxons` so chips/observations can still resolve name+photo
+  // after the search that surfaced them (text or area) is cleared
+  const mergeTaxons = (newResults: any[]) => {
+    setTaxons(prev => {
+      const existingIds = new Set(prev.map((t: any) => t.taxon?.id))
+      const fresh = newResults.filter((r: any) => !existingIds.has(r.taxon?.id))
+      return [...prev, ...fresh]
+    })
+  }
+
   const handleFishSearchSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     const q = fishQuery.trim()
@@ -70,13 +80,7 @@ export function useSpeciesSearch() {
       const res = await axios.get(`${iNatURL}&q=${encodeURIComponent(q)}&per_page=30`)
       const results = res?.data?.results ?? []
       setFishSearchResults(results)
-      // merge into `taxons` so chips/observations can still resolve name+photo
-      // after the user clears the search box
-      setTaxons(prev => {
-        const existingIds = new Set(prev.map((t: any) => t.taxon?.id))
-        const fresh = results.filter((r: any) => !existingIds.has(r.taxon?.id))
-        return [...prev, ...fresh]
-      })
+      mergeTaxons(results)
     } catch (err) {
       console.warn("fish search failed", err)
       setFishSearchResults([])
@@ -100,6 +104,7 @@ export function useSpeciesSearch() {
     fishSearchResults,
     fishSearchLoading,
     handleFishSearchSubmit,
-    clearFishSearch
+    clearFishSearch,
+    mergeTaxons
   }
 }
