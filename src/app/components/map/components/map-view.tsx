@@ -59,7 +59,7 @@ export const MapView = ({
           })
           .join("\n")}
       `}</style>
-      <LayersControl position="topright" collapsed={isMobile}>
+      <LayersControl position="topleft" collapsed={isMobile}>
         <BaseLayer checked name="溪流圖">
           <TileLayer
             attribution={defaultTileAttr}

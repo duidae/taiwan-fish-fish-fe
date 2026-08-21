@@ -73,11 +73,11 @@ const Map = () => {
         handleResultClick={river.handleResultClick}
       />
       <div
-        className={`absolute top-4 z-[1000] flex flex-col gap-2 ${
-          isMobile ? "left-16 right-4" : "left-1/2 -translate-x-1/2 w-full max-w-md"
+        className={`absolute z-[1000] flex flex-col gap-2 ${
+          isMobile ? "top-4 left-16 right-4 bottom-4" : "top-4 right-4 bottom-4 w-full max-w-sm"
         }`}
       >
-        <div className="rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3">
+        <div className="flex-shrink-0 rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3">
           <RiverSearchPanel
             riverQuery={river.riverQuery}
             setRiverQuery={river.setRiverQuery}
@@ -88,27 +88,27 @@ const Map = () => {
           />
         </div>
         {riverResultsJSX}
-      </div>
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-[1000] w-[75%] min-w-8xl">
-        <SpeciesSlider
-          fishQuery={species.fishQuery}
-          setFishQuery={species.setFishQuery}
-          handleFishSearchSubmit={species.handleFishSearchSubmit}
-          fishSearchResults={species.fishSearchResults}
-          fishSearchLoading={species.fishSearchLoading}
-          clearFishSearch={species.clearFishSearch}
-          observationSources={observations.observationSources}
-          toggleObservationSource={observations.toggleObservationSource}
-          taxons={species.taxons}
-          taxonIDs={selection.taxonIDs}
-          handleSelect={selection.handleSelect}
-          removeTaxon={selection.removeTaxon}
-          removeAllTaxons={selection.removeAllTaxons}
-          loading={species.loading}
-          hasMore={species.hasMore}
-          loadingTaxonIds={observations.loadingTaxonIds}
-          handleHorizontalScroll={species.handleHorizontalScroll}
-        />
+        <div className="flex-1 min-h-0 rounded-xl bg-white/95 backdrop-blur-md shadow-lg p-3">
+          <SpeciesSlider
+            fishQuery={species.fishQuery}
+            setFishQuery={species.setFishQuery}
+            handleFishSearchSubmit={species.handleFishSearchSubmit}
+            fishSearchResults={species.fishSearchResults}
+            fishSearchLoading={species.fishSearchLoading}
+            clearFishSearch={species.clearFishSearch}
+            observationSources={observations.observationSources}
+            toggleObservationSource={observations.toggleObservationSource}
+            taxons={species.taxons}
+            taxonIDs={selection.taxonIDs}
+            handleSelect={selection.handleSelect}
+            removeTaxon={selection.removeTaxon}
+            removeAllTaxons={selection.removeAllTaxons}
+            loading={species.loading}
+            hasMore={species.hasMore}
+            loadingTaxonIds={observations.loadingTaxonIds}
+            handleListScroll={species.handleListScroll}
+          />
+        </div>
       </div>
     </div>
   )

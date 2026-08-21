@@ -47,11 +47,11 @@ export function useSpeciesSearch() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleHorizontalScroll = (e: UIEvent<HTMLDivElement>) => {
+  const handleListScroll = (e: UIEvent<HTMLDivElement>) => {
     if (fishSearchResults) return // search results aren't paginated
     const target = e.currentTarget
     const threshold = 300 // px from the trailing edge
-    if (target.scrollWidth - target.scrollLeft - target.clientWidth < threshold) {
+    if (target.scrollHeight - target.scrollTop - target.clientHeight < threshold) {
       if (!loading && hasMore) {
         fetchObs(page + 1)
       }
@@ -94,7 +94,7 @@ export function useSpeciesSearch() {
     taxons,
     loading,
     hasMore,
-    handleHorizontalScroll,
+    handleListScroll,
     fishQuery,
     setFishQuery,
     fishSearchResults,
