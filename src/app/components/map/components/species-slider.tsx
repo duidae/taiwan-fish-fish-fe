@@ -21,9 +21,14 @@ const renderTaxonRow = (result: any, index: number, ctx: RenderTaxonRowContext) 
   const title = result.taxon?.preferred_common_name
   const taxonName = result.taxon.name
   const selected = taxonIDs.includes(taxonID)
-  const observationCount =
-    (observationSources.has("inaturalist") ? observationsByTaxon[taxonID]?.length ?? 0 : 0) +
-    (observationSources.has("tbia") ? observationsByTaxonTBIA[taxonID]?.length ?? 0 : 0)
+  const sourceCounts = (["inaturalist", "tbia"] as const)
+    .filter(source => observationSources.has(source))
+    .map(source => ({
+      source,
+      count: (source === "inaturalist" ? observationsByTaxon[taxonID] : observationsByTaxonTBIA[taxonID])?.length ?? 0
+    }))
+  const totalCount = sourceCounts.reduce((sum, {count}) => sum + count, 0)
+  const isLoadingObservations = loadingTaxonIds.has(taxonID)
 
   return (
     <div
@@ -45,9 +50,24 @@ const renderTaxonRow = (result: any, index: number, ctx: RenderTaxonRowContext) 
         </span>
       </a>
       {selected && (
-        <span className="text-xs font-semibold text-sky-600 flex-shrink-0">
-          {loadingTaxonIds.has(taxonID) ? "…" : `${observationCount} 筆觀察`}
-        </span>
+        <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
+          <span className="text-xs font-semibold text-sky-600">
+            {isLoadingObservations ? "…" : `共 ${totalCount} 筆`}
+          </span>
+          {!isLoadingObservations && sourceCounts.length > 1 && (
+            <div className="flex gap-1.5">
+              {sourceCounts.map(({source, count}) => (
+                <span key={source} className="flex items-center gap-1 text-[10px] text-gray-400">
+                  <span
+                    className="w-1.5 h-1.5 rounded-full ring-1 ring-black/20"
+                    style={{backgroundColor: `hsl(0, 0%, ${source === "inaturalist" ? 55 : 30}%)`}}
+                  />
+                  {count}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </div>
   )
