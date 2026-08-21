@@ -563,6 +563,7 @@ const Map = () => {
     const name = feature.properties?.name
     setSelectedRiver(feature)
     setSelectedChannel(null)
+    if (name) setRiverQuery(name)
 
     // Try to show the river's actual channel shape (from WRA's RIVERPOLY dataset)
     if (name) {
