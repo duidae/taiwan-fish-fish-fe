@@ -4,6 +4,8 @@ export type SpeciesEntry = {
 }
 
 export const FRESHWATER_FISH_SPECIES: SpeciesEntry[] = [
+  {commonName: "櫻花鉤吻鮭", scientificName: "Oncorhynchus masou formosanus"},
+  {commonName: "飯島氏銀鮈", scientificName: "Squalidus iijimae"},
   {commonName: "高體鰟鮍", scientificName: "Rhodeus ocellatus ocellatus"},
   {commonName: "臺灣石鮒", scientificName: "Paratanakia himantegus"},
   {commonName: "黃鰭石鮒", scientificName: "Paratanakia fulvidorsalis"},
