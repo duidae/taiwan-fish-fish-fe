@@ -37,6 +37,10 @@ export const ROUTES = [
     path: "/map"
   },
   {
+    title: "儀表板",
+    path: "/dashboard"
+  },
+  {
     title: "台灣原生魚類3D圖鑑",
     path: "/models"
   },
