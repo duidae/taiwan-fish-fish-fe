@@ -11,9 +11,9 @@ export default async function Dashboard() {
   const totalTbia = counts.reduce((sum, {tbia}) => sum + (tbia ?? 0), 0)
 
   return (
-    <main className="w-full flex flex-col items-center mt-24 mb-16 px-4">
-      <div className="w-full max-w-4xl flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
+    <main className="w-full flex flex-col items-center mt-16 h-[calc(100vh-4rem)] px-4">
+      <div className="w-full max-w-6xl flex flex-col gap-4 h-full py-4">
+        <div className="flex flex-col gap-1 shrink-0">
           <h1 className="text-2xl font-bold text-slate-800">台灣淡水魚觀察紀錄數</h1>
           <p className="text-sm text-slate-500">
             資料來源：<span className="font-medium">TBIA</span> 台灣生物多樣性資訊聯盟與{" "}
@@ -21,9 +21,11 @@ export default async function Dashboard() {
           </p>
         </div>
 
-        <DashboardClient counts={counts} totalTbia={totalTbia} totalInat={totalInat} />
+        <div className="flex-1 min-h-0">
+          <DashboardClient counts={counts} totalTbia={totalTbia} totalInat={totalInat} />
+        </div>
 
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-400 shrink-0">
           註：部分物種於資料庫中以同物異名（synonym）方式對應，可能造成數筆物種顯示相近或相同筆數（例如纓口臺鰍與吉氏纓口鰍於
           TBIA 中對應同一筆學名紀錄），僅供參考。
         </p>

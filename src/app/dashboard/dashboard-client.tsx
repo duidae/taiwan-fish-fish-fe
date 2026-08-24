@@ -29,20 +29,20 @@ export const DashboardClient = ({counts, totalTbia, totalInat}: Props) => {
   )
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      <SpeciesTable
-        counts={counts}
-        totalTbia={totalTbia}
-        totalInat={totalInat}
-        selectedNames={selectedNames}
-        toggleSelected={toggleSelected}
-      />
+    <div className="w-full h-full flex flex-col lg:flex-row gap-4">
+      <div className="w-full min-w-0 flex-1 min-h-0 overflow-y-auto">
+        <SpeciesTable
+          counts={counts}
+          totalTbia={totalTbia}
+          totalInat={totalInat}
+          selectedNames={selectedNames}
+          toggleSelected={toggleSelected}
+        />
+      </div>
 
-      {selectedSpecies.length > 0 && (
-        <div className="w-full h-[28rem] rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <DashboardMap selected={selectedSpecies} />
-        </div>
-      )}
+      <div className="w-full lg:w-96 flex-1 lg:flex-none min-h-0 rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <DashboardMap selected={selectedSpecies} />
+      </div>
     </div>
   )
 }
