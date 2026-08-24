@@ -6,7 +6,7 @@ export function useObservations(taxonIDs: number[], taxons: any[]) {
   const [observationsByTaxon, setObservationsByTaxon] = useState<Record<number, any[]>>({})
   const [observationsByTaxonTBIA, setObservationsByTaxonTBIA] = useState<Record<number, any[]>>({})
   const [observationSources, setObservationSources] = useState<Set<"inaturalist" | "tbia">>(
-    new Set<"inaturalist" | "tbia">(["inaturalist"])
+    new Set<"inaturalist" | "tbia">(["inaturalist", "tbia"])
   )
   const [loadingTaxonIds, setLoadingTaxonIds] = useState<Set<number>>(new Set())
 

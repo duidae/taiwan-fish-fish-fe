@@ -168,7 +168,7 @@ export const SpeciesSlider = ({
       <div className="flex items-center gap-2">
         <span className="text-xs text-slate-500">觀察紀錄來源：</span>
         <div className="flex rounded-lg overflow-hidden border border-slate-300">
-          {(["inaturalist", "tbia"] as const).map(source => (
+          {(["tbia", "inaturalist"] as const).map(source => (
             <button
               key={source}
               type="button"
