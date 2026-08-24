@@ -1,6 +1,6 @@
 import {FRESHWATER_FISH_SPECIES} from "./species-list"
 import {getObservationCounts} from "./get-observation-counts"
-import {SpeciesTable} from "./species-table"
+import {DashboardClient} from "./dashboard-client"
 
 export const revalidate = 60 * 60 * 24 * 30 // 1 month
 
@@ -21,7 +21,7 @@ export default async function Dashboard() {
           </p>
         </div>
 
-        <SpeciesTable counts={counts} totalTbia={totalTbia} totalInat={totalInat} />
+        <DashboardClient counts={counts} totalTbia={totalTbia} totalInat={totalInat} />
 
         <p className="text-xs text-slate-400">
           註：部分物種於資料庫中以同物異名（synonym）方式對應，可能造成數筆物種顯示相近或相同筆數（例如纓口臺鰍與吉氏纓口鰍於

@@ -45,9 +45,11 @@ type Props = {
   counts: SpeciesObservationCount[]
   totalTbia: number
   totalInat: number
+  selectedNames: Set<string>
+  toggleSelected: (scientificName: string) => void
 }
 
-export const SpeciesTable = ({counts, totalTbia, totalInat}: Props) => {
+export const SpeciesTable = ({counts, totalTbia, totalInat, selectedNames, toggleSelected}: Props) => {
   const [sortKey, setSortKey] = useState<SortKey | null>(null)
   const [sortDir, setSortDir] = useState<SortDir>("desc")
 
@@ -75,6 +77,9 @@ export const SpeciesTable = ({counts, totalTbia, totalInat}: Props) => {
       <table className="w-full text-sm text-left">
         <thead className="bg-slate-50 text-slate-600">
           <tr>
+            <th className="px-3 py-2 font-medium w-8">
+              <span className="sr-only">地圖</span>
+            </th>
             <th className="px-3 py-2 font-medium">中文名</th>
             <th className="px-3 py-2 font-medium">學名</th>
             <th className="px-3 py-2 font-medium text-right">
@@ -98,6 +103,15 @@ export const SpeciesTable = ({counts, totalTbia, totalInat}: Props) => {
         <tbody className="divide-y divide-slate-100">
           {sortedCounts.map(({commonName, scientificName, inaturalist, tbia}) => (
             <tr key={scientificName} className="hover:bg-slate-50">
+              <td className="px-3 py-2">
+                <input
+                  type="checkbox"
+                  checked={selectedNames.has(scientificName)}
+                  onChange={() => toggleSelected(scientificName)}
+                  aria-label={`在地圖上顯示${commonName}的觀察紀錄`}
+                  className="size-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                />
+              </td>
               <td className="px-3 py-2 whitespace-nowrap font-medium text-slate-800">{commonName}</td>
               <td className="px-3 py-2 whitespace-nowrap italic text-slate-500">{scientificName}</td>
               <td className="px-3 py-2 text-right tabular-nums">
@@ -111,7 +125,7 @@ export const SpeciesTable = ({counts, totalTbia, totalInat}: Props) => {
         </tbody>
         <tfoot className="bg-slate-50 font-semibold text-slate-700">
           <tr>
-            <td className="px-3 py-2" colSpan={2}>
+            <td className="px-3 py-2" colSpan={3}>
               合計
             </td>
             <td className="px-3 py-2 text-right tabular-nums">{formatCount(totalTbia)}</td>
