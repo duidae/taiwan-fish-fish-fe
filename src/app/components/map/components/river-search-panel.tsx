@@ -20,7 +20,7 @@ export const RiverSearchPanel = ({
 }: Props) => (
   <form onSubmit={handleSearchSubmit} className="flex flex-wrap gap-2 items-center">
     <input
-      className="flex-1 min-w-[140px] px-3 py-2 border border-slate-300 rounded-lg text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+      className="flex-1 min-w-[140px] px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
       placeholder="搜尋河川"
       value={riverQuery}
       onChange={e => setRiverQuery(e.target.value)}

@@ -144,7 +144,7 @@ export const SpeciesSlider = ({
     <div className="w-full h-full min-h-0 flex flex-col gap-2">
       <form onSubmit={handleFishSearchSubmit} className="flex items-center gap-2">
         <input
-          className="flex-1 min-w-0 px-3 py-1.5 border border-slate-300 rounded-lg text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+          className="flex-1 min-w-0 px-3 py-1.5 border border-slate-300 rounded-lg text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
           placeholder="搜尋魚類名稱"
           value={fishQuery}
           onChange={e => setFishQuery(e.target.value)}
