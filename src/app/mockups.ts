@@ -48,7 +48,7 @@ export const featuredGalleries = [
     type: "model",
     url: "/crucian_carp_c._auratus_langsdorfii.glb",
     cover: "/japanese_freshwater_crab.png",
-    desc: "食蚊魚(Gambusia affinis)，俗名大肚仔、胎鱂、大肚魚，花鱂科，棲息環境為河口、淡水，分布於台灣東部、西部、南部、西南部、北部、東北部、澎湖、蘭嶼、綠島。"
+    desc: "鯽魚，俗名鯽瓜子、月鯽仔、土鯽、細頭、鮒魚、寒鮒，粵語稱為鰂魚，為鯉科鯽屬的一種，在歐亞地區為常見淡水魚。"
   }
   /*
   {
